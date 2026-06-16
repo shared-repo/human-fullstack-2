@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 폼</title>
+</head>
+<body>
+
+    <form action="j.form.html" method="post">
+    <input type="hidden" name="hidden_value" value="100"> <!-- 화면에 표시되지 않지만 데이터는 서버로 전송하는 요소 -->
+    <table border="1" width="500" align="center">
+        <caption>회원 가입</caption>        
+        <tr>
+            <th style="width:150px;height:30px;">소속</th>
+            <td>
+                <input type="text" name="dept" value="풀스택과정" readonly><!-- 한 줄 자유 입력 요소 -->
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">아이디</th>
+            <td>
+                <input type="text" name="id" placeholder="8개 이상 입력" required><!-- 한 줄 자유 입력 요소 -->
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">패스워드</th>
+            <td>
+                <input type="password" name="passwd"><!-- 한 줄 패스워드 입력 요소 -->
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">이메일 1</th>
+            <td>
+                <input type="email" name="email1"><!-- 이메일 입력 요소 -->
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">이메일 2</th>
+            <td>
+                <input type="text" name="email_id">
+                @
+                <select name="email_domain">
+                    <option value="naver.com">naver.com</option>
+                    <option value="naver.com">gmail.com</option>
+                    <option value="naver.com">daum.net</option>                    
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">성별</th>
+            <td>
+                <!-- name 속성 값이 같은 요소들 사이의 배타적인 단일 선택 -->
+                <input type="radio" name="gender" value="male">남
+                <input type="radio" name="gender" value="female">여
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">생년월일</th>
+            <td>
+                <input type="date" name="birth_date">
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">관심주제</th>
+            <td>
+                <input type="checkbox" name="interest" value="movie">영화
+                <input type="checkbox" name="interest" value="music">음악
+                <input type="checkbox" name="interest" value="sports">스포츠
+                <br>
+                <input type="checkbox" name="interest" value="food">음식
+                <input type="checkbox" name="interest" value="animal">동물
+                <input type="checkbox" name="interest" value="travel">여행
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">프로필사진</th>
+            <td>
+                <input type="file" accept="image/*" name="picture">
+            </td>
+        </tr>
+        <tr>
+            <th style="width:150px;height:30px;">가입인사</th>
+            <td>
+                <textarea name="greetings" rows="5" cols="50" style="resize: none;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="가입">
+                <input type="image" src="images/join.png" style="width: 70px;height: 30px;">
+                <input type="reset" value="초기화">
+                <input type="button" value="아무 일도 하지 않는 버튼">
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

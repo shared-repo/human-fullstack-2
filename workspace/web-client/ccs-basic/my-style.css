@@ -1,0 +1,11 @@
+div {
+    border: solid 1px blue;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 50px;
+}
+
+h3 {
+    color: hotpink;
+    background-color: orange;
+}
