@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문 (반복문)</title>
+</head>
+<body>
+    <h2>이미지 목록 표시</h2>
+    <script>
+        // document.write("<img src='images/0.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/1.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/2.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/3.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/4.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/5.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/6.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/7.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/8.jpg' style='width:100px;height:100px'>");
+        // document.write("<img src='images/9.jpg' style='width:100px;height:100px'>");
+
+        // for(let i = 0; i <= 9; i = i + 1) {
+        for(let i = 0; i < 10; i = i + 1) {
+            document.write(`<img src='images/${i}.jpg' style='width:100px;height:100px;border:solid 2px;margin:3px;'>`);
+        }
+
+    </script>
+</body>
+</html>

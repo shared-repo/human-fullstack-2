@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>선택자 연습 3</title>
+    <style>
+        a { text-decoration: none; }
+        a[target] { font-size: 20pt; } /* target 속성이 있는 a */
+        a[target="_self"] { background-color: orange; } /* target 속성의 값이 _self인 a */
+        
+        p[class*="ef"] { color: red; } /* class 속성 값에 ef가 포함된 p */
+        p[class~="ef"] { font-size: 20pt; } /* class 속성 값에 ef가 독립 단어 형태로 포함된 p */
+        p[class|="abc"] { background-color: lightgray; } /* class 속성 값이 abc이거나 abc-로 시작하는 p */
+        p[class^="abc"] { color: green } /* class 속성 값이 abc로 시작하는 p */
+        p[class$="jkl"] { text-decoration: underline; } /* class 속성 값이 jkl로 끝나는 p */
+    </style>
+</head>
+<body>
+    [<a href="http://www.naver.com">target 속성이 없는 요소</a>]<br>
+    [<a href="http://www.naver.com" target="_self">target 속성이 _self인 요소</a>]<br>
+    [<a href="http://www.naver.com" target="_blank">target 속성이 _blank인 요소</a>]
+    <hr>
+    <p class="def ghi">스타일이 적용된 요소 1</p>
+    <p class="abcd ghi">스타일이 적용된 요소 2</p>
+    <p class="ghi jkl">스타일이 적용된 요소 3</p>
+    <p class="bcd ef ghi">스타일이 적용된 요소 4</p>
+    <p class="abc- ghi">스타일이 적용된 요소 5</p>
+</body>
+</html>

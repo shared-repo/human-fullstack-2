@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문 (연습)</title>
+</head>
+<body>
+    <script>
+    // 1. 지정한 단의 구구단 출력
+    // 1-1. 1 ~ 9 사이의 난수 변수에 저장
+    let dan = Math.floor(Math.random() * 9) + 1; // (0 ~ 0.999999) * 9 -> (0 ~ 8.99999999) -> 0 ~ 8 -> 1 ~ 9
+    // 1-2. 뽑힌 숫자에 해당하는 구구단을 출력
+    // for (let i = 1; i < 10; i++) {
+    //     document.write(`${dan} x ${i} = ${dan * i}<br>`);
+    // }
+    // 1-3. 테이블을 사용해서 출력
+    document.write("<table align='center'>");    
+    for (let i = 1; i < 10; i++) {
+        document.write(`<tr style='background-color:${i % 2 == 0 ? 'orange' : 'white'}'>`);
+        document.write(`<td>${dan} x ${i} =</td>`);
+        document.write(`<td style='text-align:right'>${dan * i}</td>`);
+        document.write("</tr>");
+    }    
+    document.write("</table>");
+
+    // 2. 전체 구구단 출력
+    // 2-1. 1단 ~ 9단 구구단 출력
+    // 2-2. 테이블을 사용해서 출력
+    document.write("<table border='1' align='center'>");
+    for (let i = 1; i <= 9; i++) { // tr의 반복문 + i행
+        document.write('<tr>');
+        for (let j = 1; j <= 9; j++) { // td의 반복문 + j열
+            document.write(`<td>${j} X ${i} = ${i * j}</td>`);
+        }
+        document.write('</tr>');
+    }
+    document.write("</table>");
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열</title>
+</head>
+<body>
+    
+    <script>
+        // 1. 배열 만들기 및 사용 1
+        let cars = ['람보르기니', '벤틀리', '마이바흐', '테슬라'];
+        document.write(`<h3>${cars[0]}</h3>`);
+        document.write(`<h3>${cars[2]}</h3>`);
+
+        document.write("<hr>");
+        // for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < cars.length; i++) { // 배열.length : 배열 요소의 갯수
+            document.write(`<h3>${cars[i]}</h3>`);
+        }
+
+        // 배열 만들기 및 사용 2
+        let numbers = [];
+        for (let i = 0; i < 10; i++) { // 이 반복문에서 i는 단지 반복의 횟수만 관리하기 위한 변수
+            let n = Math.floor(Math.random() * 900) + 100; // 세자리 정수
+            numbers.push( n ); // 배열.push : 배열의 끝에 데이터 추가
+        }
+        document.write("<h3>");
+        for (let i = 0; i < numbers.length; i++) { // 배열.length : 배열 요소의 갯수            
+            document.write(`${numbers[i]}, `);
+        }
+        document.write("</h3>");
+
+        // 
+        document.write("<h3>");
+        for (let n in numbers) { // numbers 배열의 데이터를 순서대로 접근할 수 있도록 순서번호를 n 변수에 저장하고 아래 실행문 실행      
+            document.write(`${numbers[n]}, `);
+        }
+        document.write("</h3>");
+
+        document.write("<h3>");
+        for (let n of numbers) { // numbers 배열의 데이터를 순서대로 n 변수에 저장하고 아래 실행문 실행      
+            document.write(`${n}, `);
+        }
+        document.write("</h3>");
+
+        ////////////////////////
+
+        let numbers2 = new Array(10); // 비어 있는 10개의 공간을 만들어서 배열 구성
+        for (let i = 0; i < numbers2.length; i++) {
+            numbers2[i] = Math.random() * 100;
+        }
+        document.write("<h3>");
+        for (let n of numbers2) { // numbers2 배열의 데이터를 순서대로 n 변수에 저장하고 아래 실행문 실행      
+            document.write(`${n}, `);
+        }
+        document.write("</h3>");
+
+
+
+    </script>
+</body>
+</html>

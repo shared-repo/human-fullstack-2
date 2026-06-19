@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>선택자 연습 4</title>
+    <style>
+        .navi ul li {
+            float: left; /* block style -> inline style */
+            width: 150px;
+            padding: 10px;
+            background-color: white;
+        }
+        .navi a:link, .navi a:visited {
+            display: block;
+            font-size: 14px;
+            color: black;
+            padding: 10px;
+            text-decoration: none; /* 밑줄을 없앰 */
+            text-align: center;
+        }
+        .navi a:hover, .navi a:focus {
+            background-color: darkgray;
+            color: white;
+        }
+        .navi a:active {
+            background-color: red; /*배경색을 빨간색으로 변경 */
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="navi">
+        <ul>
+            <li><a href="#">이용 안내</a></li>
+            <li><a href="#">객실 소개</a></li>
+            <li><a href="#">예약 방법 및 요금</a></li>
+            <li><a href="#">예약하기</a></li>
+        </ul>
+    </nav>
+
+</body>
+
+</html>

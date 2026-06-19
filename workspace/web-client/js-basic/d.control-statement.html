@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문 (선택문)</title>
+</head>
+<body>
+    
+    <script>
+        let number = Math.random(); // 0 ~ 1 범위의 난수 발생
+        number = Math.round(number * 2 - 1); // -1, 0, 1
+
+        console.log(`뽑힌 숫자 : ${number}`)
+        
+        if (number < 0) {
+            console.log('음수');
+        } else if (number > 0) {
+            console.log("양수");
+        } else {
+            console.log('제로');
+        }
+
+        switch (number) {
+            case -1 : console.log('음수'); break; // break : switch-case 종료
+            case 1  : console.log('양수'); break;
+            default : console.log('제로'); break;
+        }
+    </script>
+</body>
+</html>

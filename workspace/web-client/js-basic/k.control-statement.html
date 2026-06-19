@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문 (연습)</title>
+</head>
+<body>
+    <script>
+    // 가로 30 x 세로 20 박스 그리기
+    
+    // ********************
+    // *                  *
+    // *                  *
+    // *                  *
+    // *                  *
+    // ....
+    // *                  *            
+    // ********************
+
+    // <table> 사용 : * 한 개에 <td> 한 개
+    //               빈 공간은 <td>&nbsp;</td>
+    const WIDTH = 50,
+          HEIGHT = 20;
+
+    document.write("<table>")
+    for (let y = 0; y < HEIGHT; y++) {
+        document.write("<tr>");
+        for (let x = 0; x < WIDTH; x++) {
+            if (x == 0 || x == WIDTH-1 || y == 0 || y == HEIGHT-1) { // a || b --> or a 또는 b 중 한 개만 true여도 전체 true
+                document.write("<td>*</td>");
+            } else {
+                document.write("<td>&nbsp;</td>");
+            }
+        }
+        document.write("</tr>");
+    }
+    document.write("</table>")
+    </script>
+    
+</body>
+</html>

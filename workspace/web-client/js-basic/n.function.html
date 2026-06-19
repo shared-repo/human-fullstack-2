@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수</title>
+</head>
+<body>
+    <script>
+        function randomRange(min, max) {
+            const gap = max - min;
+            const selectedValue = Math.random() * gap + min;
+
+            return selectedValue; // 함수를 종료하고 selectedValue를 호출한 곳으로 반환
+        }
+
+        const selectedValue = randomRange(10, 100);
+
+        document.write(`<h2>뽑힌 숫자 : ${selectedValue}</h2>`);
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>선택자 연습 2</title>
+    <style>
+        div { color: blue; font-size: 15pt; }
+        #top_div > div { color: red; } /* child */
+        #top_div   div { font-size: 30pt; } /* descendant */
+        
+        #first_mid_div + div { font-style: italic; } /* next-to */        
+        #first_mid_div ~ div { text-decoration: underline; } /* following */        
+    </style>
+</head>
+<body>
+     <div id="top_div">
+        TOP CONTENT
+        <div id="first_mid_div">
+            MID1 CONTENT
+            <div>BOTTOM CONTENT</div>
+        </div>
+        <div>MID2 CONTENT</div>
+        <div>MID3 CONTENT</div>
+    </div>    
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 연습 1</title>
+    <style>
+        /* 전체 선택자 : 모든 요소 */
+        * {
+            margin: 5px;
+            padding: 5px;
+            border: solid 1px blue;
+        }
+
+        /* 태그 선택자 : 태그 이름 */
+        p {
+            color: red;
+        }
+        div {
+            color: blue;
+        }
+
+        /* 클래스 선택자 : class 속성의 값 */        
+        .myclass {
+            font-size: 25px;
+        }
+        .bg {
+            background-color: orange;
+        }
+
+        /* 아이디 선택자 : id 속성의 값 */
+        #title {
+            text-decoration: underline;
+        }
+
+        /* 다중 선택자 : 여러 개의 선택자를 쉼표로 결합 */
+        h3, div, .myclass {
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <p class="myclass">
+        스타일이 적용된 요소
+        <span style="color:blue">문단 내부의 요소</span>
+    </p>
+    <div class="bg myclass">스타일이 적용된 요소</div>
+    <p>스타일이 적용된 요소</p>
+    <h3 id="title">스타일이 적용된 요소</h3>
+    
+</body>
+</html>

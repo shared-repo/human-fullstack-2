@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메시지 출력</title>
+</head>
+<body>    
+    <script>
+        // 한 줄 주석 (이 줄의 끝까지 주석)
+        /* 영역 주석 */
+        // 1. 일방적인 메시지 출력
+        alert('사용자가 꼭 확인해야 할 메시지');
+
+        // 2. 사용자의 확인을 명시적으로 받는 메시지 출력
+        const yn = confirm('사용자의 선택을 확인하는 메시지 출력');
+        alert(yn);
+
+        // 3. 화면에 출력
+        document.write("<h2 style='text-align:center'>화면에 출력하는 내용</h2>");
+
+        // 4. 브라우저의 개발자 도구에 메시지 출력
+        console.log('주로 디버깅을 위해 사용하는 출력 도구');
+    </script>
+</body>
+</html>

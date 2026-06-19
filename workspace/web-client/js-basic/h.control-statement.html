@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문 (반복문)</title>
+</head>
+<body>
+    <script>
+        // 1 ~ 100까지의 합 계산,  출력        
+        // 1 + 2 + 3 + 4 + 5 + ... + 100
+        let total = 0;
+        // for (let i = 1; i <= 100; i = i + 1) {
+        // for (let i = 1; i <= 100; i++) { // i++ == i = i + 1
+        // for (let i = 1; i <= 100; ++i) { // ++i == i = i + 1
+        for (let i = 1; i <= 100; i += 1) { // i += 1 == i = i + 1
+            total = total + i;
+        }
+
+        document.write(`<h2>1 ~ 100 합 : ${total}</h2>`);
+
+        total = 0;
+        // for (let i = 100; i > 0; i = i - 1) {
+        // for (let i = 100; i > 0; i--) { // i-- == i = i + 1
+        // for (let i = 100; i > 0; --i) { // --i == i = i + 1
+        for (let i = 100; i > 0; i -= 1) { // i -= 1 == i = i + 1
+            total = total + i;
+        }
+
+        document.write(`<h2>1 ~ 100 합 : ${total}</h2>`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변수와 상수</title>
+</head>
+<body>
+    
+    <script>
+        let name; // 변수 만들기
+        name = '장동건'; // 변수에 값 저장
+        let email = 'jdk@example.com';
+        email = 'jdk@naver.com'; // 변수에 저장된 값 변경
+
+        const juminBunho = '123456-6652987';
+        // juminBunho = '665544-5874123'; // 오류 : const의 값은 변경 불가
+
+        console.log(name + ' ' + email + ' ' + juminBunho);
+
+        let age;
+        console.log(age); // undefined : garbage, 자료형이 결정되지 않음
+        age = 10; // 10이 저장되고 자료형은 수치형(정수형)으로 확정
+        console.log(age);
+        age = '삼십' // '삼십'이 저장되고 자료형은 무자형으로 확정
+        console.log(age);
+
+        // Escape Sequence : 문자형 내부에 특수한 문자 표시하는 방법
+        // enter : \n
+        // tab : \t
+        // " : \"
+        // ' : \'
+        // \ : \\
+        console.log("오늘은 날씨가 \"매우\" 덥습니다.")
+        console.log("첫 번째 행.\n두 번째 행.")
+
+        
+        name = '장원영';
+        age = 22;
+        // 데이터와 문자열을 결합하는 방법 1
+        console.log(name + '님의 나이는 ' + age + '세입니다.');
+        // 데이터와 문자열을 결합하는 방법 2 : template string
+        console.log(`${name}님의 나이는 ${age}세입니다.`);
+
+        let isFemale = true;
+        console.log(isFemale);
+        isFemale = false;
+        console.log(isFemale);
+
+        // 형 변환
+        let iNumber = 10;
+        let sNumber = '10';
+        console.log(iNumber * sNumber); // 자동 형변환 : sNumber를 수치형으로 변경
+        console.log(iNumber + sNumber); // 자동 형변환 : iNumber를 문자형으로 변경
+        console.log(iNumber + parseFloat(sNumber)); // 강제 형변환 : sNumber를 정수형으로 변경
+
+        // 나머지와 나누기 연산
+        console.log(10 / 3);
+        console.log(10 % 3); // 나머지 연산
+
+    </script>
+</body>
+</html>

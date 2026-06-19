@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제어문 (반복문)</title>
+</head>
+<body>
+    <script>
+        // let yn = true;
+        // while (yn === true) {
+        //     console.log('반복 작업 수행 완료');
+        //     yn = confirm('계속할까요?');
+        // }
+
+        // let yn = true;
+        // do {
+        //     console.log('반복 작업 수행 완료');
+        //     yn = confirm('계속할까요?');
+        // } while (yn === true);
+        
+        while (true) { // 무한 루프 -> 반드시 반복문 내부에 탈출 조건 작성
+            console.log('반복 작업 수행 완료');
+            yn = confirm('계속할까요?');
+            if (yn !== true) {
+                break; // break : 반복문 종료
+            }
+        }
+    </script>
+</body>
+</html>
