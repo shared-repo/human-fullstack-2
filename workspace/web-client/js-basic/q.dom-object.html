@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서 객체 활용</title>
+    <style>
+        button {
+            width: 100px;
+            height: 50px;
+            border: solid 1px;
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn1">눌러!</button>
+    <hr>
+    시작 : <input type="text" id="min"> <br>
+    끝 : <input type="text" id="max"> <br>
+    <button id="btn2">난수를 뽑아!</button>
+    <hr>
+    <div id="message"></div>
+
+    <script>
+        function randomRange(min, max) {
+            const gap = max - min;
+            const selectedValue = Math.random() * gap + min;
+
+            return selectedValue; // 함수를 종료하고 selectedValue를 호출한 곳으로 반환
+        }
+
+        // 두 번째 버튼 객체 찾기
+        const btn2 = document.getElementById('btn2');
+        // 찾은 버튼에 이벤트 처리기 연결
+        btn2.onclick = function(event) {
+            const min = document.querySelector('#min');
+            const max = document.querySelector('#max');
+            const minV = parseInt(min.value); // value : <input 요소에 입력된 값 (문자열)
+            const maxV = parseInt(max.value);
+            const n = randomRange(minV, maxV);
+            // div 객체 찾기
+            const message = document.getElementById('message');
+            // div 객체의 표시 내용 변경
+            message.innerHTML = `<h3>선택된 번호 : ${n}</h3>`;
+        }
+
+        // 첫 번째 버튼 객체 찾기
+        const btn1 = document.querySelector('#btn1'); // #btn1 : id="btn1"인 요소 찾기
+        btn1.addEventListener('click', function(event) {
+            // div 객체 찾기
+            const message = document.querySelector('#message');
+            // div 객체의 표시 내용 변경
+            message.innerHTML = `<h3>${ new Date() }</h3>`;
+        });
+    </script>
+    
+</body>
+</html>

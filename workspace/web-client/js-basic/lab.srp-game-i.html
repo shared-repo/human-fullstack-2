@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보 게임</title>
+    <style>
+        table { margin: 0 auto; }
+        #select-tr img, #selected { width: 150px; height: 150px; border: solid 1px black; }
+        #btn-tr { height: 80px; text-align: center; font-size:25px; }
+        #btn-tr td { border: solid 1px black; }
+        #game-result { width: 300px; height: 150px; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr id="select-tr">
+            <td><img src="images/scissors.png" data-v="0"></td>
+            <td><img src="images/rock.png" data-v="1"></td>
+            <td><img src="images/paper.png" data-v="2"></td>
+        </tr>
+        <tr id="btn-tr">
+            <td colspan="3">게임 시작</td>
+        </tr>
+        <tr id="result-tr">
+            <td>
+                <img id="selected" src="">
+            </td>
+            <td colspan="2">
+                <img id="game-result">
+            </td>
+        </tr>
+    </table>
+    <script>
+        window.addEventListener('load', function(event) {
+
+            // 사용자 선택을 저장할 변수
+            let user = -1;
+
+            // 가위, 바위, 보 이미지에 이벤트 처리기 연결
+            const imgs = document.querySelectorAll('#select-tr img');
+            for (let i = 0; i < imgs.length; i++) {
+                imgs[i].addEventListener('click', function(event) {
+                    const selected = document.querySelector('#selected');
+                    selected.src = event.target.src;
+                    user = event.target.getAttribute('data-v'); // gatAttribute('data-v')는 data-v=''의 값을 읽기
+                });
+            }
+
+            // 게임 시작 td에 이벤트 처리기 연결
+            const btnTd = document.querySelector('#btn-tr td');
+            btnTd.addEventListener('click', function(event) {
+
+                if (user == '-1') {
+                    alert('가위 바위 보를 선택하세요');
+                    return;
+                }
+
+                // 승무패 결정
+                // 1. 사용자 선택 --> 숫자로 읽기 (가위:0, 바위:1 보:2)
+                // 2. 컴퓨터 선택 --> random
+                const com = Math.floor(Math.random() * 3); // 0 or 1 or 2
+                // 3. 승무패결정
+                let result;
+                if ( (user == '0' && com == '2') || 
+                     (user == '1' && com == '0') || 
+                     (user == '2' && com == '1') ) 
+                    result = 'win';
+                else if (user == com) {
+                    result = 'draw';
+                } else {
+                    result = 'lose';
+                }
+                // 4. 결과에 따라 이미지 표시
+                document.querySelector('#game-result').src = `images/${result}.png`;
+            });
+        });
+    </script>
+    
+</body>
+</html>

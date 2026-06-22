@@ -45,7 +45,17 @@
         const numbers = [17, 43, 22, 96, 80, 72, 59];
         // const result = numbers.map( function (number) { return number * 10; } )
         const result = numbers.map( (number) => number * 10 )
+
         for (n of result) {
+            document.write(`${n}, `);
+        }
+
+        let result2 = []
+        for (let n of numbers) {
+            result2.push(n * 10); // push : 배열의 끝에 지정된 값을 추가
+        }
+        document.write("<hr>");
+        for (n of result2) {
             document.write(`${n}, `);
         }
 

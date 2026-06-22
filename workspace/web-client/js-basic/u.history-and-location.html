@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History and Location</title>
+    <style>
+        div { 
+            border: solid 1px;
+            padding: 5px;
+            text-align: center;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><div id="goNaver">네이버 개발자 사이트</div></td>
+            <td><div id="goKakao">카카오 개발자 사이트</div></td>
+        </tr>
+        <tr>
+            <td><div id="goBack">이전</div></td>
+            <td><div id="goForward" style="background-color: orange;">다음</div></td>
+        </tr>
+    </table>
+
+    <script>
+        window.addEventListener('load', function(event) {
+        // window.document.addEventListener('DOMContentLoaded', function(event) {
+
+            document.querySelector("#goNaver").addEventListener('click', function(event) {
+                // window.location.href = 'https://developers.naver.com'; // 주소 입력 요소에 주소 입력과 같은 효과
+                location.href = 'https://developers.naver.com'; // 주소 입력 요소에 주소 입력과 같은 효과
+            });
+            document.querySelector("#goKakao").addEventListener('click', function(event) {
+                location.href = 'https://developers.kakao.com';
+            });
+
+            document.querySelector("#goBack").addEventListener('click', function(event) {
+                // window.history.back(); // 브라우저의 뒤로 가기 버튼 클릭과 같은 효과
+                history.back(); // history.go(-1);
+            });
+            document.querySelector("#goForward").addEventListener('click', function(event) {
+                history.forward(); // history.go(1);
+            });
+
+            /////////////////
+
+            // document.querySelector('div'); // 모든 div 중에서 첫 번째 div만 조회
+            const divs = document.querySelectorAll('div'); // 모든 div 조회 -> 배열로 반환
+            for (let i = 0; i < divs.length; i++) {
+                divs[i].style.backgroundColor = 'palegreen'; // style 속성은 key:value 형식이어서 style.key로 사용
+            }
+
+
+
+        });
+    </script>
+    
+    
+</body>
+</html>

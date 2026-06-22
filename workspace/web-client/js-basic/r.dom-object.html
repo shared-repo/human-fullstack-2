@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서 객체 연습</title>
+</head>
+<body>
+    <input type="text" id="won">
+    <button id="won_to_dollar">원 -> 달러</button>
+    <input type="text" id="dollar">
+
+    <script>
+        // 1. 찾기
+        const btn1 = document.querySelector('#won_to_dollar');
+        // 2. 사용하기
+        btn1.addEventListener('click', function(event) {
+            // 찾기
+            const won = document.querySelector('#won');
+            // 사용
+            const wonV = parseFloat(won.value);
+
+            // 찾기
+            const dollar = document.querySelector('#dollar');
+            // 사용
+            dollar.value = wonV  / 1526;
+        });
+
+    </script>
+    
+</body>
+</html>

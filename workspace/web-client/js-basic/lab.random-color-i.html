@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무작위 색상 표시</title>
+    <style>
+        table { 
+            margin: 0 auto;
+        }
+        td {
+            border: solid 2px black;
+        }
+        #select-random-color {
+            width: 500px;
+            height: 100px;
+            text-align: center;            
+            font-size: 25px;
+        }
+        #canvas {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <br><br><br>
+    <table>
+        <tr>
+            <td id="select-random-color">색상 만들기</td>
+        </tr>
+        <tr>
+            <td id="canvas"></td>
+        </tr>
+    </table>
+    <script>
+        // window.addEventListener('load', function(event) {
+        document.addEventListener('DOMContentLoaded', function(event) { 
+
+            const btn = document.querySelector('#select-random-color');
+            btn.addEventListener('click', function(event) {
+                
+                const r = Math.floor( Math.random() * 256 );
+                const g = Math.floor( Math.random() * 256 );
+                const b = Math.floor( Math.random() * 256 );
+                const colorStr = `rgb(${r}, ${g}, ${b})`;
+
+                const canvas = document.querySelector('#canvas');
+                canvas.style.backgroundColor = colorStr;
+                canvas.innerHTML = `<h1 style='text-align:center'>${colorStr}</h1>`;
+            });
+
+        });
+    </script>
+</body>
+</html>
