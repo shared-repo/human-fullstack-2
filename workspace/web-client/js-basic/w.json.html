@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+</head>
+<body>
+
+    <div id="message"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const name = 'John Doe';
+
+            let person = {
+                // "name" : "John Doe",
+                "name": name,
+                "email": [ "johndoe@example.com", 'johndoe@naver.com' ],
+                "phone": {
+                    "mobile": "010-6528-7741",
+                    "office": "02-3369-8852"
+                },
+                "sayHello": () => { alert('Hello, JSON'); },
+                "info": function() {
+                    // 객체의 멤버 함수에서 그 객체의 다른 멤버를 사용하려면 this를 표시해야 합니다.
+                    return `[${this.name}][${this.email[0]}][${this.email[1]}][${this.phone.mobile}][${this.phone.office}]`
+                }
+            }
+
+            const message = document.querySelector("#message");
+            message.innerHTML += `<h3>${ person.name }</h3>`;
+            message.innerHTML += `<h3>${ person.email[0] }</h3>`;
+            message.innerHTML += `<h3>${ person.phone.office }</h3>`;
+
+            // person.sayHello();
+            const personInfo = person.info();
+            message.innerHTML += `<h3>${ personInfo }</h3>`;
+
+            //////////////////////////////////////////////
+
+            let text = '{"employees":[' +
+                            '{"firstName":"John","lastName":"Doe" },' +
+                            '{"firstName":"Anna","lastName":"Smith" },' +
+                            '{"firstName":"Peter","lastName":"Jones" }]}';
+
+            console.log(typeof text);
+            console.log(typeof person)
+
+            console.log(person.name);
+            console.log(text.employees);
+
+            const textObj = JSON.parse(text); // JSON 문자열 -> JSON 객체
+            const personStr = JSON.stringify(person); // JSON 객체 -> JSON 문자열
+
+            console.log(typeof textObj);
+            console.log(typeof personStr)
+
+        });
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머</title>
+</head>
+<body>
+    <button id="start">시작</button>
+    <button id="stop">중지</button>
+    <hr>
+    <div id="message"></div>
+
+    <script>
+        // window.addEventListener('load', function(event) {
+        document.addEventListener('DOMContentLoaded', function(event) {
+            const startBtn = document.querySelector('#start');
+            const stopBtn = document.querySelector('#stop');
+            const messageDiv = document.querySelector('#message');
+            let timerId = null;
+
+            // startBtn.addEventListener('click', function(event) {
+            //     if (timerId != null) { // 이미 실행중인 timer가 있다면
+            //         return; // 함수 실행 중단(종료) 명령
+            //     }
+            //     timerId = window.setInterval(
+            //         function() { // 실행할 함수
+            //             messageDiv.innerHTML = `<h2>${ new Date() }</h2>`;
+            //         }, 
+            //         1000 // 대기 시간 (1/1000초 단위)
+            //     );
+            // });
+            
+            // stopBtn.addEventListener('click', function(event) {
+            //     if (timerId == null) { // 실행중인 timer가 없다면
+            //         return;
+            //     }
+            //     window.clearInterval(timerId);
+            //     timerId = null;
+            // });
+
+
+            // startBtn.addEventListener('click', function(event) {
+            //     if (timerId != null) { // 이미 실행중인 timer가 있다면
+            //         return; // 함수 실행 중단(종료) 명령
+            //     }
+
+            //     function showTime() { // 실행할 함수
+            //         messageDiv.innerHTML = `<h2>${ new Date() }</h2>`;
+            //         timerId = window.setTimeout(showTime, 1000);
+            //     }
+            //     timerId = window.setTimeout(showTime, 1000);
+            // });
+            
+            // stopBtn.addEventListener('click', function(event) {
+            //     if (timerId == null) { // 실행중인 timer가 없다면
+            //         return;
+            //     }
+            //     window.clearTimeout(timerId);
+            //     timerId = null;
+            // });
+
+            ///////////////////////////////////////////
+
+            startBtn.addEventListener('click', event => {
+                if (timerId != null) { // 이미 실행중인 timer가 있다면
+                    return; // 함수 실행 중단(종료) 명령
+                }
+
+                function showTime() { // 실행할 함수
+                    messageDiv.innerHTML = `<h2>${ new Date() }</h2>`;
+                    timerId = window.setTimeout(showTime, 1000);
+                }
+                timerId = window.setTimeout(showTime, 1000);
+            });
+            
+            stopBtn.addEventListener('click', (event) => {
+                if (timerId == null) { // 실행중인 timer가 없다면
+                    return;
+                }
+                window.clearTimeout(timerId);
+                timerId = null;
+            });
+
+
+
+
+        });
+
+    </script>
+
+    
+</body>
+</html>

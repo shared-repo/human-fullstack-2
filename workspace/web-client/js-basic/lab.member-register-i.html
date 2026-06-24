@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        width: 400px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .radio-group label {
+        display: inline;
+        font-weight: normal;
+        margin-bottom: 0;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>회원가입</h2>
+
+
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">전화번호</label>
+            <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>혈액형</label>
+            <div class="radio-group">
+                <input type="radio" id="bloodA" name="bloodType" value="A" required>
+                <label for="bloodA">A형</label>
+
+                <input type="radio" id="bloodB" name="bloodType" value="B">
+                <label for="bloodB">B형</label>
+
+                <input type="radio" id="bloodAB" name="bloodType" value="AB">
+                <label for="bloodAB">AB형</label>
+
+                <input type="radio" id="bloodO" name="bloodType" value="O">
+                <label for="bloodO">O형</label>
+            </div>
+        </div>
+
+        <button type="submit" id="register-btn">회원가입</button>
+
+        <script>
+            const registerBtn = document.querySelector('#register-btn');
+            registerBtn.addEventListener('click', function(event) {
+                const name = document.querySelector('#name').value; // <input의 값은 value 속성으로 읽고 씁니다.
+                const email = document.querySelector('#email').value;
+                const phone = document.querySelector('#phone').value;
+
+                const member = {
+                    "name": name,
+                    "email": email,
+                    "phone": phone
+                }
+
+                const checkedRadio = document.querySelector('input[name=bloodType]:checked'); // <input name='bloodType' checked
+                member.bloodType = checkedRadio ? checkedRadio.value : 'not seleted';
+
+                console.log(member);
+            });
+        </script>
+
+</div>
+
+</body>
+</html>

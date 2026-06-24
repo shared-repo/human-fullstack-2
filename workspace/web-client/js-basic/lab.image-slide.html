@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 슬라이드</title>
+    <style>
+        table { margin: 0 auto; }
+        td img {
+            width: 100px;
+        }
+        #view { text-align: center; }
+        #view img { width: 400px; height: 400px; border: solid 1px black; }
+    </style>
+</head>
+<body>
+    <table id="images-table">
+        <tr>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+        </tr>
+    </table>
+
+    <div id="view">
+        <table>
+            <tr>
+                <td><button id="prev-btn">이전</button></td>
+                <td><img></td>
+                <td><button id="next-btn">다음</button></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: center;">
+                    <button id="auto-btn">자동</button>
+                    <button id="stop-btn">중지</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        window.addEventListener('load', function(event) {
+            const imgs = document.querySelectorAll('#images-table img');
+            const currentImg = document.querySelector('#view img');
+            let currentPosition = 0; // 현재 선택된 이미지의 위치 번호를 저장할 변수
+            currentImg.src = `images/${0}.jpg`;
+            imgs[currentPosition].style.border = 'solid 2px red';
+            
+            // 1. images-table의 img 요소에 src 속성의 값 설정            
+            // for (let i = 0; i < imgs.length; i++) {
+            //     imgs[i].src = `images/${i}.jpg`;
+            // }
+            imgs.forEach(function(value, idx) {
+                value.src = `images/${idx}.jpg`;
+            });
+
+            // 2. images-table의 img 요소에 이벤트 처리기 연결
+            //    -> 클릭된 이미지를 view 하위의 img에 표시
+            imgs.forEach(function(value, idx) {
+                value.addEventListener('click', function(event) {
+                    imgs[currentPosition].style.border = '';
+                    currentImg.src = event.target.src;
+                    currentPosition = idx;
+                    imgs[currentPosition].style.border = 'solid 2px red';
+                });
+            });
+
+            // 3. 이전, 다음 버튼에 이벤트 처리기 연결
+            const prevBtn = document.querySelector('#prev-btn');
+            prevBtn.addEventListener('click', function(event) {
+                imgs[currentPosition].style.border = '';
+                currentPosition--;
+                if (currentPosition < 0) {
+                    currentPosition = 9;
+                }
+                currentImg.src = `images/${currentPosition}.jpg`;
+                imgs[currentPosition].style.border = 'solid 2px red';
+            });
+            const nextBtn = document.querySelector('#next-btn');
+            nextBtn.addEventListener('click', function(event) {
+                imgs[currentPosition].style.border = '';
+                currentPosition++;
+                if (currentPosition > 9) {
+                    currentPosition = 0;
+                }
+                currentImg.src = `images/${currentPosition}.jpg`;
+                imgs[currentPosition].style.border = 'solid 2px red';
+            });
+
+            //////////////////////////////////////////////////////////////
+
+            let timerId = null;
+
+            const autoBtn = document.querySelector('#auto-btn');
+            autoBtn.addEventListener('click', function(event) {
+                if (timerId != null) return;
+
+                timerId = window.setInterval(function() {
+                    imgs[currentPosition].style.border = '';
+                    currentPosition++;
+                    if (currentPosition > 9) {
+                        currentPosition = 0;
+                    }
+                    currentImg.src = `images/${currentPosition}.jpg`;
+                    imgs[currentPosition].style.border = 'solid 2px red';
+                }, 3000);
+            });
+            const stopBtn = document.querySelector('#stop-btn');
+            stopBtn.addEventListener('click', function(event) {
+                if (timerId == null) return;
+
+                window.clearInterval(timerId);
+                timerId = null;
+            });
+        });
+
+    </script>
+
+</body>
+</html>
