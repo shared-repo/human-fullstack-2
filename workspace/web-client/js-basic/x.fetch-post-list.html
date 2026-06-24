@@ -24,9 +24,9 @@
                     .then(json => {
                         for (let i = 0; i < json.length; i++) {
                             div.innerHTML += 
-                            `<h5>${json[i].id}. <a href='https://jsonplaceholder.typicode.com/posts/${json[i].id}'>${json[i].title}</a></h5>`
+                            `<h5>${json[i].id}. <a href='x.fetch-post-detail.html?id=${json[i].id}'>${json[i].title}</a></h5>`
                         }
-                    }); 
+                    });
             });
         });
     </script>
