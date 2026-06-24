@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 객체 생성/제거</title>
+</head>
+<body>
+    <button id="add-btn">추가</button>
+    <hr>
+    <div id="container"></div>
+
+    <script>
+        window.addEventListener('load', (event) => {
+
+            const container = document.querySelector('#container');
+            const addBtn = document.querySelector('#add-btn');
+            addBtn.addEventListener('click', (event) => {
+
+                const div = document.createElement('div'); // <div></div> DOM 객체 생성 ( 아직 객체 트리에 추가 되지 않은 상태 )
+                div.style.borderRadius = '3px';
+                div.style.border = "solid 1px blue";
+                div.style.padding = '5px';
+                div.style.margin = '5px';
+                div.style.fontSize = '20px';
+                //div.innerText = '<h3>안녕하세요</h3>'; // html을 그냥 문자열로 처리
+                //div.innerHTML = '<h3>안녕하세요</h3>'; // html을 html문법에 따라 처리
+                div.innerText = (new Date()).toString();
+
+                div.addEventListener('click', (event) => {
+                    container.removeChild(event.target); // event.target : 현재 이벤트가 발생한 객체
+                });
+
+                div.addEventListener('mouseenter', (event) => {
+                    event.target.style.backgroundColor = 'red';
+                    event.target.style.color = 'white';
+                });
+                div.addEventListener('mouseleave', (event) => {
+                    event.target.style.backgroundColor = '';
+                    event.target.style.color = '';
+                });
+                
+
+                container.appendChild(div); // container의 하위 요소로 객체 트리에 추가
+                
+
+
+            });
+
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 목록</title>
+</head>
+<body>
+    <button id="query-movie">데이터 가져오기</button>
+    <hr>
+    <div id="message"></div>
+    <script>
+        window.addEventListener('load', function(event) {
+            const btn = document.querySelector('#query-movie');
+            const div = document.querySelector('#message');
+
+            const TMDB_ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOTU1MDk5ZDU3ZWQzYjI4NTRkYmJkMWM0NjA0MzZlYSIsIm5iZiI6MTc4MjI3ODQzMi4xMjYwMDAyLCJzdWIiOiI2YTNiNjkyMDcxZGVjOGQ1Mzk3ODM4ZTgiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GkARu9Z5mUn5UF1GTOIexDB2XGLlgC4LcZXw5OQla5c';
+            const URL = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`
+                }
+            };
+
+            btn.addEventListener('click', function(event) {               
+                
+                fetch(URL, options)
+                    .then(response => response.json()) // then : 앞의 실행이 끝나면 실행될 코드 지정, response.json() : 응답을 json으로 변환
+                    .then(json => {
+                        console.log(json);
+                        for (let i = 0; i < json.results.length; i++) {
+                            const movie = json.results[i];
+                            div.innerHTML += 
+                            `<h5>${ i + 1 }. <a href='lab.movie-detail.html?id=${movie.id}'>${movie.title}</a> [${movie.popularity}]</h5>`
+                        }
+                    });
+            });
+        });
+    </script>
+    
+</body>
+</html>

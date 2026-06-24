@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 상세 정보</title>
+</head>
+<body>    
+    <div id="message"></div>
+    <script>
+        window.addEventListener('load', function(event) {
+            
+            const div = document.querySelector('#message');
+
+            const qs = new URLSearchParams(window.location.search); // '?a=10&b=hello' -> { 'a': 10, 'b': 'hello'}
+            const id = qs.get('id'); //?...&id=10&... -> id의 값인 10 반환
+
+            const TMDB_ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOTU1MDk5ZDU3ZWQzYjI4NTRkYmJkMWM0NjA0MzZlYSIsIm5iZiI6MTc4MjI3ODQzMi4xMjYwMDAyLCJzdWIiOiI2YTNiNjkyMDcxZGVjOGQ1Mzk3ODM4ZTgiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.GkARu9Z5mUn5UF1GTOIexDB2XGLlgC4LcZXw5OQla5c';            
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${TMDB_ACCESS_TOKEN}`
+                }
+            };
+
+            fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
+                .then( function(response) { return response.json(); } )
+                .then( function(json) {
+                    console.log(json);
+                    div.innerHTML = `<h3>${json.title}</h3>` +
+                                    `<h3>${json.release_date}</h3>` +
+                                    `<h3>${json.overview}</h3>`;
+                });
+           
+        });
+    </script>
+    
+</body>
+</html>

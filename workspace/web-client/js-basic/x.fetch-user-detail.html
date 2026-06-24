@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch 함수 연습</title>
+</head>
+<body>    
+    <div id="message"></div>
+    <script>
+        window.addEventListener('load', function(event) {
+            
+            const div = document.querySelector('#message');
+
+            const qs = new URLSearchParams(window.location.search); // '?a=10&b=hello' -> { 'a': 10, 'b': 'hello'}
+            const id = qs.get('id'); //?...&id=10&... -> id의 값인 10 반환
+
+            fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+                .then( function(response) { return response.json(); } )
+                .then( function(json) {
+                    div.innerHTML = `<h3>이름 : ${json.name}</h3>` +
+                                    `<h5>이메일 : ${json.email}</h5>` +
+                                    `<h5>전화 : ${json.phone}</h5>`;
+                                    `<h5>회사이름${json.company.name}</h5>`;
+                });
+           
+        });
+    </script>
+    
+</body>
+</html>
