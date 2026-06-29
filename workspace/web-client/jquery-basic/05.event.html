@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>이벤트 처리 실습</title>
+  <style>
+    #search-box { border: 2px solid #ccc; padding: 6px; }
+    #search-box.active { border-color: #007bff; }
+    .result-item { padding: 8px; cursor: pointer; border-bottom: 1px solid #eee; }
+    .result-item:hover { background: #f5f5f5; }
+    .result-item.selected { background: #d0e8ff; }
+    #modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    #modal-content {
+      background: #fff; width: 400px; margin: 100px auto;
+      padding: 24px; border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>이벤트 실습</h2>
+
+  <!-- 실시간 검색 -->
+  <input type="text" id="search-box" placeholder="검색어 입력...">
+  <div id="result-list"></div>
+
+  <!-- 모달 -->
+  <button id="btn-open-modal">상세 보기</button>
+  <div id="modal-overlay">
+    <div id="modal-content">
+      <h3 id="modal-title">제목</h3>
+      <p id="modal-body">내용</p>
+      <button id="btn-close-modal">닫기</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function() {
+      const items = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
+
+      // ① 실시간 검색 — input 이벤트
+      $('#search-box').on('input', function() {
+        const keyword = $(this).val().toLowerCase();
+        const $list = $('#result-list').empty();
+
+        if (!keyword) return;
+
+        items
+          .filter(name => name.toLowerCase().includes(keyword))
+          .forEach(name => {
+            $('<div>').addClass('result-item').text(name).appendTo($list);
+          });
+      });
+
+      // ② focus / blur
+      $('#search-box').on('focus', function() {
+        $(this).addClass('active');
+      }).on('blur', function() {
+        $(this).removeClass('active');
+      });
+
+      // ③ 이벤트 위임 — 동적으로 생성된 결과 아이템 클릭
+      $('#result-list').on('click', '.result-item', function() {
+        $('.result-item').removeClass('selected');
+        $(this).addClass('selected');
+
+        // 커스텀 이벤트로 모달에 데이터 전달
+        $(document).trigger('itemSelected', [$(this).text()]);
+      });
+
+      // ④ 커스텀 이벤트 수신 — 모달 열기
+      $(document).on('itemSelected', function(e, itemName) {
+        $('#modal-title').text(itemName);
+        $('#modal-body').text(itemName + '에 대한 상세 정보입니다.');
+        $('#modal-overlay').fadeIn(200);
+      });
+
+      // ⑤ 모달 배경 클릭 시 닫기
+      $('#modal-overlay').on('click', function() {
+        $(this).fadeOut(200);
+      });
+
+      // ⑥ 모달 내부 클릭 — stopPropagation
+      $('#modal-content').on('click', function(e) {
+        e.stopPropagation();
+      });
+
+      // ⑦ 닫기 버튼
+      $('#btn-close-modal').on('click', function() {
+        $('#modal-overlay').fadeOut(200);
+      });
+
+      // ⑧ ESC 키로 모달 닫기
+      $(document).on('keydown', function(e) {
+        if (e.key === 'Escape') {
+          $('#modal-overlay').fadeOut(200);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

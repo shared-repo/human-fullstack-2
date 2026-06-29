@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM 조작 실습</title>
+  <style>
+    .done { text-decoration: line-through; color: #aaa; }
+    .btn-done { border: solid 1px blue; }
+    .btn-del { border: solid 1px red; }
+    li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <h2>To-Do 실습</h2>
+  <input type="text" id="todo-input" placeholder="할 일 입력">
+  <button id="btn-add">추가</button>
+  <ul id="todo-list"></ul>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function() {
+
+      // 항목 추가
+      // $('#btn-add').on('click', function() {
+      $('#btn-add').click(function() { // click : on('click')
+        const text = $('#todo-input').val().trim(); // trim : 양 끝에서 공백 제거
+        if (!text) return; // !text : 입력 내용이 없다면
+
+        const $li = $('<li>').text(text); // $('<li>') : document.createElement('li')
+        const $doneBtn = $('<button>').text('완료').addClass('btn-done'); // addClass('btn-done') : < ... class='btn-done'
+        const $delBtn  = $('<button>').text('삭제').addClass('btn-del');
+
+        $li.append(' ', $doneBtn, ' ', $delBtn); // $li.append(1, 2, 3) : li의 마지막 자식 요소로 1, 2, 3 추가
+        $('#todo-list').append($li);
+        $('#todo-input').val('').focus(); // focus() : 키보드 입력을 받을 수 있도록 활성화
+      });
+
+      // 이벤트 연결 # 현재 존재하는 .btn-delete에 이벤트 연결 ( 나중에 동적으로 만들어진 .btn-delete에는 연결 X )
+    //   $('.btn-delete').on('click', function(event) {
+    //     $(this).closest('li').remove();
+    //   });
+
+      // 완료 토글
+      $('#todo-list').on('click', '.btn-done', function() {
+        $(this).closest('li').toggleClass('done'); // closest('li') : 조상 중에 제일 가까운 'li' 요소
+      });
+
+      // 항목 삭제 # todo-list에 이벤트를 전달하고 todo-list가 .btn-delete에게 이벤트 전달 ( 나중에 동적으로 만들어진 .btn-delete에 연결 O)
+      $('#todo-list').on('click', '.btn-del', function() {
+        $(this).closest('li').remove(); // $(this) : 여기서는 이벤트를 발생시킨 객체로 .btn-del이 설정된 버튼
+      });
+
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotto</title>
+    <style>
+        table {
+            width: 600px;
+            margin: 0 auto;
+        }
+        #btn-tr {
+            text-align: center;
+        }
+        #btn-tr button {
+            height: 50px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr id="btn-tr">
+            <td colspan="6">
+                <button>당첨 예상 번호 뽑기</button>
+            </td>
+        </tr>
+        <tr id="divider-tr">
+            <td colspan="6"><hr></td>
+        </tr>        
+    </table>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        function selectWinningNumbers() {
+
+            const numbers = [];
+            for (let i = 0; i < 6; i++) {
+                const number = Math.floor(Math.random() * 45 + 1);
+                numbers.push(number);
+                for (let j = 0; j < i; j++) {
+                    if (numbers[j] == numbers[i]) {
+                        i--;
+                        break;
+                    }
+                }
+            }
+
+            return numbers;
+
+        }
+    </script>
+</body>
+</html>

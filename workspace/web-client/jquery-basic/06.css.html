@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS 및 스타일 조작 실습</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+
+    #header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 60px; background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex; align-items: center; padding: 0 20px;
+      transition: transform 0.3s;
+      z-index: 100;
+    }
+    #header.hidden { transform: translateY(-100%); }
+
+    #progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 4px; background: #007bff; width: 0;
+      z-index: 200;
+    }
+
+    main { padding-top: 80px; }
+    section { height: 400px; display: flex; align-items: center;
+              justify-content: center; font-size: 1.5rem; }
+    section:nth-child(odd) { background: #f0f4ff; }
+
+    #btn-top {
+      display: none; position: fixed; bottom: 30px; right: 30px;
+      padding: 10px 16px; background: #007bff; color: #fff;
+      border: none; border-radius: 50%; cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #tooltip {
+      display: none; position: absolute;
+      background: #333; color: #fff;
+      padding: 6px 12px; border-radius: 4px;
+      font-size: 0.85rem; z-index: 300;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <header id="header">
+    <span>jQuery 스크롤 UI</span>
+    <span class="info-icon" style="margin-left:auto; cursor:pointer;">ℹ️</span>
+  </header>
+
+  <div id="tooltip">jQuery 스타일 조작 실습 페이지</div>
+
+  <main>
+    <section>섹션 1</section>
+    <section>섹션 2</section>
+    <section>섹션 3</section>
+    <section>섹션 4</section>
+    <section>섹션 5</section>
+  </main>
+
+  <button id="btn-top">↑</button>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function() {
+      let lastScrollTop = 0;
+
+      $(window).on('scroll', function() {
+        const scrollTop    = $(this).scrollTop();
+        const docHeight    = $(document).height();
+        const windowHeight = $(this).height();
+
+        // ① 읽기 진행 바 (scrollTop 기반 퍼센트 계산)
+        const progress = scrollTop / (docHeight - windowHeight) * 100;
+        $('#progress-bar').width(progress + '%');
+        // $('#progress-bar').css('width', progress + '%');
+
+        // ② 맨 위로 버튼 표시/숨김
+        if (scrollTop > 300) {
+          $('#btn-top').fadeIn(200);
+        } else {
+          $('#btn-top').fadeOut(200);
+        }
+
+        // ③ 스크롤 방향에 따라 헤더 숨김/표시
+        if (scrollTop > lastScrollTop && scrollTop > 60) {
+          $('#header').addClass('hidden');
+        } else {
+          $('#header').removeClass('hidden');
+        }
+        lastScrollTop = scrollTop;
+      });
+
+      // ④ 맨 위로 부드럽게 스크롤
+      $('#btn-top').on('click', function() {
+        $('html, body').animate({ scrollTop: 0 }, 500);
+      });
+
+      // ⑤ offset()으로 툴팁 위치 계산
+      $('.info-icon').on('mouseenter', function() {
+        const pos = $(this).offset(); // 현재 위치 (top, left)
+        const h   = $(this).outerHeight(); // 요소의 높이
+
+        $('#tooltip').css({
+          top:  pos.top + h + 8,
+          left: pos.left
+        }).fadeIn(150);
+      }).on('mouseleave', function() {
+        $('#tooltip').fadeOut(150);
+      });
+    });
+  </script>
+</body>
+</html>
