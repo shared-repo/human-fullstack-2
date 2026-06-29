@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>두더지 게임</title>
+<style>
+        table { margin: 0 auto; }
+        img, #dashboard { width: 150px; height: 150px; border: solid 1px; }
+        button { width: 49%; height: 50px; }
+        #dashboard { text-align:center; font-size: 15pt; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h3 style="text-align: center;">두더지 게임 (instructor)</h3>
+    <table>
+        <tr>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+            <th id="dashboard" rowspan="4">
+                남은시간 : <span id="time">0</span>
+                <hr>
+                점수 : <span id="score">0</span>
+            </th>
+        </tr>
+        <tr>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>            
+        </tr>
+        <tr>
+            <td><img></td>
+            <td><img></td>
+            <td><img></td>
+        </tr>
+        <tr>
+            <th colspan="3">
+                <button id="btn-start">게임 시작</button>
+                <button id="btn-stop">게임 종료</button>
+            </th>
+        </tr>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+            const images = document.querySelectorAll("img");
+            // const scoreDiv = document.querySelector("#score");
+            const timeSpan = document.querySelector("#time");
+            const scoreSpan = document.querySelector("#score");
+
+            let score = 0;
+            let timeRemain = 0;
+
+            // for(let i = 0; i < images.length; i++) {
+            // for(let i in images) {
+            // for(let image of images) {
+            images.forEach( (image, idx) => {
+                image.src = 'images/hole.jpg';
+
+                // 각 이미지에 이벤트 처리기 연결
+                image.addEventListener('click', function(event) {
+                    if (timerId == null) return; // 게임이 진행 중이 아니라면
+
+                    // 현재 클릭된 이미지
+                    const clickedImage = event.target;
+                    // 현재 클릭된 이미지 객체의 이미지 파일이 mole2.png라면 잡기 성공
+                    // if (clickedImage.src = 'images/mole2.png') { 
+                    if (clickedImage.src.indexOf('mole2.png') >= 0) { // src 속성에 mole2.png 문자열이 있는 위치 검사
+                        clickedImage.src = 'images/dead.png'; // 죽은 두더지 이미지로 교체
+
+                        score += 1; // 점수 증가
+                        scoreSpan.innerText = `${score}`; // 점수 표시
+                    }
+
+                });
+            });
+
+            /////////////////////////////////////
+
+            const btnStart = document.querySelector('#btn-start');
+            const btnStop = document.querySelector('#btn-stop');
+            
+            let timerId = null;     // 두더지 표시 타이머 아이디
+            let timerId2 = null;    // 게임 시간 관리 타이머 아이디
+
+            btnStart.addEventListener('click', function(event) {
+                if (timerId != null || timerId2 != null) return;
+
+                // 점수 초기화
+                score = 0;                 
+                scoreSpan.innerText = `${score}`;
+
+                // 두더지 표시 타이머 동작
+                timerId = setInterval(function() {
+
+                    // 1. 두더지 표시 (출현)
+                    // 1-1. 이미지 갯수 범위에서 난수 발생 (여기서는 0 ~ 9)
+                    const position = Math.floor(Math.random() * images.length);
+                    // 1-2. 선택된 위치의 이미지에 두더지 표시
+                    images[position].src = 'images/mole2.png';
+
+                    // 2. 0.5초 후에 두더지 숨김
+                    setTimeout(function() {
+                        images[position].src = 'images/hole.jpg';
+                    }, 1000);
+
+                }, 2000);
+
+                // 게임 시간 초기화
+                timeRemain = 30;
+                timeSpan.innerText = `${timeRemain}`;
+
+                // 게임 시간 관리 타이머 동작
+                timerId2 = setInterval(function() {
+                    timeRemain -= 1;
+                    timeSpan.innerText = `${timeRemain}`;
+
+                    if (timeRemain == 0) {
+                        stopGame();
+                    }
+                }, 1000);
+
+            });
+            btnStop.addEventListener('click', function(event) {
+                if (timerId == null && timerId2 == null) return;
+
+                stopGame();
+            });
+
+            function stopGame() {
+                clearInterval(timerId);
+                timerId = null;
+                clearInterval(timerId2);
+                timerId2 = null;
+            }
+
+        });
+    </script>
+    
+</body>
+</html>
