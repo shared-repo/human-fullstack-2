@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch 함수 연습</title>
+    <style>
+        table { width: 800px; margin: 0 auto }
+        th { border: solid 1px black; height: 50px; } 
+        div { text-align: center; }
+        button { height: 50px; width: 150px; }       
+    </style>
+</head>
+<body>
+    <div>
+        <button id="request-post">데이터 가져오기</button>
+    </div>
+    <hr>
+    <table>
+        <tr>
+            <th>이름</th>
+            <th>이메일</th>
+            <th>전화번호</th>
+            <th>회사이름</th>
+        </tr>
+    </table>
+
+    <script>
+        // 아래 코드를 jQuery 구문으로 변경
+        // 데이터 조회 결과를 tr과 td를 사용해서 표시
+
+        window.addEventListener('load', function(event) {
+            const btn = document.querySelector('#request-post');
+            const div = document.querySelector('#message');
+
+            btn.addEventListener('click', function(event) {
+                
+                fetch('https://jsonplaceholder.typicode.com/users')
+                    .then(response => response.json()) // then : 앞의 실행이 끝나면 실행될 코드 지정, response.json() : 응답을 json으로 변환
+                    .then(json => {
+                        for (let i = 0; i < json.length; i++) {
+                            div.innerHTML += 
+                            `<h5>${json[i].id}. <a href='x.fetch-user-detail.html?id=${json[i].id}'>${json[i].name}</a></h5>`
+                        }
+                    });
+            });
+        });
+    </script>
+    
+</body>
+</html>

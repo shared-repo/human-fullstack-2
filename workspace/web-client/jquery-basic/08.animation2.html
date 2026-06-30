@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>효과와 애니메이션 실습</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; background: #f5f5f5; }
+
+    /* 탭 */
+    .tab-buttons { display: flex; gap: 4px; margin-bottom: 0; }
+    .tab-btn {
+      padding: 8px 20px; border: 1px solid #ccc;
+      border-bottom: none; background: #f0f0f0;
+      cursor: pointer; border-radius: 6px 6px 0 0;
+    }
+    .tab-btn.active { background: #fff; border-color: #4f6ef7; color: #4f6ef7; }
+    .tab-content {
+      display: none; padding: 20px;
+      border: 1px solid #4f6ef7; background: #fff;
+      border-radius: 0 6px 6px 6px;
+    }
+    .tab-content.active { display: block; }
+
+    /* 아코디언 */
+    .acc { border: 1px solid #ddd; border-radius: 6px;
+           margin: 20px 0; overflow: hidden; }
+    .acc-header {
+      padding: 12px 16px; background: #f9f9f9;
+      cursor: pointer; font-weight: bold;
+      border-bottom: 1px solid #eee;
+    }
+    .acc-header:hover { background: #eef; }
+    .acc-body { padding: 16px; display: none; }
+
+    /* 토스트 */
+    #toast {
+      display: none; position: fixed; bottom: 30px; right: 30px;
+      background: #333; color: #fff;
+      padding: 12px 20px; border-radius: 8px;
+      font-size: 0.9rem; z-index: 999;
+    }
+    #btn-toast { margin-top: 10px; padding: 8px 16px;
+                 background: #4f6ef7; color: #fff;
+                 border: none; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>① 탭 패널 (fadeIn)</h2>
+  <div class="tab-buttons">
+    <button class="tab-btn active" data-target="#tab1">탭 1</button>
+    <button class="tab-btn" data-target="#tab2">탭 2</button>
+    <button class="tab-btn" data-target="#tab3">탭 3</button>
+  </div>
+  <div id="tab1" class="tab-content active">탭 1 내용입니다.</div>
+  <div id="tab2" class="tab-content">탭 2 내용입니다.</div>
+  <div id="tab3" class="tab-content">탭 3 내용입니다.</div>
+
+  <h2 style="margin-top:30px">② 아코디언 (slideToggle)</h2>
+  <div class="acc">
+    <div class="acc-header">▶ 섹션 1 — jQuery란?</div>
+    <div class="acc-body">jQuery는 빠르고 간결한 JavaScript 라이브러리입니다.</div>
+    <div class="acc-header">▶ 섹션 2 — 선택자</div>
+    <div class="acc-body">CSS 선택자 문법을 그대로 사용하여 요소를 선택합니다.</div>
+    <div class="acc-header">▶ 섹션 3 — 이벤트</div>
+    <div class="acc-body">on() 메서드 하나로 모든 이벤트를 일관되게 처리합니다.</div>
+  </div>
+
+  <h2>③ 토스트 알림 (fadeIn → delay → fadeOut)</h2>
+  <button id="btn-toast">알림 보내기</button>
+  <div id="toast">✅ 저장되었습니다!</div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function() {
+
+      // ① 탭 패널: fadeIn 효과
+      $('.tab-btn').on('click', function() {
+        const target = $(this).data('target');
+
+        // 버튼 active 전환
+        $('.tab-btn').removeClass('active');
+        $(this).addClass('active');
+
+        // 현재 탭 fadeOut → 대상 탭 fadeIn
+        $('.tab-content.active')
+          .removeClass('active')
+          .fadeOut(150, 
+                   function() { // 앞의 fadeOut 애니메이션이 끝나면 이어서 호출되는 함수
+            $(target).fadeIn(200).addClass('active');
+          });
+      });
+
+      // ② 아코디언: slideToggle
+      $('.acc-header').on('click', function() {
+        const $body = $(this).next('.acc-body');
+        $('.acc-body').not($body).slideUp(200);
+        $body.slideToggle(250);
+      });
+
+      // ③ 토스트 알림: fadeIn → delay → fadeOut
+      $('#btn-toast').on('click', function() {
+        $('#toast')
+          .stop(true, true)
+          .fadeIn(300)
+          .delay(2000)
+          .fadeOut(500);
+      });
+
+    });
+  </script>
+</body>
+</html>

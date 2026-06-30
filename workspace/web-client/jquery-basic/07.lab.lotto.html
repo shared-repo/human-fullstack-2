@@ -8,6 +8,7 @@
         table {
             width: 600px;
             margin: 0 auto;
+            border-spacing: 5px;
         }
         #btn-tr {
             text-align: center;
@@ -23,7 +24,7 @@
     <table>
         <tr id="btn-tr">
             <td colspan="6">
-                <button>당첨 예상 번호 뽑기</button>
+                <button id="btn-select-numbers">당첨 예상 번호 뽑기</button>
             </td>
         </tr>
         <tr id="divider-tr">
@@ -35,10 +36,10 @@
     <script>
         function selectWinningNumbers() {
 
-            const numbers = [];
+            const numbers = new Array(6);
             for (let i = 0; i < 6; i++) {
                 const number = Math.floor(Math.random() * 45 + 1);
-                numbers.push(number);
+                numbers[i] = number;
                 for (let j = 0; j < i; j++) {
                     if (numbers[j] == numbers[i]) {
                         i--;
@@ -46,10 +47,26 @@
                     }
                 }
             }
-
             return numbers;
-
         }
+
+        $(function() {
+            const table = $('table');
+            $('#btn-select-numbers').on('click', function(event) {
+                const numbers = selectWinningNumbers();
+                const tr = $('<tr></tr>');
+                numbers.forEach(function(number, idx) {
+                    $('<td></td>').text(number)
+                                  .css({'text-align': 'center', 
+                                        'height': '70px', 
+                                        'width' : '100px',
+                                        'border': 'solid 1px black'})
+                                  .appendTo(tr);
+                });
+
+                table.append(tr);
+            });
+        });
     </script>
 </body>
 </html>
