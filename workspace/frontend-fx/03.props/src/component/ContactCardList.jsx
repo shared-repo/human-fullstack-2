@@ -13,8 +13,8 @@ function ContactCardList(props) {
             */}
 
             {
-                contacts.map((c) => {
-                    <ContactCard key={c.name} contact={c} />
+                contacts.map((c, idx) => {
+                    return <ContactCard key={idx} contact={c} />
                 })
             }
 
