@@ -1,0 +1,23 @@
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.primary {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.secondary {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
