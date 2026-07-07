@@ -1,12 +1,11 @@
 import DecreaseBtn from "./component/DecreaseBtn"
 import IncreaseBtn from "./component/IncreaseBtn"
 import Display from "./component/Display"
-import CommonContextProvider from "./component/CommonContext"
 
 function App() {
 
   return (
-    <CommonContextProvider>
+    <>
       <table>
         <tr>
           <th colSpan={2}>
@@ -18,7 +17,7 @@ function App() {
           <td><IncreaseBtn /></td>
         </tr>        
       </table>      
-    </CommonContextProvider>
+    </>
   )
 }
 
