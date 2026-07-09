@@ -1,0 +1,68 @@
+.user-list h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.2px;
+}
+
+.user-list .loading {
+  color: var(--text);
+  font-size: 14px;
+  padding: 16px 0;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.user-table thead tr {
+  background: var(--code-bg);
+}
+
+.user-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.user-table tbody tr {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.user-table tbody tr:hover {
+  background: var(--accent-bg);
+}
+
+.user-table tbody tr.selected {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+}
+
+.user-table tbody tr.selected td {
+  color: var(--text-h);
+  font-weight: 500;
+}
+
+.user-table .col-id {
+  width: 40px;
+  color: var(--text);
+  font-size: 13px;
+}

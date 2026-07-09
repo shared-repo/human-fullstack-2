@@ -1,0 +1,39 @@
+react 기반 앱을 개발할거야.
+사용자 정보와 사용자가 작성한 게시물을 표시하는 내용의 앱이야
+아래의 요구사항을 반영해서 앱을 구현해줘 
+
+1. 사용자 페이지 구현 (pages/User.jsx)
+
+   1. 사용자 목록 표시 컴포넌트 구현 (components/UserList.jsx)
+
+       Open API 사용 : https://jsonplaceholder.typicode.com/users
+       표 형태로 표시
+
+    2. 사용자 상세 정보 표시 컴포넌트 구현 (components/UserDetail.jsx)
+
+       Open API 사용 : https://jsonplaceholder.typicode.com/users/{id}
+       사용자 목록 컴포넌트에서 특정 사용자를 선택하면 해당 사용자 정보를 화면에 표시
+       사용자 아이디를 파라미터로 게시물 페이지로 이동하는 링크 추가
+
+    3. 페이지 왼쪽에 사용자 목록 표시 컴포넌트, 오른쪽에 사용자 상세 정보 표시 컴포넌트 배치
+
+
+2. 게시물 페이지 구현 (pages/Post.jsx)
+
+   1. 게시물 목록 표시 컴포넌트 구현 (components/PostList.jsx)
+
+       Open API 사용 : https://jsonplaceholder.typicode.com/posts
+       표 형태로 표시
+
+   2. 게시물 상세 정보 표시 컴포넌트 구현 (components/PostDetail.jsx)
+
+       Open API 사용 : https://jsonplaceholder.typicode.com/posts/{id}
+       게시물 목록 컴포넌트에서 특정 게시물을 선택하면 해당 게시물 정보를 화면에 표시
+
+   3. 페이지 왼쪽에 게시물 목록 표시 컴포넌트, 오른쪽에 게시물 상세 정보 표시 컴포넌트 배치
+       
+
+3. 라우팅 구현
+
+   react-router-dom 기반 라우팅 사용
+   라이브러리는 이미 설치되어 있으므로 import만 하면 됨

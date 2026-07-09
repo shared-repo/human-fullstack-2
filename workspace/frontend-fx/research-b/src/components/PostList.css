@@ -1,0 +1,79 @@
+.post-list h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.2px;
+}
+
+.post-list .loading {
+  color: var(--text);
+  font-size: 14px;
+  padding: 16px 0;
+}
+
+.post-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.post-table thead tr {
+  background: var(--code-bg);
+}
+
+.post-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.post-table .col-title {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-table tbody tr {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.post-table tbody tr:hover {
+  background: var(--accent-bg);
+}
+
+.post-table tbody tr.selected {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+}
+
+.post-table tbody tr.selected td {
+  color: var(--text-h);
+  font-weight: 500;
+}
+
+.post-table .col-id {
+  width: 40px;
+  font-size: 13px;
+}
+
+.post-table .col-uid {
+  width: 70px;
+  font-size: 13px;
+}

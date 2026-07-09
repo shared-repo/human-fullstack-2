@@ -1,0 +1,55 @@
+.post-detail h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.2px;
+}
+
+.post-detail .empty-msg {
+  color: var(--text);
+  font-size: 14px;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.post-detail .loading {
+  color: var(--text);
+  font-size: 14px;
+  padding: 16px 0;
+}
+
+.post-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.post-detail-table th {
+  width: 110px;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--code-bg);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.post-detail-table td {
+  padding: 10px 12px;
+  color: var(--text-h);
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.post-detail-table .body-text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
