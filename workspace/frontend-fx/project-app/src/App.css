@@ -1,0 +1,200 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.app-nav {
+  display: flex;
+  gap: 20px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+
+  a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover,
+    &.active {
+      color: var(--accent);
+    }
+  }
+}
+
+.app-main {
+  flex: 1;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: left;
+}
+
+.error {
+  color: #d64545;
+}
+
+.positive {
+  color: #d64545;
+}
+
+.negative {
+  color: #2b6fd6;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+}
+
+.row-clickable {
+  cursor: pointer;
+
+  &:hover {
+    background: var(--accent-bg);
+  }
+}
+
+.company-info table th {
+  width: 130px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.company-summary {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.stock-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Company page: search left, info right */
+.company-page {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.company-page-left,
+.company-page-right {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .company-page {
+    flex-direction: column;
+  }
+}
+
+/* SearchCompany / QuotesSearch forms */
+.search-company form {
+  display: flex;
+  gap: 8px;
+}
+
+.search-company input[type='text'] {
+  flex: 1;
+}
+
+.quotes-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .error {
+    width: 100%;
+  }
+}
+
+input,
+button {
+  font: inherit;
+}
+
+input[type='text'],
+input[type='date'] {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Stock page: search top, list left, chart right */
+.stock-page-top {
+  margin-bottom: 32px;
+}
+
+.stock-page-bottom {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.stock-page-left,
+.stock-page-right {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.stock-page-left {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+  .stock-page-bottom {
+    flex-direction: column;
+  }
+}
