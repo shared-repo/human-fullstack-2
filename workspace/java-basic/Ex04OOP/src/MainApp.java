@@ -69,8 +69,59 @@ public class MainApp {
 			System.out.println(m);			
 		}
 		
+		////////////////////////////////////////////////
 		
-
+		System.out.println("-------------------------------");
+		MethodTest mt = new MethodTest();
+		mt.m1();
+		mt.m2("메서드 연습", 100);
+		int result = mt.m3(10, 20);
+		System.out.println("result : " + result);
+		
+		// 메서드 오버로딩 테스트
+		System.out.println( mt.sum(10, 20) );
+		System.out.println( mt.sum(10, 20, 30) );
+		System.out.println( mt.sum(10, 20, 30, 40) );
+		
+		// 가변 인자 배열 사용
+		System.out.println( mt.sum2(10, 20) );
+		System.out.println( mt.sum2(10, 20, 30) );
+		System.out.println( mt.sum2(10, 20, 30, 40) );
+		
+		
+		System.out.println("-------------------------------");
+		Person2 p;
+		p = new Person2(); // 이 때 자동으로 전달인자 없는 생성자 메서드 호출
+		System.out.println(p.info());
+		p = new Person2(1, "홍길동", "010-6523-9887", "hdk@example.com"); // 전달인자 있는 생성자 메서드 호출
+		System.out.println(p.info());
+		
+		System.out.println("-------------------------------");
+		
+		Person3 p3 = new Person3();
+		// p3.no = 1; // 오류 : private 멤버는 외부에서 접근 불가능
+		p3.setNo(1);
+		p3.setName("아이유");
+		p3.setPhone("010-2258-3369");
+		p3.setEmail("iu@example.com");
+		String r = p3.info(); // public 멤버는 외부에서 접근 가능
+		System.out.println(r);
+		
+		System.out.println("-------------------------------");
+		
+		StaticAndFinal sf1 = null;
+		sf1 = new StaticAndFinal();
+		
+		StaticAndFinal sf2 = new StaticAndFinal();
+		
+		System.out.printf("[%d - %d][%d - %d]\n", sf1.ino, sf2.ino, sf1.sno, sf2.sno);
+		sf2.ino = 200;
+		sf2.sno = 200;
+		System.out.printf("[%d - %d][%d - %d]\n", sf1.ino, sf2.ino, sf1.sno, sf2.sno);
+		
+		System.out.println("sno : " + StaticAndFinal.sno); // static 멤버는 클래스 이름으로 접근하는 것이 정석
+		System.out.println("sno : " + StaticAndFinal.getSno()); // static 멤버는 클래스 이름으로 접근하는 것이 정석
+		
 	}
 
 }
