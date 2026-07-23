@@ -87,7 +87,7 @@ public class CollectionDemo {
 		
 		/////////////////////////////////////////////////////////////////
 		
-		// 4. HashSet // 중복 X, 순서(위치) 번호 사용 X
+		//4. HashSet // 중복 X, 순서(위치) 번호 사용 X
 //		HashSet<String> al = new HashSet<>();//
 //		al.add("첫 번째 데이터.");
 //		al.add("두 번째 데이터.");
@@ -104,7 +104,7 @@ public class CollectionDemo {
 //		
 //		System.out.println();
 //		
-//		// al.remove(2); // 동작 실패 : 위치 번호 사용 불가능
+//		// al.remove(2);//오류 : 위치 번호 사용 불가능
 //		String strToRemove = "세 번째 데이터.";
 //		al.remove(strToRemove);//strToRemove와 같은 객체를 제거
 //		
@@ -129,7 +129,7 @@ public class CollectionDemo {
 ////		}
 //		
 //		//enhanced for의 내부 동작
-//		Iterator<String> iter = al.iterator(); //Iterator : java의 순회(처음~끝까지 순서대로 요소를 꺼내는)에 대한 표준
+//		Iterator<String> iter = al.iterator(); //Iterator : java의 순회에 대한 표준
 //		while (iter.hasNext()) { // hasNext : 다음 항목이 있으면 true 없으면 false
 //			String data = iter.next(); //next : 다음 항목 가져오기
 //			System.out.println(data);
@@ -155,7 +155,6 @@ public class CollectionDemo {
 //		al.put("하나", "첫 번째 데이터."); // put : 데이터 추가
 //		al.put("둘", "두 번째 데이터.");
 //		al.put("셋", "세 번째 데이터.");
-//		al.put("셋2", "세 번째 데이터.");
 //		al.put("넷", "네 번째 데이터.");
 //		al.put("다섯", "네 번째 데이터.");//삽입 성공
 //		al.put("다섯", "다섯 번째 데이터.");//삽입 실패 (overwrite)
@@ -210,7 +209,7 @@ public class CollectionDemo {
 //		stack.push("ㅁ;ㄴ아ㅓㄻ;니ㅏ얼");
 //		
 //		while (stack.size() > 0) {
-//			System.out.println(stack.pop());		//pop : 마지막 데이터를 읽고 목록에서 제거
+//			System.out.println(stack.pop());	//pop : 마지막 데이터를 읽고 목록에서 제거
 //			// System.out.println(stack.peek());	//읽고 목록에 유지
 //		}	
 		

@@ -1,3 +1,7 @@
+import java.util.Scanner;
+
+import pa.TheClassOne; // 이 파일에서 TheClassOne 이름을 사용하면 pa.TheClassOne으로 해석하는 설정 
+import pa.subb.TheClassThree;// 이 파일에서 TheClassThree 이름을 사용하면 pa.subb.TheClassThree으로 해석하는 설정
 
 public class MainApp {
 
@@ -121,6 +125,22 @@ public class MainApp {
 		
 		System.out.println("sno : " + StaticAndFinal.sno); // static 멤버는 클래스 이름으로 접근하는 것이 정석
 		System.out.println("sno : " + StaticAndFinal.getSno()); // static 멤버는 클래스 이름으로 접근하는 것이 정석
+		
+		
+		System.out.println("---------------------------------------");
+		
+		// 클래스를 사용할 때 패키지 이름도 같이 표시해야 합니다.
+		pa.TheClassOne co = new pa.TheClassOne();
+		pa.suba.TheClassTwo ct = new pa.suba.TheClassTwo();
+		
+		// import 구문을 사용하면 패키지 이름 생략 가능
+		TheClassOne co2 = new TheClassOne();
+		TheClassThree ct2 = new TheClassThree();
+		
+		java.util.Scanner scanner = new java.util.Scanner(System.in);
+		Scanner scanner2 = new Scanner(System.in);
+		
+		// pa.PackageScopeClass obj = new pa.PackageScopeClass(); // 오류 : public이 아닌 클래스는 패키지 외부에서 사용 불가능
 		
 	}
 
