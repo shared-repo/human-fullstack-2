@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>examplesweb home</title>
+</head>
+<body>
+
+<h1>Examples Web Home</h1>
+	
+	<h2>1. <a href="/examplesweb/hello">Hello Servlet ( GET 방식 요청, web.xml에 등록 )</a></h2>
+	<h2>2. <a href="/examplesweb/hello2">Hello Servlet 2 ( GET 방식 요청, annotation 등록 )</a></h2>
+	<h2>3. 폼 데이터 전송 ( GET/POST )</h2>
+	<form action="/examplesweb/process-data" method="post">
+	<!-- <form action="/examplesweb/process-data" method="get"> -->
+		Your Name : <input type="text" name="name"><br>
+		Your Email : <input type="text" name="email"><br>
+		<input type="submit" value="전송">
+	</form>
+	<h2>서블릿 연습 : 행운 번호 뽑기</h2>
+	<form action="/examplesweb/select-fortune-number" method="post">
+		범위시작 : <input type="text" name="start"><br>
+		범위종료 : <input type="text" name="stop"><br>
+		<input type="submit" value="전송">
+	</form>
+	<h2>4. <a href="/examplesweb/01.hello.jsp">Hello, JSP</a></h2>
+	<h2>5. <a href="/examplesweb/02.jsp-structure.jsp">JSP Structure</a></h2>
+	<h2>6. <a href="/examplesweb/03.jsp-object.jsp">JSP Object</a></h2>
+	<h2>7-1. <a href="/examplesweb/04.forward.jsp">Forward</a></h2>
+	<h2>7-2. <a href="/examplesweb/04.redirect.jsp">Redirect</a></h2>
+	
+	<h2>8. <a href="/examplesweb/05.game.jsp">가위 바위 보 게임 (Model 2 연습)</a></h2>
+	<h2>9. <a href="/examplesweb/calculate">계산기 ( Model 2 연습 )</a></h2>
+
+</body>
+</html>

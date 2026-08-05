@@ -1,0 +1,23 @@
+-- 1. 데이터베이스 만들기 (root 계정으로 실행)
+CREATE DATABASE demoweb
+	CHARACTER SET UTF8MB4
+	COLLATE UTF8MB4_UNICODE_CI;
+	
+-- 2. 권한 부여 (root 계정으로 실행)
+GRANT ALL PRIVILEGES ON demoweb.* TO human@localhost;
+GRANT ALL PRIVILEGES ON demoweb.* TO human@"%";
+
+-- 3. 작업 데이터베이스 변경 (human 계정으로 실행)
+USE demoweb;
+
+-- 4. 테이블 만들기 (human 계정으로 실행)
+DROP TABLE IF EXISTS tbl_member;
+CREATE TABLE tbl_member
+(
+   memberid VARCHAR(20) PRIMARY KEY,
+   passwd VARCHAR(200) NOT NULL,
+   email VARCHAR(50) NOT NULL UNIQUE,
+   usertype VARCHAR(10) DEFAULT ('user'), -- ( 'user' or 'admin' )
+   regdate DATETIME DEFAULT ( NOW() ),
+   active BOOLEAN DEFAULT (TRUE)
+);

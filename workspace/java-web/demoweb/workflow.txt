@@ -1,0 +1,26 @@
+[ 회원 가입 구현 ]
+
+1. 데이터베이스 만들기
+
+   - dbsetup.txt 참고
+
+2. DTO 만들기
+
+   - MemberDto 클래스 만들기
+   
+3. DAO 만들기
+
+   - MemberDao 클래스 만들기
+   
+4. Service 만들기
+
+   - MemberService 클래스 만들기
+   
+5. Servlet 구현
+
+   - 요청 데이터 읽기
+   - 데이터를 MemberDto 객체에 저장
+   - Service 클래스 호출
+   - home 또는 login 화면으로 이동
+   
+6. 가입 버튼에 대한 클릭 이벤트 처리기 구현
