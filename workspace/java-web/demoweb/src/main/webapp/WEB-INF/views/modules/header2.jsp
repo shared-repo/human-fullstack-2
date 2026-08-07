@@ -1,25 +1,24 @@
-<%@ page import="com.demoweb.dto.MemberDto" %>
-<%@ page language="java" 
-		 contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8" %>
-		 
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.demoweb.dto.MemberDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-		<div id="header" style='background-color:${ not empty param.bgcolor ? param.bgcolor : "" }'>
+		<% 
+		String bgColor = request.getParameter("bgcolor");
+		bgColor = (bgColor == null || bgColor.length() == 0) ? "" : bgColor;
+		%>
+
+		<div id="header" style="background-color:<%= bgColor %>">
 			<div class="title">
 				<a href="/demoweb/home">DEMO WEBSITE</a>
 			</div>
 			<div class="links">
-			<c:choose>
-				<c:when test="${ empty sessionScope.loginuser }">
-					<a href='/demoweb/account/login'>로그인</a>
-					<a href="/demoweb/account/register">회원가입</a>
-				</c:when>
-				<c:otherwise>
-					${ sessionScope.loginuser.memberId }님 환영합니다.
-					<a href="/demoweb/account/logout">로그아웃</a>
-				</c:otherwise>
-			</c:choose>				
+				<% MemberDto member = (MemberDto)session.getAttribute("loginuser"); %>
+				<% if (member == null) { %>
+				<a href='/demoweb/account/login'>로그인</a> <a
+					href="/demoweb/account/register">회원가입</a>
+				<% } else { %>
+				<%= member.getMemberId() %>님 환영합니다. <a href="/demoweb/account/logout">로그아웃</a>
+				<% } %>
 			</div>
 		</div>
 		

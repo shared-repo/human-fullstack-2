@@ -24,3 +24,9 @@
    - home 또는 login 화면으로 이동
    
 6. 가입 버튼에 대한 클릭 이벤트 처리기 구현
+
+7. MemberService에 registerMember 메서드 구현
+
+8. MemberDao에 insertMember 메서드 구현
+
+9. 실행 및 확인

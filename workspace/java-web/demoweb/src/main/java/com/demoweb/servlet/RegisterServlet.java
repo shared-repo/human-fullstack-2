@@ -39,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
 		member.setEmail(email);
 		
 		// 3. Service 클래스 호출
-		// memberService.registerMember(member);
+		memberService.registerMember(member);
 		
 		// 4. home 또는 login 화면으로 redirect 이동
 		resp.sendRedirect("/demoweb/account/login");

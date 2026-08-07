@@ -48,6 +48,17 @@
 		        </form>
 		        
 		    </div>
+		    
+		    <%
+			    Boolean loginFail = (Boolean)request.getAttribute("loginFail");
+			
+			    if (loginFail != null && loginFail) {
+			%>
+			    <div style="color:red;">
+			        <%= request.getAttribute("message") %>
+			    </div>
+			<% } %>
+		    
 		</div>  	
 	</div>
 	
