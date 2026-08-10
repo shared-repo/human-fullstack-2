@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/instructor-och/human-fullstack-2/workspace/legacy-spring-basic/03.spring-ioc-1/spring-context-7.0.8.jar"/>
+	<classpathentry kind="lib" path="D:/instructor-och/human-fullstack-2/workspace/legacy-spring-basic/03.spring-ioc-1/spring-core-7.0.8.jar"/>
+	<classpathentry kind="lib" path="D:/instructor-och/human-fullstack-2/workspace/legacy-spring-basic/03.spring-ioc-1/spring-beans-7.0.8.jar"/>
+	<classpathentry kind="lib" path="D:/instructor-och/human-fullstack-2/workspace/legacy-spring-basic/03.spring-ioc-1/commons-logging-1.4.0.jar"/>
+	<classpathentry kind="lib" path="D:/instructor-och/human-fullstack-2/workspace/legacy-spring-basic/03.spring-ioc-1/spring-expression-7.0.8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

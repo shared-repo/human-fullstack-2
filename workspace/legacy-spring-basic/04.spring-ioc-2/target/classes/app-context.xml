@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd">
+						
+	<context:annotation-config /> <!-- @Autowired와 같은 annotation이 동작하도록 하는 설정 -->
+
+	<!-- 아래 설정은 : MyServiceConsumer serviceConsumer = new MyServiceConsumer() -->
+	<bean id="serviceConsumer" class="com.example.spring.ioc.MyServiceConsumer">
+		<!-- 아래 설정은 : serviceConsumer.setMessageService(messageService) -->
+		<property name="messageService" ref="messageService"></property>
+		<property name="timeService" ref="timeService"></property>
+	</bean>
+	
+	<bean id="serviceConsumer2" class="com.example.spring.ioc.MyServiceConsumer2" scope="singleton">
+		<property name="messageService" ref="messageService"></property>
+		<property name="timeService" ref="timeService"></property>
+	</bean>
+	
+	<!-- 아래 설정은 : MyServiceConsumer3 serviceConsumer = new MyServiceConsumer3(messageService,timeService) -->
+	<bean id="serviceConsumer3" class="com.example.spring.ioc.MyServiceConsumer3" scope="prototype">
+		<constructor-arg ref="messageService"></constructor-arg>
+		<constructor-arg ref="timeService"></constructor-arg>
+	</bean>
+	
+	<!-- 아래 설정은 : MyServiceConsumer4 serviceConsumer = new MyServiceConsumer4() -->
+	<bean id="serviceConsumer4" class="com.example.spring.ioc.MyServiceConsumer4">
+	</bean>
+	
+	<bean 	id="messageService" 
+			class="com.example.spring.ioc.MyMessageService"
+			scope="prototype"
+			init-method="init"
+			destroy-method="destroy"></bean>
+	
+	<bean id="timeService" class="com.example.spring.ioc.MyTimeService"></bean>
+
+
+
+</beans>

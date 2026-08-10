@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd">
+						
+	<!-- @Autowired와 같은 annotation이 동작하도록 하는 설정, component-scan이 있으면 불필요 -->
+	<!-- <context:annotation-config /> --> 
+	
+	<!-- 지정된 패키지 내부의 클래스를 검색해서 annotation 적용 -->
+	<context:component-scan base-package="com.example.spring.ioc" /> 
+	
+</beans>
