@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"       
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- ================================================================
+         Spring Root ApplicationContext 설정
+         - 데이터소스, MyBatis, 트랜잭션, AOP, 서비스/리포지토리 빈과 같은 공통 빈을 관리
+         - ContextLoaderListener가 로드 (웹 계층 빈 제외)
+         ================================================================ -->
+
+    <!-- ======================== 컴포넌트 스캔 ======================== -->    
+    
+
+</beans>

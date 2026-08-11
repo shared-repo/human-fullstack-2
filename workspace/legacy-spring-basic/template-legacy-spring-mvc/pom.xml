@@ -52,6 +52,12 @@
             <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
+		
+		<dependency>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		    <version>3.0.2</version>
+		</dependency>
 
         <!-- JSTL 3.x (Jakarta EE): GlassFish 구현체 (core, fmt 태그 사용) -->
         <dependency>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ======================== 프로젝트 기본 정보 ======================== -->
+    <groupId>com.spring</groupId>
+    <artifactId>springdemoweb</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>springdemoweb</name>
+    <description></description>
+
+    <!-- ======================== 공통 버전 프로퍼티 ======================== -->
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- 스프링 프레임워크 버전 -->
+        <spring.version>7.0.8</spring.version>
+        <!-- 서블릿 / JSP / JSTL (Jakarta EE 10 기준) -->
+        <servlet-api.version>6.1.0</servlet-api.version>
+        <jstl.version>3.0.1</jstl.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <logback.version>1.4.14</logback.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- ======================== Spring Framework ======================== -->
+
+        <!-- Spring MVC: DispatcherServlet, @Controller, ViewResolver 등 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- ======================== 서블릿 / JSP / JSTL ======================== -->
+
+        <!-- Jakarta Servlet API: Tomcat 10.x 이상 (provided: WAS가 제공) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+		    <groupId>jakarta.servlet.jsp.jstl</groupId>
+		    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		    <version>3.0.2</version>
+		</dependency>
+
+        <!-- JSTL 3.x (Jakarta EE): GlassFish 구현체 (core, fmt 태그 사용) -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
+        <!-- ======================== 로깅 ======================== -->
+
+        <!-- SLF4J API: 로깅 추상화 인터페이스 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- Logback: SLF4J 구현체 (실제 로그 출력 담당) -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        
+        <!-- lombok -->
+        <dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.46</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- jdbc driver -->
+		<dependency>
+		    <groupId>org.mariadb.jdbc</groupId>
+		    <artifactId>mariadb-java-client</artifactId>
+		    <version>3.5.10</version>
+		    <scope>compile</scope>
+		</dependency>
+
+    </dependencies>
+
+    <!-- ======================== 빌드 플러그인 ======================== -->
+    <build>
+        <finalName>springdemoweb</finalName>
+
+        <plugins>
+
+            <!-- Java 21 컴파일러 설정 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                    <!-- Java 21 레코드, 패턴 매칭 등 미리보기 기능 활성화 시 사용 -->
+                    <!-- <compilerArgs><arg>enable-preview</arg></compilerArgs> -->
+                </configuration>
+            </plugin>
+
+            <!-- WAR 패키징: web.xml 없이도 빌드 허용 (Jakarta EE 6.0 기준) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <!-- web.xml이 없어도 빌드 오류를 발생시키지 않음 -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>springdemoweb</warName>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

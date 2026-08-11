@@ -28,8 +28,9 @@
 	<h3>6-1. <a href="static/hello.html">static resource not in resources</a></h3>
 	<h3>6-2. <a href="resources/hello.html">static resource in resources</a></h3>
 	<h3>7. <a href="passing-view">Passing View</a></h3>
-	<h3>8. <a href="demo/custom-view">Custom View</a></h3>
-	<h3>9. <a href="#" id="ajax-link">Ajax Request</a></h3>
+	<h3>8. <a href="demo/pathvar/10">Path Variable</a></h3>
+	<h3>9. <a href="demo/custom-view">Custom View</a></h3>
+	<h3>10. <a href="#" id="ajax-link">Ajax Request</a></h3>
 
 </body>
 </html>
