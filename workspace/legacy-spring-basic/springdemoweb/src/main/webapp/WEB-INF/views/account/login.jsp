@@ -1,6 +1,8 @@
 ﻿<%@ page language="java" 
 		 contentType="text/html; charset=utf-8" 
 		 pageEncoding="utf-8"%>
+		 
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>		 
 
 <!DOCTYPE html>
 
@@ -29,7 +31,8 @@
 		            <tr>
 		                <th>아이디(ID)</th>
 		                <td>
-		                    <input type="text" name="memberId" style="width:280px" />
+		                    <input 	type="text" name="memberId" style="width:280px" 
+		                    		value='${ not empty memberId ? memberId : "" }' />
 		                </td>
 		            </tr>
 		            <tr>
@@ -49,15 +52,11 @@
 		        
 		    </div>
 		    
-		    <%
-			    Boolean loginFail = (Boolean)request.getAttribute("loginFail");
-			
-			    if (loginFail != null && loginFail) {
-			%>
-			    <div style="color:red;">
-			        <%= request.getAttribute("message") %>
-			    </div>
-			<% } %>
+		    <c:if test="${ not empty memberId }">
+	    	<div style="color:red;">
+		        로그인 실패. 아이디와 패스워드를 확인하세요
+		    </div>
+		    </c:if>
 		    
 		</div>  	
 	</div>
