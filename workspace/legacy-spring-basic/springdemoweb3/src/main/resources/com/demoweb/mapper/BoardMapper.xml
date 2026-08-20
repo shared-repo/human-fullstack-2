@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demoweb.mapper.BoardMapper">
+
+	<insert id="insertBoard" 
+			parameterType="BoardDto"
+			useGeneratedKeys="true" keyProperty="boardNo">
+		insert into board (title, writer, content) 
+		values (#{title}, #{writer}, #{content})
+	</insert>
+	
+	<select id="selectAllBoard" resultType="BoardDto">
+		SELECT boardno, title, writer, writedate, modifydate, readcount, deleted 
+		FROM board 
+		ORDER BY boardno desc
+	</select>
+	<resultMap id="boardListMap" type="BoardDto">
+	    <id     property="boardNo"      column="boardno"/>
+	    <result property="title"   column="title"/>
+	    <result property="writer"  column="writer"/>
+	    <result property="writeDate"  column="writedate"/>
+	    <result property="modifyDate"  column="modifydate"/>
+	    <result property="readCount"  column="readcount"/>
+	    <result property="deleted"  column="deleted"/>
+	</resultMap>
+	<select id="selectAllBoardWithResultMap" resultMap="boardListMap">
+		SELECT boardno, title, writer, writedate, modifydate, readcount, deleted 
+		FROM board 
+		ORDER BY boardno desc
+	</select>
+	
+	<select id="selectBoardByBoardNo" parameterType="int" resultType="BoardDto">
+		SELECT boardno, title, writer, content, writedate, modifydate, readcount
+		FROM board 
+		WHERE boardNo = #{boardNo} AND deleted = FALSE 
+	</select>	
+	
+	<resultMap id="boardWithAttachMap" type="BoardDto">
+	    <id     property="boardNo"      column="boardno"/>
+	    <result property="title"   column="title"/>
+	    <result property="writer"  column="writer"/>
+	    <result property="writeDate"  column="writedate"/>
+	    <result property="modifyDate"  column="modifydate"/>
+	    <result property="readCount"  column="readcount"/>
+	    <result property="deleted"  column="deleted"/>
+	
+	    <!-- collection: 1:N 관계. attaches 필드에 Attach 객체 목록을 채운다 -->
+	    <collection property="boardAttachList" ofType="BoardAttachDto">
+	        <id     property="attachNo"      column="attachno"/>
+	        <result property="userFileName"  column="userfilename"/>
+	        <result property="savedFileName"     column="savedfilename"/>
+	        <result property="downloadCount"     column="downloadcount"/>
+	    </collection>
+	</resultMap>
+
+	<select id="selectBoardByBoardNoWithResultMap" parameterType="int" resultMap="boardWithAttachMap">
+		SELECT 	b.boardno, b.title, b.writer, b.content, b.writedate, b.modifydate, b.readcount,
+				a.attachno, a.userfilename, a.savedfilename, a.downloadcount
+		FROM board b
+		LEFT OUTER JOIN boardattach a
+		ON b.boardno = a.boardno
+		WHERE b.boardNo = #{boardNo} AND b.deleted = FALSE 
+	</select>
+	
+	<resultMap id="boardWithAttachMap2" type="BoardDto">
+	    <id     property="boardNo"      column="boardno"/>
+	    <result property="title"   column="title"/>
+	    <result property="writer"  column="writer"/>
+	    <result property="writeDate"  column="writedate"/>
+	    <result property="modifyDate"  column="modifydate"/>
+	    <result property="readCount"  column="readcount"/>
+	    <result property="deleted"  column="deleted"/>
+	
+	    <!-- collection: 1:N 관계. attaches 필드에 Attach 객체 목록을 채운다 -->
+	    <collection property="boardAttachList" ofType="BoardAttachDto" 
+	    			resultMap="boardAttachMap" column="attachno">
+	    </collection>
+	</resultMap>
+
+	<select id="selectBoardByBoardNoWithResultMap2" parameterType="int" resultMap="boardWithAttachMap2">
+		SELECT 	b.boardno, b.title, b.writer, b.content, b.writedate, b.modifydate, b.readcount,
+				a.attachno, a.userfilename, a.savedfilename, a.downloadcount
+		FROM board b
+		LEFT OUTER JOIN boardattach a
+		ON b.boardno = a.boardno
+		WHERE b.boardNo = #{boardNo} AND b.deleted = FALSE 
+	</select>
+	
+
+	<resultMap id="boardWithAttachSelect" type="BoardDto">
+	    <id     property="boardNo"      column="boardno"/>
+	    <result property="title"   column="title"/>
+	    <result property="writer"  column="writer"/>
+	    <result property="writeDate"  column="writedate"/>
+	    <result property="modifyDate"  column="modifydate"/>
+	    <result property="readCount"  column="readcount"/>
+	    <result property="deleted"  column="deleted"/>
+	
+	    <!-- collection: 1:N 관계. attaches 필드에 Attach 객체 목록을 채운다 -->
+	    <collection property="boardAttachList" ofType="BoardAttachDto" 
+	    			select="selectBoardAttachByBoardNo" column="boardno" />
+	</resultMap>
+
+	<select id="selectBoardByBoardNoWithResultMap3" parameterType="int" resultMap="boardWithAttachSelect">
+		SELECT 	b.boardno, b.title, b.writer, b.content, b.writedate, b.modifydate, b.readcount
+		FROM board b
+		WHERE b.boardNo = #{boardNo} AND b.deleted = FALSE 
+	</select>	
+	
+	
+	<insert id="insertBoardAttach" parameterType="BoardAttachDto">
+		INSERT INTO boardattach (boardno, userfilename, savedfilename)
+		VALUES (#{boardNo}, #{userFileName}, #{savedFileName})
+	</insert>
+	
+	<resultMap id="boardAttachMap" type="BoardAttachDto">
+		<id     property="attachNo"      column="attachno"/>
+		<result property="boardNo"  column="boardno"/>
+        <result property="userFileName"  column="userfilename"/>
+        <result property="savedFileName"     column="savedfilename"/>
+        <result property="downloadCount"     column="downloadcount"/>
+	</resultMap>	
+	<select id="selectBoardAttachByBoardNo"
+			parameterType="int"
+			resultMap="boardAttachMap">
+		select attachno, boardno, userfilename, savedfilename, downloadcount
+		from boardattach 
+		where boardno = #{boardNo}
+	</select>
+	
+	<select id="selectBoardAttachByAttachNo"
+			parameterType="int"
+			resultType="BoardAttachDto">
+		select attachno, boardno, userfilename, savedfilename, downloadcount
+		from boardattach 
+		where attachno = #{attachNo}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+

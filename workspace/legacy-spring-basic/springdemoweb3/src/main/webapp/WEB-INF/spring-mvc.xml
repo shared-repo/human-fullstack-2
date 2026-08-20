@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/mvc
+               http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- annotation이 설정된 클래스를 검색해서 적용할 때 검색할 패키지 지정 -->    
+    <context:component-scan base-package="com.demoweb.controller" />
+
+
+    <!-- ======================== MVC 어노테이션 활성화 ======================== -->
+    <!-- @RequestMapping, @GetMapping, @PostMapping, @ResponseBody,
+         @PathVariable, @RequestParam, @ModelAttribute 등 MVC 어노테이션 지원
+         HandlerMapping + HandlerAdapter + MessageConverter 자동 등록 -->
+    <mvc:annotation-driven />
+
+
+    <!-- ======================== 정적 리소스 처리 ======================== -->
+    <!-- /resources/** 로 들어오는 요청을 webapp/resources/ 폴더에서 직접 제공
+         CSS, JavaScript, 이미지 파일 등 정적 자원은 DispatcherServlet을 거치지 않음
+         예: /resources/css/style.css → webapp/resources/css/style.css -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+
+    <!-- ======================== View Resolver ======================== -->
+    <!-- 컨트롤러가 반환하는 뷰 이름을 실제 JSP 파일 경로로 변환
+         예: return "board/list" → /WEB-INF/views/board/list.jsp -->
+    <!-- InternalResourceViewResolver : View 클래스로 JstlView를 사용 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- JSP 파일 저장 경로 접두사 -->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!-- JSP 파일 확장자 접미사 -->
+        <property name="suffix" value=".jsp"/>
+        <!-- 뷰 우선순위 (여러 ViewResolver 사용 시 낮을수록 먼저 적용) -->
+        <property name="order" value="1"/>
+    </bean>
+    
+    <!-- file upload library를 사용하는 spring 모듈 설정 -->
+	<!-- 라이브러리에 따라 모듈이 달라지는데 여기서는 서블릿 컨테이너에 내장된 라이브러리 사용 -->
+	<bean id="multipartResolver" 
+		  class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
+
+</beans>

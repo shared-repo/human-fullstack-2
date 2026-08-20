@@ -28,23 +28,28 @@
 		        <table>
 		            <tr>
 		                <th>제목</th>
-		                <td></td>
+		                <td>${ board.title }</td>
 		            </tr>
 		            <tr>
 		                <th>작성자</th>
-		                <td></td>
+		                <td>${ board.writer }</td>
 		            </tr>
 		            <tr>
 		            	<th>조회수</th>
-		            	<td></td>
+		            	<td>${ board.readCount }</td>
 		            </tr>
 		            <tr>
 		            	<th>작성일자</th>
-		            	<td></td>
+		            	<td>
+		            		<fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd" />
+		            	</td>
 		            </tr>
 		            <tr>
 		            	<th>수정일자</th>
-		            	<td></td>
+		            	<td>
+		            		<fmt:formatDate value="${ board.modifyDate }" pattern="yyyy-MM-dd" />
+		            		        
+		            	</td>
 		            </tr>
 		            <tr>
 		                <th>첨부파일</th>
@@ -54,6 +59,9 @@
 		            <tr>
 		                <th>글내용</th>
 						<td>
+<c:set var="enter" value="
+" />
+						${ fn:replace(board.content, enter, "<br>") }
 						</td>
 		            </tr>
 		        </table>
@@ -70,10 +78,13 @@
 	</div>
 	</div>
 	
-	<script src="http://code.jquery.com/jquery-3.7.1.js"></script>
 	<script>
-	
+	document.addEventListener('DOMContentLoaded', function(event) {
+		const toListBtn = document.querySelector('#tolist_button')
+		toListBtn.addEventListener('click', function(event) {
+			location.href = 'list';
+		});
+	});
 	</script>
-	
 </body>
 </html>

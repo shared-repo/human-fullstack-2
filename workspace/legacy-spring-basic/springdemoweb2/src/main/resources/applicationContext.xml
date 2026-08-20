@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"       
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- ================================================================
+         Spring Root ApplicationContext 설정
+         - 데이터소스, MyBatis, 트랜잭션, AOP, 서비스/리포지토리 빈과 같은 공통 빈을 관리
+         - ContextLoaderListener가 로드 (웹 계층 빈 제외)
+         ================================================================ -->
+
+    <!-- ======================== 컴포넌트 스캔 ======================== -->    
+    <context:component-scan base-package="com.demoweb.service" />
+    <context:component-scan base-package="com.demoweb.dao" />
+    
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+	    <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+	    <property name="jdbcUrl"         value="jdbc:mariadb://localhost:3306/demoweb"/>
+	    <property name="username"        value="human"/>
+	    <property name="password"        value="human"/>
+	    <property name="maximumPoolSize" value="10"/>
+	    <property name="minimumIdle"     value="5"/>
+	    <property name="connectionTimeout" value="30000"/>
+	</bean>
+	
+	<!-- class가 SqlSessionFactoryBean이지만 생성된는 객체는 SqlSessionFactory 객체 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>	
+	    <!-- MyBatis 전역 설정 파일 위치 -->
+	    <property name="configLocation" value="classpath:mybatis-config.xml"/>	
+	    <!-- Mapper XML 파일 위치 (** 는 하위 디렉터리 포함) -->
+	    <property name="mapperLocations" value="classpath:com/demoweb/mapper/**/*.xml"/>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

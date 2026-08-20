@@ -85,6 +85,38 @@ public class BoardDaoImpl implements BoardDao {
 	   return boards;
 	}
 
+
+	@Override
+	public BoardDto selectBoardByBoardNo(int boardNo) {
+		String sql =  "SELECT boardno, title, writer, content, writedate, modifydate, readcount "
+				+ "FROM board "
+				+ "WHERE boardNo = ? AND deleted = FALSE ";
+		BoardDto board = null;	
+		try {
+			DriverManager.registerDriver(new Driver());	
+			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setInt(1, boardNo);
+				try (ResultSet rs = pstmt.executeQuery()) {	
+					if (rs.next()) {
+	                   board = new BoardDto();	
+	                   board.setBoardNo(rs.getInt("boardno"));
+	                   board.setTitle(rs.getString("title"));
+	                   board.setWriter(rs.getString("writer"));
+	                   board.setContent(rs.getString("content"));
+	                   board.setWriteDate(rs.getTimestamp("writedate"));
+	                   board.setModifyDate(rs.getTimestamp("modifydate"));
+	                   board.setReadCount(rs.getInt("readcount"));
+	               }	
+	           }	
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	       }	
+	   } catch (Exception ex) {
+	   }	
+	   return board;
+	}
+
 }
 
 

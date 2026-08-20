@@ -1,0 +1,107 @@
+1. 데이터베이스 준비
+
+USE demoweb;
+
+RENAME TABLE tbl_member TO MEMBER;
+
+SHOW TABLES;
+
+-- ---------------------------------
+
+CREATE TABLE board
+(
+    boardno INT PRIMARY KEY AUTO_INCREMENT
+    , title VARCHAR(100) NOT NULL
+    , writer VARCHAR (20) NOT NULL
+    , content VARCHAR (4000) NOT NULL
+    , writedate DATE DEFAULT (NOW())
+    , modifydate DATE DEFAULT (NOW())
+    , readcount INT DEFAULT (0)
+    , deleted BOOLEAN DEFAULT (FALSE)
+
+    , CONSTRAINT fk_board_to_member FOREIGN KEY (writer) REFERENCES member (memberid)
+);
+
+CREATE TABLE boardattach
+(
+    attachno INT PRIMARY KEY AUTO_INCREMENT
+    , boardno INT NOT NULL
+    , userfilename VARCHAR (100) NOT NULL
+    , savedfilename VARCHAR (100) NOT NULL
+    , downloadcount INT DEFAULT (0)
+
+    , CONSTRAINT fk_boardattach_to_board FOREIGN KEY (boardno) REFERENCES board (boardno)
+);
+
+CREATE TABLE boardcomment
+(
+    commentno INT PRIMARY KEY AUTO_INCREMENT
+    , boardno INT NOT NULL
+    , writer VARCHAR (20) NOT NULL
+    , content VARCHAR (1000) NOT NULL
+    , writedate DATE DEFAULT (NOW())
+    , modifydate DATE DEFAULT (NOW())
+    , deleted BOOLEAN DEFAULT (FALSE)
+
+    , groupno INT NOT NULL
+    , step INT NOT NULL
+    , depth INT NOT NULL
+
+    , CONSTRAINT fk_boardcomment_to_board FOREIGN KEY (boardno) REFERENCES board (boardno)
+    , CONSTRAINT fk_boardcomment_to_member FOREIGN KEY (writer) REFERENCES member (memberid)
+);
+
+
+2. header.jsp의 링크 수정
+
+<li><a href="/springdemoweb/board/list">게시판</a></li>
+
+3. .../list 링크에 대한 컨트롤러 구현
+
+BoardController 클래스 생성
+list() 요청 처리 메서드 구현
+
+4. list.jsp 생성
+
+/WEB-INF/views/board 폴더 생성
+list.jsp 구현
+
+5. list.jsp 안에 있는 write 경로에 대한 요청 처리 메서드 만들기
+
+BoardController.writeForm 메서드 구현
+
+6. write.jsp 생성
+
+/WEB-INF/views/board/write.jsp 구현
+
+7. BoardDao 관련 클래스, 인터페이스 생성
+
+...dao 패키지에 BoardDao 인터페이스와 BoardDaoImpl 클래스 만들기
+
+8. BoardDaoImpl 클래스에 insertBoard 메서드 구현
+
+인터페이스에 insertBoard 선언
+구현클래스에 insertBoard 구현
+
+9. ...service 패키지에 BoardSerivce 인터페이스와 BoardServiceImpl 클래스 만들기
+
+10. BoardServiceImpl 클래스에 writeBoard 메서드 구현
+
+인터페이스에 writeBoard 선언
+구현클래스에 writeBoard 구현
+
+11. BoardServiceImpl과 BoardDaoImpl을 IoC 컨테이너에 등록
+
+12. 의존 주입
+
+BoardServiceImpl 클래스에 BoardDao를 의존 주입
+BoardController 클래스에 BoardService를 의존 주입
+
+13. 로그인한 사용자만 글쓰기 허용
+
+BoardController에서 로그인 여부 확인하고 로그인하지 않은 경우 로그인 화면으로 이동
+
+
+
+
+
