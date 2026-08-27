@@ -1,0 +1,32 @@
+<!-- src/main/resources/templates/layout/default.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' | 이미지 게시판'">이미지 게시판</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- 네비게이션 프래그먼트 -->
+<nav th:fragment="nav">
+    <div class="container">
+        <a class="brand" th:href="@{/}">📋 이미지 게시판</a>
+        <div>
+            <a th:href="@{/boards}">게시글 목록</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/members/login}">로그인</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 푸터 프래그먼트 -->
+<footer th:fragment="footer">
+    <div class="container" style="text-align:center; padding: 30px 0; color: #aaa; font-size: 0.85rem;">
+        © 2026 이미지 게시판
+    </div>
+</footer>
+
+</body>
+</html>

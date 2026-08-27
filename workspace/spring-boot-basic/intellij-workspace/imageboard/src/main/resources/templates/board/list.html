@@ -1,0 +1,105 @@
+<!-- templates/board/list.html — 검색·페이징 추가 -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/default :: head('게시글 목록')}"></head>
+
+<body>
+
+<nav th:replace="~{layout/default :: nav}"></nav>
+
+<div class="container">
+    <div class="page-header">
+        <h2>게시글 목록</h2>
+        <a class="btn btn-primary" th:href="@{/boards/create}">글쓰기</a>
+    </div>
+
+    <!-- 검색 폼 -->
+    <form th:action="@{/boards}" method="get" style="margin-bottom:16px; display:flex; gap:8px;">
+        <input class="form-control" type="text" name="keyword"
+               th:value="${keyword}" placeholder="제목 또는 내용 검색"
+               style="max-width:300px;">
+        <button class="btn btn-secondary" type="submit">검색</button>
+        <a class="btn btn-secondary" th:href="@{/boards}"
+           th:if="${keyword != null and !keyword.isEmpty()}">초기화</a>
+    </form>
+
+    <!-- 검색 결과 건수 -->
+    <div th:if="${keyword != null and !keyword.isEmpty()}"
+         style="margin-bottom:8px; color:#6c757d; font-size:0.9rem;">
+        '<span th:text="${keyword}"></span>' 검색 결과:
+        <strong th:text="${boardPage.totalElements}">0</strong>건
+    </div>
+
+    <!-- 게시글 없음 -->
+    <div th:if="${boardPage.isEmpty()}"
+         style="text-align:center; padding:60px 0; color:#aaa;">
+        게시글이 없습니다.
+    </div>
+
+    <!-- 게시글 목록 테이블 -->
+    <table class="board-table" th:unless="${boardPage.isEmpty()}">
+        <thead>
+        <tr>
+            <th style="width:60px">번호</th>
+            <th>제목</th>
+            <th style="width:100px">작성자</th>
+            <th style="width:80px">조회수</th>
+            <th style="width:140px">작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board, stat : ${boardPage.content}">
+            <!-- 전체 번호 = 전체 건수 - (현재 페이지 * 페이지 크기) - 현재 인덱스 -->
+            <td th:text="${boardPage.totalElements
+                               - (boardPage.number * boardPage.size)
+                               - stat.index}">1</td>
+            <td>
+                <a th:href="@{/boards/{id}(id=${board.id})}"
+                   th:text="${board.title}">게시글 제목</a>
+                <span th:if="${board.thumbnailUrl != null}"
+                      style="color:#0d6efd; font-size:0.8rem; margin-left:4px;">🖼</span>
+            </td>
+            <td th:text="${board.author}">작성자</td>
+            <td th:text="${board.viewCount}">0</td>
+            <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd')}">2026-01-01</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이지 네비게이션 -->
+    <div th:if="${boardPage.totalPages > 1}"
+         style="display:flex; justify-content:center; gap:4px; margin-top:20px;">
+
+        <!-- 이전 페이지 -->
+        <a class="btn btn-secondary"
+           th:if="${boardPage.hasPrevious()}"
+           th:href="@{/boards(page=${boardPage.number - 1}, keyword=${keyword})}">
+            &laquo;
+        </a>
+
+        <!-- 페이지 번호 (최대 10개 표시) -->
+        <th:block th:with="
+            startPage=${T(java.lang.Math).max(0, boardPage.number - 4)},
+            endPage=${T(java.lang.Math).min(boardPage.totalPages - 1, boardPage.number + 5)}">
+            <a th:each="i : ${#numbers.sequence(startPage, endPage)}"
+               th:href="@{/boards(page=${i}, keyword=${keyword})}"
+               th:text="${i + 1}"
+               th:class="${i == boardPage.number} ? 'btn btn-primary' : 'btn btn-secondary'">
+                1
+            </a>
+        </th:block>
+
+        <!-- 다음 페이지 -->
+        <a class="btn btn-secondary"
+           th:if="${boardPage.hasNext()}"
+           th:href="@{/boards(page=${boardPage.number + 1}, keyword=${keyword})}">
+            &raquo;
+        </a>
+    </div>
+</div>
+
+<footer th:replace="~{layout/default :: footer}"></footer>
+
+</body>
+</html>

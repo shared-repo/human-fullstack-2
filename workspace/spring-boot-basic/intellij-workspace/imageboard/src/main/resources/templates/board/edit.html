@@ -1,0 +1,50 @@
+<!-- src/main/resources/templates/board/create.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/default :: head('게시글 작성')}"></head>
+
+<body>
+
+<nav th:replace="~{layout/default :: nav}"></nav>
+
+<div class="container">
+    <div class="board-detail">
+        <h2>게시글 수정</h2>
+
+        <form th:action="@{/boards/{id}(id=${boardId})}" th:object="${boardUpdateRequest}" method="post">
+
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input class="form-control" type="text" id="title"
+                       th:field="*{title}" placeholder="제목을 입력하세요">
+                <!-- 검증 오류 메시지 -->
+                <p class="error-message"
+                   th:if="${#fields.hasErrors('title')}"
+                   th:errors="*{title}">제목 오류</p>
+            </div>
+
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea class="form-control" id="content"
+                          th:field="*{content}" rows="10"
+                          placeholder="내용을 입력하세요"></textarea>
+                <p class="error-message"
+                   th:if="${#fields.hasErrors('content')}"
+                   th:errors="*{content}">내용 오류</p>
+            </div>
+
+            <div style="display:flex; gap:8px; justify-content:flex-end;">
+                <a class="btn btn-secondary" th:href="@{/boards}">취소</a>
+                <input type="hidden" name="_method" value="PUT">
+                <button class="btn btn-primary" type="submit">저장</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{layout/default :: footer}"></footer>
+
+</body>
+</html>

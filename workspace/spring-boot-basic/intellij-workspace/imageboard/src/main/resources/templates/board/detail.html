@@ -1,0 +1,84 @@
+<!-- src/main/resources/templates/board/detail.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/default :: head('게시글 상세')}"></head>
+
+<body>
+
+<nav th:replace="~{layout/default :: nav}"></nav>
+
+<div class="container">
+    <div class="board-detail">
+
+        <h2 th:text="${board.title}">게시글 제목</h2>
+
+        <div class="board-meta">
+            <span>작성자: <strong th:text="${board.author}">작성자</strong></span>
+            &nbsp;|&nbsp;
+            <span>조회수: <strong th:text="${board.viewCount}">0</strong></span>
+            &nbsp;|&nbsp;
+            <span>작성일:
+                <strong th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm')}">
+                    2026-01-01 00:00
+                </strong>
+            </span>
+        </div>
+
+        <!-- 대표 이미지 -->
+        <div th:if="${board.thumbnailUrl != null}" style="margin-bottom: 20px;">
+            <img th:src="${board.thumbnailUrl}"
+                 alt="대표 이미지"
+                 style="max-width:100%; border-radius:8px;">
+        </div>
+
+        <!-- 본문 -->
+        <div class="board-content" th:text="${board.content}">
+            게시글 내용
+        </div>
+
+        <!-- templates/board/detail.html — 이미지 갤러리 추가 -->
+
+        <!-- 첨부 이미지 갤러리 -->
+        <div th:if="${not #lists.isEmpty(board.images)}" style="margin: 20px 0;">
+            <h4 style="margin-bottom: 10px;">첨부 이미지 (<span th:text="${#lists.size(board.images)}">0</span>개)</h4>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <div th:each="image : ${board.images}" style="position:relative;">
+                    <!-- 썸네일 클릭 시 원본 이미지 표시 -->
+                    <a th:href="@{'/images/' + ${image.storedName}}" target="_blank">
+                        <img th:src="@{'/thumbnails/' + ${image.storedName}}"
+                             th:alt="${image.originalName}"
+                             style="width:150px; height:150px; object-fit:cover;
+                            border-radius:6px; border:1px solid #dee2e6;
+                            cursor:pointer; transition:opacity .2s;"
+                             onmouseover="this.style.opacity=0.8"
+                             onmouseout="this.style.opacity=1">
+                    </a>
+                    <!-- 파일명 표시 -->
+                    <div th:text="${image.originalName}"
+                         style="font-size:0.75rem; color:#6c757d; margin-top:4px;
+                        max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- 하단 버튼 -->
+    <div style="margin-top: 16px; display:flex; gap:8px;">
+        <a class="btn btn-secondary" th:href="@{/boards}">목록</a>
+        <a class="btn btn-primary" th:href="@{/boards/{id}/edit(id=${board.id})}">수정</a>
+        <form th:action="@{/boards/{id}(id=${board.id})}" method="post"
+              onsubmit="return confirm('삭제하시겠습니까?')">
+            <input type="hidden" name="_method" value="DELETE"> <!-- spring controller에게 delete 요청임을 알려주는 입력 요소 -->
+            <button class="btn btn-danger" type="submit">삭제</button>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{layout/default :: footer}"></footer>
+
+</body>
+</html>
