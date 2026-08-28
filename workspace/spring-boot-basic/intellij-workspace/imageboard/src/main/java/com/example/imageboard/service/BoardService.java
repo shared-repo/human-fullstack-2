@@ -56,10 +56,9 @@ public class BoardService {
     }
 
     /** 게시글 등록 */
-    public Long create(BoardCreateRequest request) {
-        // 임시: 첫 번째 회원을 작성자로 설정 (6장 Spring Security 연동 후 변경)
-        Member member = memberRepository.findById(1L)
-                .orElseThrow(() -> new IllegalStateException("회원이 없습니다."));
+    public Long create(BoardCreateRequest request, Long memberId) {  // memberId 파라미터 추가
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
         Board board = Board.create(request.getTitle(), request.getContent(), member);
 
@@ -156,6 +155,7 @@ public class BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .author(board.getMember().getNickname())
+                .memberId(board.getMember().getId())
                 .viewCount(board.getViewCount())
                 .thumbnailUrl(board.getThumbnailUrl())
                 .images(images)

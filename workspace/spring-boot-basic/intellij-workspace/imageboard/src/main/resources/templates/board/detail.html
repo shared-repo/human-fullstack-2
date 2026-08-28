@@ -1,6 +1,7 @@
 <!-- src/main/resources/templates/board/detail.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{layout/default :: head('게시글 상세')}"></head>
 
@@ -69,13 +70,22 @@
     <!-- 하단 버튼 -->
     <div style="margin-top: 16px; display:flex; gap:8px;">
         <a class="btn btn-secondary" th:href="@{/boards}">목록</a>
-        <a class="btn btn-primary" th:href="@{/boards/{id}/edit(id=${board.id})}">수정</a>
-        <form th:action="@{/boards/{id}(id=${board.id})}" method="post"
-              onsubmit="return confirm('삭제하시겠습니까?')">
-            <input type="hidden" name="_method" value="DELETE"> <!-- spring controller에게 delete 요청임을 알려주는 입력 요소 -->
-            <button class="btn btn-danger" type="submit">삭제</button>
-        </form>
+
+        <!-- 로그인 사용자 = 작성자일 때만 표시 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <th:block th:if="${#authentication.principal.memberId == board.memberId}">
+                <a class="btn btn-primary"
+                   th:href="@{/boards/{id}/edit(id=${board.id})}">수정</a>
+                <form th:action="@{/boards/{id}(id=${board.id})}" method="post"
+                      onsubmit="return confirm('삭제하시겠습니까?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button class="btn btn-danger" type="submit">삭제</button>
+                </form>
+            </th:block>
+        </th:block>
     </div>
+
 </div>
 
 <footer th:replace="~{layout/default :: footer}"></footer>

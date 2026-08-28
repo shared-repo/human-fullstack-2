@@ -1,6 +1,8 @@
 <!-- src/main/resources/templates/layout/default.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +18,30 @@
         <div>
             <a th:href="@{/boards}">게시글 목록</a>
             &nbsp;|&nbsp;
-            <a th:href="@{/members/login}">로그인</a>
+
+            <!-- 로그인 상태일 때 -->
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authentication="principal.nickname"
+                      style="color:#adb5bd; font-size:0.9rem;"></span>님
+                &nbsp;|&nbsp;
+                <a th:href="@{/boards/create}">글쓰기</a>
+                &nbsp;|&nbsp;
+                <form th:action="@{/members/logout}" method="post"
+                      style="display:inline;">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button type="submit"
+                            style="background:none; border:none; color:#fff; cursor:pointer;">
+                        로그아웃
+                    </button>
+                </form>
+            </span>
+
+            <!-- 비로그인 상태일 때 -->
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/members/login}">로그인</a>
+                &nbsp;|&nbsp;
+                <a th:href="@{/members/register}">회원가입</a>
+            </span>
         </div>
     </div>
 </nav>

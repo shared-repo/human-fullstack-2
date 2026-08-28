@@ -15,6 +15,7 @@ public class BoardResponse {
     private Long id;
     private String title;
     private String content;
+    private Long memberId;
     private String author;
     private int viewCount;
     private String thumbnailUrl;
