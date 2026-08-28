@@ -126,6 +126,21 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    public void deleteImage(Long boardId, Long imageId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+
+        AttachedImage image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new IllegalArgumentException("이미지를 찾을 수 없습니다."));
+
+        // Board에서 이미지 제거 (orphanRemoval로 DB 레코드 자동 삭제)
+        board.getImages().remove(image);
+        boardRepository.save(board);
+
+        // 실제 파일 삭제
+        fileService.delete(image.getStoredName());
+    }
+
     /** Entity → DTO 변환 */
     private BoardResponse toResponse(Board board) {
         List<BoardResponse.ImageResponse> images = board.getImages().stream()

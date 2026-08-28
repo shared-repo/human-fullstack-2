@@ -1,20 +1,4 @@
-<!-- src/main/resources/templates/board/create.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{layout/default :: head('게시글 작성')}"></head>
-
-<body>
-
-<nav th:replace="~{layout/default :: nav}"></nav>
-
-<div th:replace="~{layout/default :: flashMessage}"></div>
-
-<div class="container">
-    <div class="board-detail">
-        <h2>게시글 수정</h2>
-
-        <form th:action="@{/boards/{id}(id=${board.id})}"
+<form th:action="@{/boards/{id}(id=${board.id})}"
               th:object="${boardUpdateRequest}"
               method="post"
               enctype="multipart/form-data">
@@ -79,48 +63,3 @@
             </div>
 
         </form>
-
-
-    </div>
-</div>
-
-<footer th:replace="~{layout/default :: footer}"></footer>
-
-</body>
-
-<script>
-    /* ① 새 이미지 미리보기 */
-    document.querySelector('input[type="file"]').addEventListener('change', function (e) {
-        const preview = document.getElementById('preview-area');
-        preview.innerHTML = '';
-
-        const files = Array.from(e.target.files).slice(0, 5);
-        files.forEach(file => {
-            if (!file.type.startsWith('image/')) return;
-
-            const reader = new FileReader();
-            reader.onload = ev => {
-                const img = document.createElement('img');
-                img.src = ev.target.result;
-                img.style.cssText = 'width:100px; height:100px; object-fit:cover; ' +
-                    'border-radius:4px; border:1px solid #dee2e6;';
-                preview.appendChild(img);
-            };
-            reader.readAsDataURL(file);
-        });
-    });
-
-    /* ② 이미지 개별 삭제 — fetch로 DELETE 요청 */
-    function deleteImage(boardId, imageId) {
-        if (!confirm('이미지를 삭제하시겠습니까?')) return;
-
-        fetch(`/boards/${boardId}/images/${imageId}`, { method: 'POST' })
-            .then(res => {
-                if (res.ok) location.reload();
-                else        alert('이미지 삭제에 실패했습니다.');
-            });
-    }
-
-</script>
-
-</html>

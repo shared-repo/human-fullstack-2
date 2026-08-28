@@ -6,6 +6,7 @@ import com.example.imageboard.dto.BoardUpdateRequest;
 import com.example.imageboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -78,11 +79,14 @@ public class BoardController {
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable Long id, Model model) {
         BoardResponse board = boardService.findById(id);
+
         BoardUpdateRequest boardUpdateRequest = new BoardUpdateRequest();
         boardUpdateRequest.setTitle(board.getTitle());
         boardUpdateRequest.setContent(board.getContent());
+
         model.addAttribute("board", board);
         model.addAttribute("boardUpdateRequest", boardUpdateRequest);
+
         return "board/edit";           // templates/board/edit.html
     }
 
@@ -93,6 +97,16 @@ public class BoardController {
 
         boardService.update(id, request);
         return "redirect:/boards/" + id;
+    }
+
+    /** 이미지 개별 삭제 */
+    // @DeleteMapping("/{boardId}/images/{imageId}")
+    @PostMapping("/{boardId}/images/{imageId}")
+    @ResponseBody // 이 메서드의 반환 값은 html 파일 이름이 아니고 반환 내용 그대로 응답 처리하는 설정
+    public ResponseEntity<Void> deleteImage(@PathVariable Long boardId,
+                                      @PathVariable Long imageId) {
+        boardService.deleteImage(boardId, imageId);
+        return ResponseEntity.noContent().build(); // 성공 적인 처리 + 응답 결과가 없음 ( status code : 204 )
     }
 
 }

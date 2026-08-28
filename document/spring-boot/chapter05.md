@@ -761,12 +761,13 @@ public String update(@PathVariable Long id,
     return "redirect:/boards/" + id;
 }
 
-/** 이미지 개별 삭제 */
+/** 이미지 개별 삭제 (fetch AJAX용 — 204 No Content 반환) */
 @DeleteMapping("/{boardId}/images/{imageId}")
-public String deleteImage(@PathVariable Long boardId,
-                          @PathVariable Long imageId) {
+@ResponseBody
+public ResponseEntity<Void> deleteImage(@PathVariable Long boardId,
+                                         @PathVariable Long imageId) {
     boardService.deleteImage(boardId, imageId);
-    return "redirect:/boards/" + boardId + "/edit";
+    return ResponseEntity.noContent().build(); // HTTP 204
 }
 ```
 
@@ -853,14 +854,10 @@ public void deleteImage(Long boardId, Long imageId) {
                              style="font-size:0.7rem; color:#6c757d; margin-top:4px;
                                     max-width:100px; overflow:hidden;
                                     text-overflow:ellipsis; white-space:nowrap;"></div>
-                        <!-- 이미지 개별 삭제 (별도 폼으로 처리) -->
-                        <form th:action="@{/boards/{bId}/images/{iId}(bId=${board.id}, iId=${image.id})}"
-                              method="post" style="margin-top:4px;">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-danger" type="submit"
-                                    style="font-size:0.75rem; padding:4px 8px;"
-                                    onclick="return confirm('이미지를 삭제하시겠습니까?')">삭제</button>
-                        </form>
+                        <!-- 이미지 개별 삭제 (fetch로 처리 — <form> 중첩 금지) -->
+                        <button class="btn btn-danger" type="button"
+                                style="font-size:0.75rem; padding:4px 8px; margin-top:4px;"
+                                th:attr="onclick=|deleteImage(${board.id}, ${image.id})|">삭제</button>
                     </div>
                 </div>
             </div>
@@ -885,8 +882,9 @@ public void deleteImage(Long boardId, Long imageId) {
     </div>
 </div>
 
-<!-- 새 이미지 미리보기 스크립트 -->
+<!-- 스크립트: 새 이미지 미리보기 + 이미지 삭제 (fetch) -->
 <script>
+    /* ① 새 이미지 미리보기 */
     document.querySelector('input[type="file"]').addEventListener('change', function (e) {
         const preview = document.getElementById('preview-area');
         preview.innerHTML = '';
@@ -906,6 +904,17 @@ public void deleteImage(Long boardId, Long imageId) {
             reader.readAsDataURL(file);
         });
     });
+
+    /* ② 이미지 개별 삭제 — fetch로 DELETE 요청 (Spring Security 미사용, CSRF 불필요) */
+    function deleteImage(boardId, imageId) {
+        if (!confirm('이미지를 삭제하시겠습니까?')) return;
+
+        fetch(`/boards/${boardId}/images/${imageId}`, { method: 'DELETE' })
+            .then(res => {
+                if (res.ok) location.reload();  // 204 No Content → ok = true
+                else        alert('이미지 삭제에 실패했습니다.');
+            });
+    }
 </script>
 
 <footer th:replace="~{layout/default :: footer}"></footer>
@@ -914,7 +923,7 @@ public void deleteImage(Long boardId, Long imageId) {
 </html>
 ```
 
-> **이미지 삭제와 수정 폼의 분리**: 이미지 개별 삭제는 별도 `<form>`으로 즉시 처리하고, 수정 폼 제출은 제목·내용·신규 이미지만 담당합니다. 하나의 폼에 삭제·추가를 모두 넣으면 폼 제출 시점까지 삭제를 지연시켜야 하므로 구현이 복잡해집니다.
+> **`<form>` 중첩 금지와 fetch 삭제**: HTML은 `<form>` 안에 `<form>`을 허용하지 않습니다. 브라우저는 내부 `<form>`을 제거해 삭제 버튼이 외부 폼의 submit으로 동작하는 버그가 생깁니다. 이를 피하기 위해 이미지 삭제는 별도 `<form>` 대신 `fetch`로 DELETE 요청을 보내고, CSRF 토큰은 `<span id="csrf-data">`에 저장한 뒤 JS에서 읽습니다.
 
 ---
 
@@ -976,15 +985,27 @@ public class GlobalExceptionHandler {
 }
 ```
 
-공통 레이아웃에 플래시 메시지 표시 영역을 추가합니다.
+플래시 메시지 표시 영역을 **① `default.html`에 fragment로 정의**하고,
+**② 각 페이지에서 `th:replace`로 포함**합니다.
+
+이 프로젝트는 named fragment(`head`, `nav`, `footer`) 방식을 사용하므로,
+fragment로 지정되지 않은 요소는 개별 페이지에 표시되지 않습니다.
 
 ```html
-<!-- layout/default.html — nav 아래에 추가 -->
-<div th:if="${errorMessage}"
+<!-- ① layout/default.html — 기존 footer fragment 아래에 추가 -->
+<div th:fragment="flashMessage"
+     th:if="${errorMessage}"
      style="background:#f8d7da; color:#842029; padding:12px 20px;
             border-bottom:1px solid #f5c2c7; text-align:center;">
     <span th:text="${errorMessage}"></span>
 </div>
+```
+
+```html
+<!-- ② 오류가 발생할 수 있는 각 페이지 — </nav> 바로 뒤에 추가 -->
+<!-- (create.html, edit.html 양쪽에 동일하게 적용) -->
+<nav th:replace="~{layout/default :: nav}"></nav>
+<div th:replace="~{layout/default :: flashMessage}"></div>
 ```
 
 ---
