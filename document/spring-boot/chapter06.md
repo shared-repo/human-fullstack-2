@@ -9,6 +9,7 @@
 - `UserDetailsService`를 구현하여 DB 기반 로그인을 연동할 수 있다.
 - 회원가입 시 BCrypt로 비밀번호를 암호화할 수 있다.
 - 폼 로그인과 로그아웃을 구현할 수 있다.
+- CSRF 공격의 개념을 이해하고 Spring Security의 보호 방식을 설명할 수 있다.
 - `@PreAuthorize`로 게시글 작성자 본인만 수정·삭제할 수 있도록 제어할 수 있다.
 - Thymeleaf에서 로그인 상태와 사용자 정보를 표시할 수 있다.
 
@@ -150,7 +151,87 @@ public class SecurityConfig {
 
 ---
 
-## 6.3 회원 도메인 — UserDetails 연동
+
+---
+
+## 6.3 CSRF 보호
+
+### CSRF 공격이란?
+
+**CSRF(Cross-Site Request Forgery)** 는 공격자가 로그인된 사용자를 속여, 사용자 모르게 서버에 위조 요청을 보내는 공격입니다.
+
+**공격 시나리오**
+
+```
+1. 사용자가 우리 사이트에 로그인 → 브라우저에 세션 쿠키 저장
+2. 공격자가 만든 악성 페이지에 접속
+3. 악성 페이지에 숨겨진 폼이 우리 사이트로 자동 POST 요청 전송
+4. 브라우저가 세션 쿠키를 자동으로 실어 보냄
+5. 서버는 정상 요청으로 오인하여 처리 (게시글 삭제, 비밀번호 변경 등)
+```
+
+```html
+<!-- 악성 페이지 예시 — 사용자가 모르는 사이 POST 전송 -->
+<form action="https://our-site.com/boards/1" method="post" style="display:none">
+    <input type="hidden" name="_method" value="DELETE">
+</form>
+<script>document.forms[0].submit();</script>
+```
+
+### Spring Security의 CSRF 보호 방식
+
+Spring Security는 **Synchronizer Token Pattern** 으로 CSRF를 방어합니다.
+
+```
+서버: 세션마다 고유한 CSRF 토큰 생성 → 폼에 hidden 필드로 포함
+클라이언트: 폼 제출 시 토큰을 함께 전송
+서버: 수신한 토큰과 세션의 토큰 비교 → 불일치 시 403 Forbidden
+```
+
+악성 페이지는 우리 서버의 토큰 값을 알 수 없으므로 요청이 거부됩니다.
+
+> Spring Security를 추가하면 CSRF 보호가 **기본으로 활성화**됩니다. 별도 설정 없이 POST·PUT·DELETE 요청에 자동으로 적용됩니다.
+
+### Thymeleaf에서 CSRF 토큰 삽입
+
+Thymeleaf는 `th:action`을 사용하면 CSRF hidden 필드를 **자동으로 삽입**해 줍니다.
+
+```html
+<!-- ✅ th:action 사용 → Thymeleaf가 _csrf 필드를 자동 삽입 -->
+<form th:action="@{/members/register}" method="post">
+    <!-- 별도 코드 없이 자동 처리 -->
+</form>
+```
+
+반면, Spring Security가 직접 처리하는 로그인 URL(`/members/login`)처럼 `th:action` 없이 `action` 속성을 사용하는 폼은 **수동으로 삽입**해야 합니다.
+
+```html
+<!-- ⚠️ action 속성(일반) 사용 → 수동 삽입 필요 -->
+<form action="/members/login" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+</form>
+```
+
+| 상황 | 토큰 삽입 방법 |
+|---|---|
+| `th:action="@{...}"` 사용 | Thymeleaf 자동 삽입 |
+| `action="..."` 사용 (Spring Security 처리 URL 등) | `_csrf` hidden 필드 수동 삽입 |
+
+### CSRF 보호 비활성화가 필요한 경우
+
+세션 없이 **JWT 등 토큰 기반 인증을 사용하는 REST API** 는 세션 쿠키를 쓰지 않으므로 CSRF 공격에 취약하지 않습니다. 이 경우에는 비활성화합니다.
+
+```java
+// SecurityConfig.java — REST API 전용 설정 예시
+http
+    .sessionManagement(session ->
+        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    .csrf(csrf -> csrf.disable());  // 세션을 쓰지 않으므로 비활성화
+```
+
+이 강의에서 구현하는 Thymeleaf 기반 폼 로그인은 세션을 사용하므로 **CSRF 보호를 활성화한 상태로 유지합니다.**
+
+## 6.4 회원 도메인 — UserDetails 연동
 
 ### CustomUserDetails
 
@@ -264,7 +345,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
 ---
 
-## 6.4 회원가입 구현
+## 6.5 회원가입 구현
 
 ### MemberCreateRequest DTO
 
@@ -417,7 +498,7 @@ public class MemberController {
 
 ---
 
-## 6.5 로그인·회원가입 화면
+## 6.6 로그인·회원가입 화면
 
 ### 로그인 화면
 
@@ -450,7 +531,7 @@ public class MemberController {
 
         <!-- Spring Security가 /members/login POST로 처리 -->
         <form action="/members/login" method="post">
-            <!-- CSRF 토큰 (Thymeleaf가 자동 삽입) -->
+            <!-- action 속성 사용 → 수동 삽입 필요 (6.3 CSRF 보호 참고) -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
             <div class="form-group">
@@ -500,6 +581,7 @@ public class MemberController {
     <div class="board-detail">
         <h2 style="margin-bottom:24px;">회원가입</h2>
 
+        <!-- th:action 사용 → CSRF 토큰 자동 삽입 (6.3 CSRF 보호 참고) -->
         <form th:action="@{/members/register}" th:object="${memberCreateRequest}" method="post">
 
             <div class="form-group">
@@ -556,7 +638,7 @@ public class MemberController {
 
 ---
 
-## 6.6 네비게이션 — 로그인 상태 표시
+## 6.7 네비게이션 — 로그인 상태 표시
 
 `thymeleaf-extras-springsecurity6`를 사용하면 뷰에서 인증 상태를 확인할 수 있습니다.
 
@@ -614,7 +696,7 @@ public class MemberController {
 
 ---
 
-## 6.7 @PreAuthorize — 작성자 권한 제어
+## 6.8 @PreAuthorize — 작성자 권한 제어
 
 `@EnableMethodSecurity`가 활성화된 상태에서 `@PreAuthorize`를 메서드에 붙이면 Controller 호출 전에 권한을 검사합니다.
 
@@ -713,7 +795,7 @@ public String method(@AuthenticationPrincipal CustomUserDetails userDetails) { .
 
 ---
 
-## 6.8 BoardService — 임시 작성자를 로그인 사용자로 교체
+## 6.9 BoardService — 임시 작성자를 로그인 사용자로 교체
 
 5장까지 `memberId = 1L`로 고정했던 작성자를 실제 로그인 사용자로 교체합니다.
 
@@ -760,7 +842,7 @@ public String create(@Valid @ModelAttribute BoardCreateRequest request,
 
 ---
 
-## 6.9 상세 화면 — 수정·삭제 버튼 조건부 표시
+## 6.10 상세 화면 — 수정·삭제 버튼 조건부 표시
 
 본인이 작성한 게시글에만 수정·삭제 버튼을 표시합니다.
 
@@ -777,6 +859,7 @@ public String create(@Valid @ModelAttribute BoardCreateRequest request,
             <form th:action="@{/boards/{id}(id=${board.id})}" method="post"
                   onsubmit="return confirm('삭제하시겠습니까?')">
                 <input type="hidden" name="_method" value="DELETE">
+                <!-- POST 요청에 CSRF 토큰 필수 (6.3 CSRF 보호 참고) -->
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <button class="btn btn-danger" type="submit">삭제</button>
             </form>
@@ -815,7 +898,7 @@ private BoardResponse toResponse(Board board) {
 
 ---
 
-## 6.10 DataInitializer 수정 — 비밀번호 암호화 적용
+## 6.11 DataInitializer 수정 — 비밀번호 암호화 적용
 
 기존에 평문으로 저장하던 테스트 회원의 비밀번호를 BCrypt로 암호화합니다.
 
@@ -845,7 +928,7 @@ public class DataInitializer implements ApplicationRunner {
 
 ---
 
-## 6.11 BCrypt 비밀번호 암호화 이해
+## 6.12 BCrypt 비밀번호 암호화 이해
 
 ```java
 PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -873,7 +956,7 @@ BCrypt는 단방향 해시 함수입니다. 저장된 해시에서 원래 비밀
 | `@AuthenticationPrincipal` | 현재 로그인 사용자 정보를 메서드 파라미터에 주입 |
 | `@PreAuthorize` | 메서드 호출 전 SpEL 표현식으로 권한 검사 |
 | `sec:authorize` | Thymeleaf에서 로그인 상태·권한에 따른 조건부 렌더링 |
-| CSRF 토큰 | POST 폼에 자동 삽입되는 위조 요청 방지 토큰 |
+| CSRF 토큰 | 위조 요청 방지 토큰. `th:action` 폼은 자동 삽입, 일반 `action` 폼은 수동 삽입 필요 |
 
 ---
 

@@ -1,0 +1,5 @@
+docker run -d \
+  --name no-vol-db \
+  -e MARIADB_ROOT_PASSWORD=pass \
+  -e MARIADB_DATABASE=demo \
+  mariadb:latest

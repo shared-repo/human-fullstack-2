@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"              
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd
+           http://mybatis.org/schema/mybatis-spring
+           http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!-- ================================================================
+         Spring Root ApplicationContext 설정
+         - 데이터소스, MyBatis, 트랜잭션, AOP, 서비스/리포지토리 빈과 같은 공통 빈을 관리
+         - ContextLoaderListener가 로드 (웹 계층 빈 제외)
+         ================================================================ -->
+
+    <!-- ======================== 컴포넌트 스캔 ======================== -->    
+    <context:component-scan base-package="com.demoweb.service" />
+    
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+	    <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+	    <property name="jdbcUrl"         value="jdbc:mariadb://localhost:3306/demoweb"/>
+	    <property name="username"        value="human"/>
+	    <property name="password"        value="human"/>
+	    <property name="maximumPoolSize" value="10"/>
+	    <property name="minimumIdle"     value="5"/>
+	    <property name="connectionTimeout" value="30000"/>
+	</bean>
+	
+	<!-- class가 SqlSessionFactoryBean이지만 생성된는 객체는 SqlSessionFactory 객체 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>	
+	    <!-- MyBatis 전역 설정 파일 위치 -->
+	    <property name="configLocation" value="classpath:mybatis-config.xml"/>	
+	    <!-- Mapper XML 파일 위치 (** 는 하위 디렉터리 포함) -->
+	    <property name="mapperLocations" value="classpath:com/demoweb/mapper/**/*.xml"/>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<!--  Mapper 인터페이스와 Mapper xml을 사용해서 구현 클래스를 만들고 그 클래스의 객체를 생성하고 컨테이너에 등록 -->
+	<!--  @Mapper 어노테이션으로 대체 가능 -->
+	<!-- 
+	<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.demoweb.mapper.MemberMapper" />
+	</bean>
+	<bean id="boardMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="mapperInterface" value="com.demoweb.mapper.BoardMapper" />
+	</bean> 
+	-->
+	
+	<!-- com.demoweb.mapper 패키지에 포함된 클래스, 인터페이스 등을 분석해서 어노테이션 적용 -->
+	<mybatis:scan base-package="com.demoweb.mapper" />
+	
+	<bean id="transactionManager"
+	      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- @Transactional 어노테이션 활성화 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

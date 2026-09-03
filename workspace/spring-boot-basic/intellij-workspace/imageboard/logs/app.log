@@ -1,0 +1,481 @@
+2026-08-31T11:25:02.186+09:00  INFO 2840 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 2840 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T11:25:02.190+09:00 DEBUG 2840 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T11:25:02.191+09:00  INFO 2840 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T11:25:02.244+09:00  INFO 2840 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-31T11:25:02.245+09:00  INFO 2840 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-31T11:25:03.027+09:00  INFO 2840 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T11:25:03.092+09:00  INFO 2840 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56 ms. Found 3 JPA repository interfaces.
+2026-08-31T11:25:03.887+09:00  INFO 2840 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T11:25:03.903+09:00  INFO 2840 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T11:25:03.904+09:00  INFO 2840 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T11:25:03.957+09:00  INFO 2840 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1712 ms
+2026-08-31T11:25:04.189+09:00  INFO 2840 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T11:25:04.255+09:00  INFO 2840 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-08-31T11:25:04.774+09:00  INFO 2840 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T11:25:04.809+09:00  INFO 2840 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-31T11:25:04.903+09:00  INFO 2840 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@6333a7b4
+2026-08-31T11:25:04.905+09:00  INFO 2840 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-31T11:25:04.974+09:00  INFO 2840 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T11:25:06.094+09:00  INFO 2840 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T11:25:06.312+09:00  INFO 2840 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T11:25:06.410+09:00  INFO 2840 --- [imageboard] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-31T11:25:07.413+09:00  WARN 2840 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T11:25:07.539+09:00  INFO 2840 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T11:25:08.237+09:00  INFO 2840 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T11:25:08.243+09:00  INFO 2840 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 6.554 seconds (process running for 7.501)
+2026-08-31T11:25:19.420+09:00  INFO 2840 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T11:25:19.421+09:00  INFO 2840 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T11:25:19.423+09:00  INFO 2840 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-08-31T11:25:19.508+09:00  INFO 2840 --- [imageboard] [http-nio-8080-exec-2] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T11:30:15.905+09:00  INFO 2840 --- [imageboard] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T11:30:15.909+09:00  INFO 2840 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T11:30:15.914+09:00  INFO 2840 --- [imageboard] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T11:30:15.917+09:00  INFO 2840 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-31T11:30:15.920+09:00  INFO 2840 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-31T12:32:40.927+09:00  INFO 24068 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 24068 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:32:40.930+09:00 DEBUG 24068 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:32:40.931+09:00  INFO 24068 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:32:40.987+09:00  INFO 24068 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-31T12:32:40.988+09:00  INFO 24068 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-31T12:32:41.856+09:00  INFO 24068 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:32:41.921+09:00  INFO 24068 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:32:42.798+09:00  INFO 24068 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:32:42.820+09:00  INFO 24068 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:32:42.820+09:00  INFO 24068 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:32:42.875+09:00  INFO 24068 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1886 ms
+2026-08-31T12:32:43.142+09:00  INFO 24068 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:32:43.204+09:00  INFO 24068 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-08-31T12:32:43.737+09:00  INFO 24068 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:32:43.777+09:00  INFO 24068 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-31T12:32:43.873+09:00  INFO 24068 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@2aebcb0e
+2026-08-31T12:32:43.875+09:00  INFO 24068 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-31T12:32:43.945+09:00  INFO 24068 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:32:45.513+09:00  INFO 24068 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:32:45.740+09:00  INFO 24068 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:32:45.887+09:00  INFO 24068 --- [imageboard] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-31T12:32:46.925+09:00  WARN 24068 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:32:47.037+09:00  INFO 24068 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:32:47.722+09:00  INFO 24068 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:32:47.729+09:00  INFO 24068 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 7.343 seconds (process running for 8.217)
+2026-08-31T12:33:21.269+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:33:21.269+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:33:21.271+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-08-31T12:33:21.355+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-2] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:33:24.271+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-5] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:05.155+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-7] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:07.052+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-9] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:07.837+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:27.582+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-5] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:32.488+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-2] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:35.220+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-6] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:34:49.441+09:00  INFO 24068 --- [imageboard] [http-nio-8080-exec-10] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:35:25.243+09:00  INFO 24068 --- [imageboard] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:35:25.247+09:00  INFO 24068 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:35:25.253+09:00  INFO 24068 --- [imageboard] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:35:25.257+09:00  INFO 24068 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-31T12:35:25.260+09:00  INFO 24068 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-31T12:35:45.971+09:00  INFO 8436 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 8436 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:35:45.974+09:00 DEBUG 8436 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:35:45.975+09:00  INFO 8436 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:35:46.035+09:00  INFO 8436 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-31T12:35:46.035+09:00  INFO 8436 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-31T12:35:46.862+09:00  INFO 8436 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:35:46.924+09:00  INFO 8436 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:35:47.739+09:00  INFO 8436 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:35:47.761+09:00  INFO 8436 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:35:47.762+09:00  INFO 8436 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:35:47.811+09:00  INFO 8436 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1776 ms
+2026-08-31T12:35:48.070+09:00  INFO 8436 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:35:48.143+09:00  INFO 8436 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-08-31T12:35:48.689+09:00  INFO 8436 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:35:48.730+09:00  INFO 8436 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-31T12:35:48.834+09:00  INFO 8436 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@7c4b3de8
+2026-08-31T12:35:48.836+09:00  INFO 8436 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-31T12:35:48.921+09:00  INFO 8436 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:35:50.137+09:00  INFO 8436 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:35:50.359+09:00  INFO 8436 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:35:50.464+09:00  INFO 8436 --- [imageboard] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-31T12:35:51.481+09:00  WARN 8436 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:35:51.622+09:00  INFO 8436 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:35:52.402+09:00  INFO 8436 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:35:52.408+09:00  INFO 8436 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 6.933 seconds (process running for 7.843)
+2026-08-31T12:35:56.431+09:00  INFO 8436 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:35:56.431+09:00  INFO 8436 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:35:56.433+09:00  INFO 8436 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-08-31T12:35:56.483+09:00  INFO 8436 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:36:17.391+09:00  INFO 8436 --- [imageboard] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:36:17.396+09:00  INFO 8436 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:36:17.404+09:00  INFO 8436 --- [imageboard] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:36:17.408+09:00  INFO 8436 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-31T12:36:17.413+09:00  INFO 8436 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-31T12:36:22.464+09:00  INFO 18036 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 18036 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:36:22.467+09:00 DEBUG 18036 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:36:22.468+09:00  INFO 18036 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:36:22.541+09:00  INFO 18036 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-31T12:36:22.542+09:00  INFO 18036 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-31T12:36:23.629+09:00  INFO 18036 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:36:23.704+09:00  INFO 18036 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 64 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:36:24.772+09:00  INFO 18036 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:36:24.792+09:00  INFO 18036 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:36:24.793+09:00  INFO 18036 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:36:24.854+09:00  INFO 18036 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2311 ms
+2026-08-31T12:36:25.172+09:00  INFO 18036 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:36:25.238+09:00  INFO 18036 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-08-31T12:36:25.964+09:00  INFO 18036 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:36:26.004+09:00  INFO 18036 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-31T12:36:26.138+09:00  INFO 18036 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@6f4d36dd
+2026-08-31T12:36:26.141+09:00  INFO 18036 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-31T12:36:26.249+09:00  INFO 18036 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:36:27.651+09:00  INFO 18036 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:36:27.884+09:00  INFO 18036 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:36:28.040+09:00  INFO 18036 --- [imageboard] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-31T12:36:29.198+09:00  WARN 18036 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:36:29.336+09:00  INFO 18036 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:36:56.063+09:00  INFO 18036 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:36:56.071+09:00  INFO 18036 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 34.174 seconds (process running for 36.046)
+2026-08-31T12:37:00.136+09:00  INFO 18036 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:37:00.138+09:00  INFO 18036 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:37:00.154+09:00  INFO 18036 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2026-08-31T12:37:00.303+09:00  INFO 18036 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:37:09.551+09:00  INFO 18036 --- [imageboard] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:37:09.554+09:00  INFO 18036 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:37:09.560+09:00  INFO 18036 --- [imageboard] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:37:09.565+09:00  INFO 18036 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-31T12:37:09.569+09:00  INFO 18036 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-31T12:37:16.392+09:00  INFO 9848 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 9848 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:37:16.395+09:00 DEBUG 9848 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:37:16.396+09:00  INFO 9848 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:37:16.443+09:00  INFO 9848 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-31T12:37:16.443+09:00  INFO 9848 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-31T12:37:17.214+09:00  INFO 9848 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:37:17.279+09:00  INFO 9848 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:37:18.078+09:00  INFO 9848 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:37:18.093+09:00  INFO 9848 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:37:18.094+09:00  INFO 9848 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:37:18.144+09:00  INFO 9848 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1700 ms
+2026-08-31T12:37:18.397+09:00  INFO 9848 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:37:18.464+09:00  INFO 9848 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-08-31T12:37:18.982+09:00  INFO 9848 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:37:19.023+09:00  INFO 9848 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-31T12:37:19.114+09:00  INFO 9848 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@49fda5fd
+2026-08-31T12:37:19.117+09:00  INFO 9848 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-31T12:37:19.191+09:00  INFO 9848 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:37:20.324+09:00  INFO 9848 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:37:20.558+09:00  INFO 9848 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:37:20.666+09:00  INFO 9848 --- [imageboard] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-31T12:37:21.686+09:00  WARN 9848 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:37:21.802+09:00  INFO 9848 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:37:22.535+09:00  INFO 9848 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:37:22.542+09:00  INFO 9848 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 6.626 seconds (process running for 7.605)
+2026-08-31T12:37:29.452+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:37:29.452+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:37:29.454+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-08-31T12:37:29.502+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:38:02.919+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-5] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:38:28.298+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:38:34.408+09:00  INFO 9848 --- [imageboard] [http-nio-8080-exec-8] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:40:47.904+09:00  INFO 9848 --- [imageboard] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:40:47.908+09:00  INFO 9848 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:40:47.915+09:00  INFO 9848 --- [imageboard] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:40:47.920+09:00  INFO 9848 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-31T12:40:47.924+09:00  INFO 9848 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-31T12:40:50.560+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 12572 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:40:50.564+09:00 DEBUG 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:40:50.564+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:40:50.616+09:00  INFO 12572 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-08-31T12:40:50.616+09:00  INFO 12572 --- [imageboard] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-08-31T12:40:51.397+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:40:51.452+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:40:52.259+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:40:52.278+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:40:52.279+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:40:52.333+09:00  INFO 12572 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1716 ms
+2026-08-31T12:40:52.573+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:40:52.634+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-08-31T12:40:53.174+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:40:53.212+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-31T12:40:53.310+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@135069fc
+2026-08-31T12:40:53.312+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-31T12:40:53.389+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:40:54.536+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:40:54.750+09:00  INFO 12572 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:40:54.849+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-31T12:40:55.931+09:00  WARN 12572 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:40:56.070+09:00  INFO 12572 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:40:56.792+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:40:56.800+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 6.723 seconds (process running for 7.799)
+2026-08-31T12:41:01.156+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:41:01.156+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:41:01.158+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-08-31T12:41:01.210+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:41:04.696+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-5] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:41:10.894+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-10] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:41:57.357+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-3] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:41:57.616+09:00  INFO 12572 --- [imageboard] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 18 class path changes (0 additions, 0 deletions, 18 modifications)
+2026-08-31T12:41:57.625+09:00  INFO 12572 --- [imageboard] [Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:41:57.630+09:00  INFO 12572 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:41:57.636+09:00  INFO 12572 --- [imageboard] [Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:41:57.640+09:00  INFO 12572 --- [imageboard] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-08-31T12:41:57.645+09:00  INFO 12572 --- [imageboard] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-08-31T12:41:57.760+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 12572 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:41:57.760+09:00 DEBUG 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:41:57.760+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:41:58.012+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:41:58.031+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:41:58.208+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:41:58.209+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:41:58.209+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:41:58.246+09:00  INFO 12572 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 482 ms
+2026-08-31T12:41:58.339+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:41:58.374+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:41:58.376+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-08-31T12:41:58.380+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.mariadb.jdbc.Connection@18bbec82
+2026-08-31T12:41:58.380+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-08-31T12:41:58.381+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:41:58.505+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:41:58.696+09:00  INFO 12572 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:41:58.884+09:00  WARN 12572 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:41:58.935+09:00  INFO 12572 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:41:59.224+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:41:59.227+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 1.501 seconds (process running for 70.226)
+2026-08-31T12:41:59.233+09:00  INFO 12572 --- [imageboard] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-08-31T12:41:59.603+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:41:59.604+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:41:59.605+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-08-31T12:41:59.609+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:42:45.783+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-4] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:42:46.709+09:00  INFO 12572 --- [imageboard] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 18 class path changes (0 additions, 0 deletions, 18 modifications)
+2026-08-31T12:42:46.710+09:00  INFO 12572 --- [imageboard] [Thread-5] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:42:46.713+09:00  INFO 12572 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:42:46.716+09:00  INFO 12572 --- [imageboard] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:42:46.716+09:00  INFO 12572 --- [imageboard] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-08-31T12:42:46.718+09:00  INFO 12572 --- [imageboard] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-08-31T12:42:46.827+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 12572 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:42:46.827+09:00 DEBUG 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:42:46.828+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:42:47.080+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:42:47.096+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:42:47.246+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:42:47.247+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:42:47.247+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:42:47.270+09:00  INFO 12572 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 440 ms
+2026-08-31T12:42:47.372+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:42:47.412+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:42:47.414+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-08-31T12:42:47.417+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.mariadb.jdbc.Connection@7c0de933
+2026-08-31T12:42:47.417+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-08-31T12:42:47.418+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:42:47.509+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:42:47.694+09:00  INFO 12572 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:42:47.878+09:00  WARN 12572 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:42:47.938+09:00  INFO 12572 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:42:48.241+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:42:48.243+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 1.454 seconds (process running for 119.243)
+2026-08-31T12:42:48.249+09:00  INFO 12572 --- [imageboard] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-08-31T12:42:58.407+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:42:58.407+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:42:58.408+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-08-31T12:42:58.415+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:42:58.845+09:00  INFO 12572 --- [imageboard] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 18 class path changes (0 additions, 0 deletions, 18 modifications)
+2026-08-31T12:42:58.846+09:00  INFO 12572 --- [imageboard] [Thread-9] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:42:58.849+09:00  INFO 12572 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:42:58.851+09:00  INFO 12572 --- [imageboard] [Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:42:58.852+09:00  INFO 12572 --- [imageboard] [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-08-31T12:42:58.853+09:00  INFO 12572 --- [imageboard] [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-08-31T12:42:58.966+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 12572 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:42:58.967+09:00 DEBUG 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:42:58.967+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:42:59.215+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:42:59.229+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:42:59.366+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:42:59.367+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:42:59.367+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:42:59.391+09:00  INFO 12572 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 422 ms
+2026-08-31T12:42:59.487+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:42:59.525+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:42:59.528+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-08-31T12:42:59.532+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.mariadb.jdbc.Connection@32368029
+2026-08-31T12:42:59.532+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-08-31T12:42:59.533+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:42:59.621+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:42:59.818+09:00  INFO 12572 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:42:59.979+09:00  WARN 12572 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:43:00.039+09:00  INFO 12572 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:43:00.363+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:43:00.366+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 1.43 seconds (process running for 131.365)
+2026-08-31T12:43:00.371+09:00  INFO 12572 --- [imageboard] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-08-31T12:43:14.050+09:00  INFO 12572 --- [imageboard] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 18 class path changes (0 additions, 0 deletions, 18 modifications)
+2026-08-31T12:43:14.051+09:00  INFO 12572 --- [imageboard] [Thread-13] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T12:43:14.055+09:00  INFO 12572 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T12:43:14.058+09:00  INFO 12572 --- [imageboard] [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:43:14.060+09:00  INFO 12572 --- [imageboard] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-08-31T12:43:14.066+09:00  INFO 12572 --- [imageboard] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-08-31T12:43:14.181+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Starting ImageboardApplication using Java 21.0.11 with PID 12572 (D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard\build\classes\java\main started by human in D:\instructor-och\human-fullstack-2\workspace\spring-boot-basic\intellij-workspace\imageboard)
+2026-08-31T12:43:14.182+09:00 DEBUG 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-08-31T12:43:14.182+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-08-31T12:43:14.453+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-31T12:43:14.471+09:00  INFO 12572 --- [imageboard] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+2026-08-31T12:43:14.629+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-08-31T12:43:14.630+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-31T12:43:14.630+09:00  INFO 12572 --- [imageboard] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-08-31T12:43:14.655+09:00  INFO 12572 --- [imageboard] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 471 ms
+2026-08-31T12:43:14.744+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-08-31T12:43:14.783+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-31T12:43:14.784+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-08-31T12:43:14.787+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection org.mariadb.jdbc.Connection@48524d2b
+2026-08-31T12:43:14.787+09:00  INFO 12572 --- [imageboard] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-08-31T12:43:14.788+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mariadb://localhost/imageboard?user=human&password=human&serverTimezone=Asia/Seoul&characterEncoding=UTF-8]
+	Database driver: MariaDB Connector/J
+	Database dialect: MariaDBDialect
+	Database version: 12.3.2
+	Default catalog/schema: imageboard/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-31T12:43:14.882+09:00  INFO 12572 --- [imageboard] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-31T12:43:15.078+09:00  INFO 12572 --- [imageboard] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T12:43:15.258+09:00  WARN 12572 --- [imageboard] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-31T12:43:15.315+09:00  INFO 12572 --- [imageboard] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-08-31T12:43:15.608+09:00  INFO 12572 --- [imageboard] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-08-31T12:43:15.610+09:00  INFO 12572 --- [imageboard] [restartedMain] c.e.imageboard.ImageboardApplication     : Started ImageboardApplication in 1.461 seconds (process running for 146.609)
+2026-08-31T12:43:15.615+09:00  INFO 12572 --- [imageboard] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-08-31T12:43:15.666+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-31T12:43:15.666+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-31T12:43:15.667+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-08-31T12:43:15.670+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-1] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:43:36.548+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-5] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T12:43:39.015+09:00  INFO 12572 --- [imageboard] [http-nio-8080-exec-9] c.e.imageboard.service.BoardService      : ------------> log.debug : 0 / 2
+
+2026-08-31T13:53:38.304+09:00  INFO 12572 --- [imageboard] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-31T13:53:38.306+09:00  INFO 12572 --- [imageboard] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-08-31T13:53:38.309+09:00  INFO 12572 --- [imageboard] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-08-31T13:53:38.309+09:00  INFO 12572 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-08-31T13:53:38.311+09:00  INFO 12572 --- [imageboard] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.

@@ -929,61 +929,245 @@ public void deleteImage(Long boardId, Long imageId) {
 
 ## 5.9 파일 업로드 예외 처리
 
-파일 크기 초과, 허용되지 않는 형식 등의 오류를 사용자에게 명확히 알려줍니다.
+파일 크기 초과 등의 오류를 사용자에게 명확히 알려주는 예외 처리를 구현합니다.
+이 과정에서 Spring MVC의 요청 처리 흐름과 필터 체인의 동작 방식을 이해하는 것이 중요합니다.
+
+### 5.9.1 @ControllerAdvice와 전역 예외 처리
+
+`@ControllerAdvice`는 여러 컨트롤러에서 공통으로 발생하는 예외를 한 곳에서 처리할 수 있게 해주는 어노테이션입니다.
+`@ExceptionHandler`와 함께 사용하여 특정 예외 타입에 대한 처리 로직을 정의합니다.
+
+이 프로젝트의 `GlobalExceptionHandler`는 컨트롤러 레벨에서 발생하는 예외를 처리합니다.
 
 ```java
 // src/main/java/com/example/imageboard/controller/GlobalExceptionHandler.java
-package com.example.imageboard.controller;
-
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.net.URI;
-
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * 파일 크기 초과
-     * Referer를 확인해 작성 폼과 수정 폼 양쪽에서 발생한 오류를 적절히 처리합니다.
-     */
-    @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public String handleMaxUploadSize(MaxUploadSizeExceededException e,
-                                      HttpServletRequest request,
-                                      RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("errorMessage",
-                "파일 크기가 너무 큽니다. 파일당 최대 10MB까지 업로드할 수 있습니다.");
-        return resolveRedirect(request);
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleNotFound(EntityNotFoundException e, Model model) {
+        log.error("Entity not found: {}", e.getMessage());
+        model.addAttribute("message", e.getMessage());
+        return "error/404";
     }
 
-    /** 허용되지 않는 파일 형식 등 잘못된 인자 */
-    @ExceptionHandler(IllegalArgumentException.class)
-    public String handleIllegalArgument(IllegalArgumentException e,
-                                        HttpServletRequest request,
-                                        RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        return resolveRedirect(request);
+    @ExceptionHandler(NotBoardOwnerException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public String handleForbidden(NotBoardOwnerException e, Model model) {
+        log.error("Access forbidden: {}", e.getMessage());
+        model.addAttribute("message", e.getMessage());
+        return "error/403";
     }
 
-    /**
-     * Referer URL을 기반으로 오류 발생 이전 페이지로 돌아갑니다.
-     * - 수정 폼(/boards/{id}/edit)에서 발생한 오류 → 수정 폼으로 리다이렉트
-     * - 그 외(작성 폼 등) → 작성 폼으로 리다이렉트
-     */
-    private String resolveRedirect(HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
-        if (referer != null && referer.contains("/edit")) {
-            // Referer에서 /boards/{id}/edit 경로를 추출해 돌아감
-            String path = URI.create(referer).getPath();
-            return "redirect:" + path;
-        }
-        return "redirect:/boards/create";
+    @ExceptionHandler(ImageboardException.class)
+    public String handleImageboardException(ImageboardException e, Model model) {
+        log.error("Imageboard exception: {}", e.getMessage());
+        model.addAttribute("message", e.getMessage());
+        return "error/500";
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String handleException(Exception e, Model model) {
+        log.error("Unexpected error", e);
+        model.addAttribute("message", "서버 오류가 발생했습니다.");
+        return "error/500";
     }
 }
 ```
+
+### 5.9.2 @ControllerAdvice로 처리할 수 없는 예외
+
+`@ControllerAdvice`는 **`DispatcherServlet` 내부에서 발생한 예외만** 처리할 수 있습니다.
+파일 크기 초과 예외(`MaxUploadSizeExceededException`)는 서블릿 필터 체인 단계에서 발생하기 때문에 `@ControllerAdvice`로 잡을 수 없습니다.
+
+**왜 필터 단계에서 예외가 발생하는가?**
+
+이 프로젝트는 PUT/DELETE 메서드 오버라이드를 위해 Spring의 `HiddenHttpMethodFilter`를 사용합니다.
+이 필터는 요청 파라미터(`_method`)를 읽기 위해 `request.getParameter()`를 호출하는데,
+이 시점에 Tomcat이 멀티파트 요청을 파싱하면서 파일 크기 제한 초과 여부를 검사합니다.
+파일이 너무 크면 이 파싱 과정에서 예외가 발생하고, 이는 필터 체인을 벗어나 `DispatcherServlet`에 도달하지 못합니다.
+
+```
+HTTP 요청
+    │
+    ▼
+[CharacterEncodingFilter]  ← UTF-8 인코딩 강제
+    │
+    ▼
+[MultipartFilter]          ← 멀티파트 요청 사전 처리
+    │                         (파일 크기 초과 시 여기서 예외 발생 ↑)
+    ▼
+[HiddenHttpMethodFilter]   ← _method 파라미터 읽기
+    │                         → request.getParameter() 호출
+    │                         → Tomcat 멀티파트 파싱 트리거
+    │                         (MultipartFilter 없을 경우 여기서 예외 발생 ↑)
+    ▼
+[SecurityFilter 등]
+    │
+    ▼
+[DispatcherServlet]        ← @ControllerAdvice 적용 범위
+    │
+    ▼
+[Controller]
+```
+
+필터 단계에서 발생한 예외는 Tomcat이 `/error` 엔드포인트로 포워딩합니다.
+이를 처리하기 위해 `ErrorController`를 구현합니다.
+
+### 5.9.3 필터 설정 — WebFilterConfig
+
+멀티파트 요청을 `HiddenHttpMethodFilter`보다 먼저 처리하고,
+한글 인코딩이 깨지지 않도록 필터 순서를 명시적으로 지정합니다.
+
+```java
+// src/main/java/com/example/imageboard/config/WebFilterConfig.java
+@Configuration
+public class WebFilterConfig {
+
+    /**
+     * CharacterEncodingFilter — UTF-8 인코딩 강제
+     *
+     * Spring Boot는 CharacterEncodingFilter를 자동 등록하지만,
+     * 멀티파트 파싱 이후에 실행될 경우 한글이 깨질 수 있습니다.
+     * forceEncoding=true로 설정하고 가장 높은 우선순위로 명시적 등록합니다.
+     */
+    @Bean
+    public FilterRegistrationBean<CharacterEncodingFilter> characterEncodingFilterRegistrationBean() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        FilterRegistrationBean<CharacterEncodingFilter> registrationBean = new FilterRegistrationBean<>(filter);
+        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return registrationBean;
+    }
+
+    /**
+     * MultipartFilter — 멀티파트 요청 사전 처리
+     *
+     * HiddenHttpMethodFilter보다 먼저 멀티파트를 파싱하여
+     * 파일 크기 초과 예외가 HiddenHttpMethodFilter 단계가 아닌
+     * 이 필터 단계에서 발생하도록 합니다.
+     * Tomcat의 에러 처리 경로를 통해 CustomErrorController로 전달됩니다.
+     */
+    @Bean
+    public FilterRegistrationBean<MultipartFilter> multipartFilterRegistrationBean() {
+        FilterRegistrationBean<MultipartFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new MultipartFilter());
+        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
+        return registrationBean;
+    }
+}
+```
+
+| 필터 | 순서 | 역할 |
+|---|---|---|
+| `CharacterEncodingFilter` | `HIGHEST_PRECEDENCE` (최우선) | UTF-8 강제 인코딩 |
+| `MultipartFilter` | `HIGHEST_PRECEDENCE + 1` | 멀티파트 사전 파싱 |
+| `HiddenHttpMethodFilter` | Spring Boot 기본값 | `_method` 파라미터로 HTTP 메서드 변환 |
+
+### 5.9.4 에러 컨트롤러 — CustomErrorController
+
+Spring Boot는 처리되지 않은 예외를 `/error` 엔드포인트로 포워딩합니다.
+`ErrorController`를 구현하면 이 에러 요청을 가로채 처리할 수 있습니다.
+
+에러 디스패치도 `DispatcherServlet`을 통해 처리되므로 `RedirectAttributes`(플래시 속성)가 정상적으로 동작합니다.
+
+```java
+// src/main/java/com/example/imageboard/controller/CustomErrorController.java
+@Controller
+public class CustomErrorController implements ErrorController {
+
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request,
+                              RedirectAttributes redirectAttributes) {
+        Object exception = request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
+        Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
+        if ((statusCode != null && statusCode == 413) || isFileSizeError(exception)) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "파일 크기가 너무 큽니다. 파일당 최대 10MB까지 업로드할 수 있습니다.");
+            String referer = request.getHeader("Referer");
+            if (referer != null) {
+                return "redirect:" + URI.create(referer).getPath();
+            }
+            return "redirect:/boards/create";
+        }
+
+        return "error/error";
+    }
+
+    /**
+     * 파일 크기 초과 예외 여부를 cause 체인을 따라가며 확인합니다.
+     *
+     * Tomcat은 FileSizeLimitExceededException을 발생시키고,
+     * Spring은 이를 MaxUploadSizeExceededException으로 감쌉니다.
+     * exception.toString()으로는 래핑 타입만 확인되므로
+     * cause 체인 전체를 탐색하여 정확히 판단합니다.
+     */
+    private boolean isFileSizeError(Object exception) {
+        if (!(exception instanceof Throwable)) return false;
+        Throwable t = (Throwable) exception;
+        while (t != null) {
+            if (t instanceof MaxUploadSizeExceededException
+                    || t.getClass().getName().contains("FileSizeLimitExceededException")) {
+                return true;
+            }
+            t = t.getCause();
+        }
+        return false;
+    }
+}
+```
+
+**에러 처리 흐름:**
+
+```
+파일 크기 초과 예외 발생 (필터 단계)
+    │
+    ▼
+Tomcat → /error 포워딩
+    │
+    ▼
+DispatcherServlet (에러 디스패치)
+    │
+    ▼
+CustomErrorController.handleError()
+    │
+    ├─ 파일 크기 초과? → 플래시 메시지 설정 → 폼 페이지로 리다이렉트
+    │
+    └─ 그 외 오류 → error/error.html 렌더링
+```
+
+### 5.9.5 에러 페이지 — error/error.html
+
+파일 크기 초과 외의 일반 서버 오류를 표시하는 템플릿입니다.
+
+```html
+<!-- src/main/resources/templates/error/error.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/default :: layout(~{::title}, ~{::main})}">
+<head>
+    <title>오류 발생</title>
+</head>
+<body>
+<main>
+    <div class="container mt-5">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">오류가 발생했습니다</h4>
+            <p>요청을 처리하는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</p>
+        </div>
+        <a href="/boards" class="btn btn-primary">목록으로 돌아가기</a>
+    </div>
+</main>
+</body>
+</html>
+```
+
+### 5.9.6 플래시 메시지 표시
 
 플래시 메시지 표시 영역을 **① `default.html`에 fragment로 정의**하고,
 **② 각 페이지에서 `th:replace`로 포함**합니다.
@@ -1080,7 +1264,11 @@ fragment로 지정되지 않은 요소는 개별 페이지에 표시되지 않�
 | Thumbnailator | 이미지 리사이즈 및 썸네일 생성 라이브러리 |
 | `PageRequest.of(page, size)` | 페이징 요청 객체 생성 |
 | `Page<T>` | 페이징 결과. 데이터 + 전체 건수 + 페이지 정보 포함 |
-| `@ControllerAdvice` | 전역 예외 처리 |
+| `@ControllerAdvice` | 전역 예외 처리. `DispatcherServlet` 내부에서 발생한 예외에만 적용됨 |
+| `@ExceptionHandler` | `@ControllerAdvice` 클래스 내에서 특정 예외 타입을 처리하는 메서드에 붙이는 어노테이션 |
+| `HiddenHttpMethodFilter` | `_method` 파라미터로 PUT/DELETE 메서드 오버라이드. 멀티파트 파싱을 트리거할 수 있음 |
+| `MultipartFilter` | `DispatcherServlet` 이전 필터 체인에서 멀티파트를 사전 처리하는 Spring 필터 |
+| `ErrorController` | `/error` 엔드포인트를 처리하여 필터 단계 예외를 포함한 모든 에러를 처리 |
 
 ---
 

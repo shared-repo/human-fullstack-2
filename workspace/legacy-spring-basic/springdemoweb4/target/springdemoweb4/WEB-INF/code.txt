@@ -1,0 +1,65 @@
+<form th:action="@{/boards/{id}(id=${board.id})}"
+              th:object="${boardUpdateRequest}"
+              method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
+
+            <!-- 제목 -->
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input class="form-control" type="text" id="title"
+                       th:field="*{title}" placeholder="제목을 입력하세요">
+                <p class="error-message"
+                   th:if="${#fields.hasErrors('title')}"
+                   th:errors="*{title}">제목 오류</p>
+            </div>
+
+            <!-- 내용 -->
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea class="form-control" id="content"
+                          th:field="*{content}" rows="10"
+                          placeholder="내용을 입력하세요"></textarea>
+                <p class="error-message"
+                   th:if="${#fields.hasErrors('content')}"
+                   th:errors="*{content}">내용 오류</p>
+            </div>
+
+            <!-- 기존 첨부 이미지 -->
+            <div th:if="${not #lists.isEmpty(board.images)}" class="form-group">
+                <label>현재 첨부 이미지</label>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+                    <div th:each="image : ${board.images}" style="text-align:center;">
+                        <img th:src="@{'/thumbnails/' + ${image.storedName}}"
+                             th:alt="${image.originalName}"
+                             style="width:100px; height:100px; object-fit:cover;
+                                    border-radius:4px; border:1px solid #dee2e6;">
+                        <div th:text="${image.originalName}"
+                             style="font-size:0.7rem; color:#6c757d; margin-top:4px;
+                                    max-width:100px; overflow:hidden;
+                                    text-overflow:ellipsis; white-space:nowrap;"></div>
+                        <!-- 이미지 개별 삭제 (fetch로 처리 — <form> 중첩 금지) -->
+                        <button class="btn btn-danger" type="button"
+                                style="font-size:0.75rem; padding:4px 8px; margin-top:4px;"
+                                th:attr="onclick=|deleteImage(${board.id}, ${image.id})|">삭제</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 새 이미지 추가 -->
+            <div class="form-group">
+                <label>이미지 추가 <span style="color:#aaa; font-weight:normal;">(jpg·png·gif·webp, 파일당 10MB)</span></label>
+                <input class="form-control" type="file" name="images"
+                       accept="image/*" multiple>
+                <!-- 미리보기 영역 -->
+                <div id="preview-area"
+                     style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;"></div>
+            </div>
+
+            <div style="display:flex; gap:8px; justify-content:flex-end;">
+                <a class="btn btn-secondary"
+                   th:href="@{/boards/{id}(id=${board.id})}">취소</a>
+                <button class="btn btn-primary" type="submit">수정 완료</button>
+            </div>
+
+        </form>

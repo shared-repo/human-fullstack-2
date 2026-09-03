@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- ================================================================
+     MyBatis 전역 설정 파일
+     SqlSessionFactory 생성 시 참조되는 핵심 설정
+     ================================================================ -->
+<configuration>
+
+    <!-- ======================== 전역 동작 설정 ======================== -->
+	
+    <!-- ======================== 타입 별칭 설정 ======================== -->
+    <typeAliases>
+        <!-- com.spring.board.Board 클래스를 XML에서 'Board'로 줄여 쓸 수 있다 -->
+        <package name="com.demoweb.dto"/>
+    </typeAliases>
+    
+
+</configuration>

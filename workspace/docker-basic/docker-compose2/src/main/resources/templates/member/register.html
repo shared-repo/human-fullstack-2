@@ -1,0 +1,64 @@
+<!-- src/main/resources/templates/member/register.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/default :: head('회원가입')}"></head>
+
+<body>
+
+<nav th:replace="~{layout/default :: nav}"></nav>
+
+<div class="container" style="max-width:480px; margin-top:60px;">
+    <div class="board-detail">
+        <h2 style="margin-bottom:24px;">회원가입</h2>
+
+        <form th:action="@{/members/register}" th:object="${memberCreateRequest}" method="post">
+
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input class="form-control" type="text" id="username"
+                       th:field="*{username}" placeholder="영문자·숫자 4~20자">
+                <p class="error-message" th:if="${#fields.hasErrors('username')}"
+                   th:errors="*{username}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input class="form-control" type="password" id="password"
+                       th:field="*{password}" placeholder="8자 이상">
+                <p class="error-message" th:if="${#fields.hasErrors('password')}"
+                   th:errors="*{password}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordConfirm">비밀번호 확인</label>
+                <input class="form-control" type="password" id="passwordConfirm"
+                       th:field="*{passwordConfirm}" placeholder="비밀번호를 다시 입력하세요">
+                <p class="error-message" th:if="${#fields.hasErrors('passwordConfirm')}"
+                   th:errors="*{passwordConfirm}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="nickname">닉네임</label>
+                <input class="form-control" type="text" id="nickname"
+                       th:field="*{nickname}" placeholder="20자 이내">
+                <p class="error-message" th:if="${#fields.hasErrors('nickname')}"
+                   th:errors="*{nickname}"></p>
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="width:100%;">
+                가입하기
+            </button>
+        </form>
+
+        <div style="text-align:center; margin-top:16px; color:#6c757d; font-size:0.9rem;">
+            이미 계정이 있으신가요?
+            <a th:href="@{/members/login}" style="color:#0d6efd;">로그인</a>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{layout/default :: footer}"></footer>
+
+</body>
+</html>

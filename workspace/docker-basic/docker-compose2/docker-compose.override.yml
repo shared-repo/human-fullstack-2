@@ -1,0 +1,13 @@
+services:
+  app:    
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    volumes:
+      - ./src:/workspace/src  # 소스 핫 리로드 (Spring DevTools)
+    
+  db:
+    ports:
+      - "3307:3306"
