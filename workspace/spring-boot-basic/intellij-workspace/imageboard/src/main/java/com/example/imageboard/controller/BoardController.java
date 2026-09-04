@@ -5,6 +5,7 @@ import com.example.imageboard.dto.BoardResponse;
 import com.example.imageboard.dto.BoardUpdateRequest;
 import com.example.imageboard.security.CustomUserDetails;
 import com.example.imageboard.service.BoardService;
+import com.example.imageboard.service.LikeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final LikeService likeService;
 
     /** 게시글 목록 */
 //    @GetMapping(path = { "", "/", "/list" })
@@ -49,9 +51,23 @@ public class BoardController {
 
     /** 게시글 상세 */
     @GetMapping("/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") Long id,
+                         @AuthenticationPrincipal CustomUserDetails userDetails,
+                         Model model) {
         BoardResponse board = boardService.findById(id);
         model.addAttribute("board", board);
+
+        // 좋아요 정보 — 로그인 사용자의 좋아요 여부 포함
+        if (userDetails != null) {
+            LikeService.LikeResult likeResult =
+                    likeService.getStatus(id, userDetails.getMemberId());
+            model.addAttribute("liked",     likeResult.liked());
+            model.addAttribute("likeCount", likeResult.likeCount());
+        } else {
+            model.addAttribute("liked",     false);
+            model.addAttribute("likeCount", likeService.countByBoardId(id));
+        }
+
         return "board/detail";         // templates/board/detail.html
     }
 

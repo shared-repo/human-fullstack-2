@@ -71,6 +71,13 @@
     <div style="margin-top: 16px; display:flex; gap:8px;">
         <a class="btn btn-secondary" th:href="@{/boards}">목록</a>
 
+        <button id="like-btn"
+                th:data-board-id="${board.id}"
+                th:class="${liked} ? 'btn btn-danger' : 'btn btn-secondary'"
+                onclick="toggleLike(this)">
+            ❤️ <span id="like-count" th:text="${likeCount}">0</span>
+        </button>
+
         <!-- 로그인 사용자 = 작성자일 때만 표시 -->
         <th:block sec:authorize="isAuthenticated()">
             <th:block th:if="${#authentication.principal.memberId == board.memberId}">
@@ -89,6 +96,9 @@
 </div>
 
 <footer th:replace="~{layout/default :: footer}"></footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/like.js"></script>
 
 </body>
 </html>

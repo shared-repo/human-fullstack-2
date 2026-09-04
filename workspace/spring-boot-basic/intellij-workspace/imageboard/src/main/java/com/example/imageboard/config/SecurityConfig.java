@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -96,6 +97,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/boards/{id}").authenticated()
                         .requestMatchers("/boards/{id}").permitAll()
                         .requestMatchers("/boards", "/boards/**").authenticated()
+                        // API — GET은 비로그인 허용, 상태 변경은 로그인 필요
+                        .requestMatchers(HttpMethod.GET,    "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,   "/api/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
                         // 그 외 모든 요청은 로그인 필요
                         .anyRequest().authenticated()
                 )
@@ -122,6 +127,25 @@ public class SecurityConfig {
 
                 // CSRF 설정 (기본 활성화 — 폼에 자동으로 _csrf 토큰이 삽입됨)
                 // 필요 시 비활성화: .csrf(csrf -> csrf.disable())
+
+                // Ajax 인증 오류 처리
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            String contentType = request.getHeader("Content-Type");
+                            boolean isAjax = contentType != null
+                                    && contentType.contains("application/json");
+
+                            if (isAjax) {
+                                // Ajax 요청 → JSON 오류 응답
+                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                                response.setContentType("application/json;charset=UTF-8");
+                                response.getWriter().write("{\"message\":\"로그인이 필요합니다.\"}");
+                            } else {
+                                // 일반 요청 → 로그인 페이지 리다이렉트 (기존 동작)
+                                response.sendRedirect("/members/login");
+                            }
+                        })
+                )
 
                 // 커스텀 UserDetailsService 등록
                 .userDetailsService(userDetailsService);
