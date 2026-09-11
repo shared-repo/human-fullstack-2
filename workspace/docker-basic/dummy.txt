@@ -1,5 +1,10 @@
-docker run -d \
-  --name no-vol-db \
-  -e MARIADB_ROOT_PASSWORD=pass \
-  -e MARIADB_DATABASE=demo \
-  mariadb:latest
+docker run -d --name vol-db -p 3307:3306 -v demo-db-data:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=mariadb -e MARIADB_DATABASE=demo mariadb:latest
+
+docker run -d --name vol-db-new -p 3307:3306 -v demo-db-data:/var/lib/mysql -e MARIADB_ROOT_PASSWORD=mariadb -e MARIADB_DATABASE=demo mariadb:latest
+
+docker run -d --name mount-test -p 8080:8080 --network app-network -v $(pwd)/app-config:/app/config imageboard2:1.0
+docker run -d --name spring-app --network app-network -p 8080:8080 
+
+docker run -d --name mariadb-server --network app-network -p 3307:3306 -e MARIADB_ROOT_PASSWORD=mariadb -e MARIADB_DATABASE=imageboard -e MARIADB_USER=human -e MARIADB_PASSWORD=human mariadb:latest
+
+docker run -d --name imageboard-app -p 8080:8080 --network app-network imageboard:1.0
