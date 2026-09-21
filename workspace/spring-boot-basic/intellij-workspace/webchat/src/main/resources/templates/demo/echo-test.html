@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Echo 테스트</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+        #log { border: 1px solid #ccc; padding: 10px; height: 200px;
+            overflow-y: scroll; background: #f9f9f9; margin-bottom: 10px; }
+        input { width: 70%; padding: 8px; }
+        button { padding: 8px 16px; margin-left: 8px; cursor: pointer; }
+        .recv { color: #0070f3; }
+        .send { color: #333; }
+        .sys  { color: #999; font-style: italic; }
+    </style>
+</head>
+<body>
+<h2>WebSocket Echo 테스트</h2>
+<div id="log"></div>
+<input type="text" id="msgInput" placeholder="메시지를 입력하세요" />
+<button onclick="sendMessage()">전송</button>
+<button onclick="disconnect()" style="background:#e00;color:#fff">연결 종료</button>
+
+<script>
+    const log = document.getElementById("log");
+    const input = document.getElementById("msgInput");
+
+    function appendLog(text, cls) {
+        const p = document.createElement("p");
+        p.textContent = text;
+        p.className = cls;
+        p.style.margin = "4px 0";
+        log.appendChild(p);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    // WebSocket 연결
+    const socket = new WebSocket("ws://localhost:8080/ws/echo");
+
+    socket.onopen = () => appendLog("✅ 연결 성공", "sys");
+
+    socket.onmessage = (e) => appendLog("📩 수신: " + e.data, "recv");
+
+    socket.onclose = (e) => appendLog("❌ 연결 종료 (code: " + e.code + ")", "sys");
+
+    socket.onerror = () => appendLog("⚠️ 오류 발생", "sys");
+
+    function sendMessage() {
+        const msg = input.value.trim();
+        if (!msg || socket.readyState !== WebSocket.OPEN) return;
+        socket.send(msg);
+        appendLog("📤 전송: " + msg, "send");
+        input.value = "";
+    }
+
+    function disconnect() {
+        socket.close();
+    }
+
+    // Enter 키로 전송
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+    });
+</script>
+</body>
+</html>

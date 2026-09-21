@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'채팅방: ' + ${room.roomName}">채팅방</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 16px; }
+        h2   { margin-bottom: 4px; }
+        .sub { color: #888; font-size: 13px; margin-bottom: 16px; }
+
+        /* 채팅 영역 */
+        #chatArea {
+            border: 1px solid #ccc; height: 380px; overflow-y: scroll;
+            padding: 12px; background: #fafafa; margin-bottom: 10px;
+        }
+
+        /* 공통 메시지 */
+        .msg { margin: 6px 0; }
+        .msg.enter, .msg.leave { color: #999; font-style: italic; font-size: 13px; }
+
+        /* 그룹 채팅 말풍선 */
+        .msg.talk { display: flex; flex-direction: column; align-items: flex-start; }
+        .msg.talk .sender { font-size: 11px; color: #666; margin-bottom: 2px; }
+        .msg.talk .bubble { background: #e9e9e9; padding: 7px 11px;
+            border-radius: 10px; max-width: 65%; word-break: break-all; }
+
+        /* DM 말풍선 */
+        .msg.dm       { display: flex; flex-direction: column; }
+        .msg.dm.mine  { align-items: flex-end; }
+        .msg.dm.other { align-items: flex-start; }
+        .msg.dm .meta { font-size: 11px; color: #888; margin-bottom: 2px; }
+        .msg.dm.mine  .bubble { background: #f0c040; color: #333; }
+        .msg.dm.other .bubble { background: #dce8ff; color: #333; }
+        .msg.dm .bubble { padding: 7px 11px; border-radius: 10px;
+            max-width: 65%; word-break: break-all; }
+
+        /* 입력 영역 */
+        .input-section { margin-bottom: 10px; }
+        .input-section label { display: block; font-size: 12px;
+            color: #555; margin-bottom: 4px; }
+        .input-row { display: flex; gap: 8px; }
+        .input-row input  { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .input-row button { padding: 8px 14px; cursor: pointer;
+            background: #0070f3; color: #fff;
+            border: none; border-radius: 4px; }
+
+        /* 로그인 영역 */
+        #loginArea { margin-bottom: 16px; }
+        #loginArea input { padding: 8px; border: 1px solid #ccc;
+            border-radius: 4px; margin-right: 8px; }
+        #loginArea button { padding: 8px 14px; cursor: pointer; }
+
+        /* 구분선 */
+        .divider { border: none; border-top: 1px solid #e0e0e0; margin: 10px 0; }
+    </style>
+</head>
+<body>
+<h2 th:text="${room.roomName}">채팅방 이름</h2>
+<p class="sub">채팅방 ID: <span th:text="${room.roomId}"></span></p>
+
+<!-- 로그인 영역 -->
+<!--
+<div id="loginArea">
+    <input id="nicknameInput" placeholder="닉네임을 입력하세요" />
+    <button onclick="enterRoom()">입장</button>
+</div>
+-->
+<div id="loginArea">
+    <p><strong id="welcomeUser"></strong> 님, 환영합니다.</p>
+    <button id="enterBtn" onclick="enterRoom()">채팅방 입장</button>
+    <button onclick="logout()">로그아웃</button>
+</div>
+
+<!-- 채팅 영역 (입장 후 표시) -->
+<div id="mainArea" hidden>
+
+    <!-- 메시지 표시 -->
+    <div id="chatArea"></div>
+
+    <hr class="divider">
+
+    <!-- 그룹 채팅 입력 -->
+    <div class="input-section">
+        <label>그룹 채팅</label>
+        <div class="input-row">
+            <input id="groupMsgInput" placeholder="채팅방 전체에 메시지 전송" />
+            <button onclick="sendGroupMessage()">전송</button>
+        </div>
+    </div>
+
+    <!-- DM 입력 -->
+    <div class="input-section">
+        <label>귓속말 (DM)</label>
+        <div class="input-row">
+            <input id="dmReceiver" placeholder="받는 사람 닉네임"
+                   style="max-width: 160px; flex: none;" />
+            <input id="dmMsgInput" placeholder="귓속말 메시지" />
+            <button onclick="sendDm()">전송</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script th:inline="javascript">
+    const roomId = /*[[${room.roomId}]]*/ 'room1';
+    let stompClient = null;
+    let sender      = '';
+    let wsToken = null;   // WebSocket 연결에 사용할 JWT
+
+    function enterRoom() {
+        // 처음 입장 — ENTER 메시지 전송 후 sessionStorage에 기록
+        sessionStorage.setItem('entered_' + roomId, 'true');
+        connectStomp(wsToken, sender, true);
+    }
+
+    function connectStomp(token, sender, isNewEntry = false) {
+
+        document.getElementById('loginArea').hidden = true;
+        document.getElementById('mainArea').hidden  = false;
+
+        // username을 쿼리 파라미터로 전달 → 서버에서 Principal로 등록
+        const socket = new SockJS('/ws');
+        stompClient  = Stomp.over(socket);
+        stompClient.debug = null;
+
+        stompClient.connect(
+            { 'Authorization': 'Bearer ' + wsToken },
+            function (frame) {
+
+                // 1. 그룹 채팅 구독
+                stompClient.subscribe('/topic/chat/' + roomId, function (msg) {
+                    renderGroupMessage(JSON.parse(msg.body));
+                });
+
+                // 2. DM 개인 채널 구독 (항상 열어둠)
+                stompClient.subscribe('/user/queue/private', function (msg) {
+                    renderDmMessage(JSON.parse(msg.body));
+                });
+
+                // 3. 입장 메시지 전송
+                stompClient.send('/app/chat/message', {}, JSON.stringify({
+                    type   : 'ENTER',
+                    roomId : roomId,
+                    sender : sender,
+                    content: ''
+                }));
+
+            }, function (error) {
+                alert('연결 실패: ' + error);
+            }
+        );
+    }
+
+    /* 그룹 메시지 전송 */
+    function sendGroupMessage() {
+        const content = document.getElementById('groupMsgInput').value.trim();
+        if (!content) return;
+
+        stompClient.send('/app/chat/message', {}, JSON.stringify({
+            type   : 'TALK',
+            roomId : roomId,
+            sender : sender,
+            content: content
+        }));
+        document.getElementById('groupMsgInput').value = '';
+    }
+
+    /* DM 전송 */
+    function sendDm() {
+        const receiver = document.getElementById('dmReceiver').value.trim();
+        const content  = document.getElementById('dmMsgInput').value.trim();
+        if (!receiver) { alert('받는 사람 닉네임을 입력하세요.'); return; }
+        if (!content)  return;
+
+        stompClient.send('/app/dm', {}, JSON.stringify({
+            receiver: receiver,
+            content : content
+        }));
+        document.getElementById('dmMsgInput').value = '';
+    }
+
+    /* 그룹 메시지 렌더링 */
+    function renderGroupMessage(data) {
+        const chatArea = document.getElementById('chatArea');
+        const div = document.createElement('div');
+
+        if (data.type === 'TALK') {
+            div.className = 'msg talk';
+            div.innerHTML =
+                '<span class="sender">' + escapeHtml(data.sender) + '</span>' +
+                '<span class="bubble">' + escapeHtml(data.content) + '</span>';
+        } else {
+            // ENTER / LEAVE
+            div.className = 'msg ' + data.type.toLowerCase();
+            div.textContent = data.content;
+        }
+
+        chatArea.appendChild(div);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    /* DM 메시지 렌더링 */
+    function renderDmMessage(data) {
+        const chatArea = document.getElementById('chatArea');
+        const isMine   = data.sender === sender;
+
+        const div = document.createElement('div');
+        div.className = 'msg dm ' + (isMine ? 'mine' : 'other');
+
+        const meta = document.createElement('div');
+        meta.className   = 'meta';
+        meta.textContent = isMine
+            ? '▶ ' + data.receiver + ' 에게 (귓속말)'
+            : '◀ ' + data.sender   + ' 로부터 (귓속말)';
+
+        const bubble = document.createElement('div');
+        bubble.className   = 'bubble';
+        bubble.textContent = data.content;
+
+        div.appendChild(meta);
+        div.appendChild(bubble);
+        chatArea.appendChild(div);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function logout() {
+        // sessionStorage 정리 후 서버 세션 무효화
+        sessionStorage.clear();
+        fetch('/auth/logout', { method: 'POST' })
+            .finally(() => { location.href = '/auth/login'; });
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        document.getElementById('groupMsgInput').addEventListener('keydown',
+            (e) => { if (e.key === 'Enter') sendGroupMessage(); });
+        document.getElementById('dmMsgInput').addEventListener('keydown',
+            (e) => { if (e.key === 'Enter') sendDm(); });
+
+        // 세션 쿠키가 자동 전송 → 서버가 로그인 여부 확인
+        const res = await fetch('/auth/token');
+
+        if (!res.ok) {
+            // 세션 만료 또는 미로그인 → 로그인 화면으로 이동
+            location.href = '/auth/login';
+            return;
+        }
+
+        const { token, username } = await res.json();
+        wsToken = token;
+        sender  = username;
+
+        document.getElementById('welcomeUser').textContent = username;
+
+        // 페이지 새로고침인 경우 자동 재연결 (ENTER 메시지 생략)
+        if (sessionStorage.getItem('entered_' + roomId)) {
+            connectStomp(wsToken, sender, false);
+        }
+    });
+</script>
+</body>
+</html>

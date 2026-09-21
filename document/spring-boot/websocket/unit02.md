@@ -54,7 +54,7 @@ src/main/java/com/springexample/webchat/
 │   └── EchoWebSocketHandler.java  ← WebSocket 핸들러
 ├── controller/
 │   └── ChatController.java        ← REST 또는 STOMP 컨트롤러
-├── model/
+├── domain/
 │   └── ChatMessage.java           ← 메시지 도메인 모델
 └── ChatApplication.java
 ```

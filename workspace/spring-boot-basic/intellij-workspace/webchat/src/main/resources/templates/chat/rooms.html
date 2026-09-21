@@ -1,0 +1,42 @@
+<!-- templates/chat/rooms.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방 목록</title>
+    <style>
+        body { font-family: sans-serif; max-width: 700px; margin: 40px auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f0f0f0; }
+        form { margin-top: 20px; display: flex; gap: 8px; }
+        input { flex: 1; padding: 8px; }
+        button { padding: 8px 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<h2>채팅방 목록</h2>
+
+<table>
+    <thead>
+    <tr><th>방 이름</th><th>입장</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${rooms}">
+        <td th:text="${room.roomName}"></td>
+        <td>
+            <a th:href="@{/chat/room/{id}(id=${room.roomId})}">입장</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(rooms)}">
+        <td colspan="2" style="text-align:center">생성된 채팅방이 없습니다.</td>
+    </tr>
+    </tbody>
+</table>
+
+<form action="/chat/room" method="post">
+    <input type="text" name="roomName" placeholder="채팅방 이름을 입력하세요" required />
+    <button type="submit">채팅방 생성</button>
+</form>
+</body>
+</html>

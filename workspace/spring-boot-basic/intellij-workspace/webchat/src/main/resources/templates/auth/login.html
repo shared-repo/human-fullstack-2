@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center;
+            align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .login-box { background: white; padding: 40px; border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.1); width: 320px; }
+        h2 { margin: 0 0 24px; text-align: center; color: #333; }
+        label { display: block; margin-bottom: 4px; font-size: 14px; color: #555; }
+        input { width: 100%; padding: 10px; margin-bottom: 16px; border: 1px solid #ddd;
+            border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+        button { width: 100%; padding: 12px; background: #4a90e2; color: white;
+            border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #357abd; }
+        .error { color: red; font-size: 13px; margin-top: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="login-box">
+    <h2>채팅 로그인</h2>
+    <!--
+        action  → SecurityConfig의 loginProcessingUrl("/auth/login")과 일치해야 한다.
+        method  → 반드시 POST
+        name    → Spring Security 기본값: username / password (변경하지 않는다)
+    -->
+    <form action="/auth/login" method="post">
+        <label>아이디</label>
+        <input type="text" name="username" placeholder="alice" required />
+        <label>비밀번호</label>
+        <input type="password" name="password" placeholder="1234" required />
+        <button type="submit">로그인</button>
+    </form>
+    <div class="error" id="errorMsg"></div>
+</div>
+
+<script>
+    // 로그인 실패 시 URL에 ?error=true 가 붙어서 돌아온다
+    if (new URLSearchParams(location.search).get('error')) {
+        document.getElementById('errorMsg').textContent =
+            '아이디 또는 비밀번호가 올바르지 않습니다.';
+    }
+</script>
+</body>
+</html>

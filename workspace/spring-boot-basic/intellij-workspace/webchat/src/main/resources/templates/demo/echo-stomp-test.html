@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>STOMP 연결 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+        #log { border: 1px solid #ccc; padding: 10px; height: 200px;
+            overflow-y: scroll; background: #f9f9f9; margin-bottom: 10px; }
+        button { padding: 8px 16px; margin-right: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<h2>STOMP 연결 테스트</h2>
+<div id="log"></div>
+<button onclick="connect()">연결</button>
+<button onclick="disconnect()">종료</button>
+
+<script>
+    let stompClient = null;
+    const log = document.getElementById("log");
+
+    function addLog(text, color = "#333") {
+        const p = document.createElement("p");
+        p.textContent = text;
+        p.style.cssText = `margin:4px 0; color:${color}`;
+        log.appendChild(p);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function connect() {
+        const socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.debug = null;
+
+        stompClient.connect({}, function (frame) {
+            addLog('✅ STOMP 연결 성공: ' + frame.headers['version'], '#0a0');
+
+            stompClient.subscribe('/topic/test', function (msg) {
+                addLog('📩 수신: ' + msg.body, '#0070f3');
+            });
+
+            // 연결 직후 테스트 메시지 전송
+            stompClient.send('/app/test', {}, JSON.stringify({ content: '연결 테스트!' }));
+
+        }, function (error) {
+            addLog('⚠️ 연결 오류: ' + error, '#e00');
+        });
+    }
+
+    function disconnect() {
+        if (stompClient) {
+            stompClient.disconnect();
+            addLog('❌ 연결 종료', '#999');
+            stompClient = null;
+        }
+    }
+</script>
+</body>
+</html>

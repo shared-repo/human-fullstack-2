@@ -1,0 +1,142 @@
+<!-- templates/chat/room.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${room.roomName}">채팅방</title>
+    <style>
+        body { font-family: sans-serif; max-width: 700px; margin: 40px auto; }
+        #chatArea { border: 1px solid #ccc; height: 350px; overflow-y: scroll;
+            padding: 12px; background: #fafafa; margin-bottom: 10px; }
+        .msg       { margin: 6px 0; }
+        .msg.enter { color: #999; font-style: italic; }
+        .msg.leave { color: #999; font-style: italic; }
+        .msg.talk  { color: #333; }
+        .msg.talk .sender { font-weight: bold; color: #0070f3; margin-right: 6px; }
+        .input-row { display: flex; gap: 8px; }
+        .input-row input  { flex: 1; padding: 8px; }
+        .input-row button { padding: 8px 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<h2 th:text="${room.roomName}">채팅방</h2>
+<p><a href="/chat/rooms">← 목록으로</a></p>
+
+<!-- 닉네임 입력 (입장 전) -->
+<div id="enterArea">
+    <input type="text" id="senderInput" placeholder="닉네임을 입력하세요" />
+    <button onclick="enterRoom()">입장</button>
+</div>
+
+<!-- 채팅 영역 (입장 후 표시) -->
+<div id="chatArea" style="display:none"></div>
+<div class="input-row" id="sendArea" style="display:none">
+    <input type="text" id="msgInput" placeholder="메시지를 입력하세요" />
+    <button onclick="sendMessage()">전송</button>
+    <button onclick="leaveRoom()" style="background:#e00;color:#fff">퇴장</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+<script th:inline="javascript">
+    const roomId = /*[[${room.roomId}]]*/ '';
+    let stompClient = null;
+    let sender = '';
+
+    function enterRoom() {
+        sender = document.getElementById('senderInput').value.trim();
+        if (!sender) { alert('닉네임을 입력하세요.'); return; }
+
+        // UI 전환
+        document.getElementById('enterArea').style.display = 'none';
+        document.getElementById('chatArea').style.display  = 'block';
+        document.getElementById('sendArea').style.display  = 'flex';
+
+        // STOMP 연결
+        const socket = new SockJS('/ws');
+        stompClient  = Stomp.over(socket);
+        stompClient.debug = null;
+
+        stompClient.connect({}, function () {
+            // 채팅방 구독
+            stompClient.subscribe('/topic/chat/' + roomId, function (msg) {
+                const data = JSON.parse(msg.body);
+                renderMessage(data);
+            });
+
+            // 입장 메시지 전송
+            stompClient.send('/app/chat/message', {}, JSON.stringify({
+                type   : 'ENTER',
+                roomId : roomId,
+                sender : sender,
+                content: ''
+            }));
+        });
+    }
+
+    function sendMessage() {
+        const content = document.getElementById('msgInput').value.trim();
+        if (!content || !stompClient) return;
+
+        stompClient.send('/app/chat/message', {}, JSON.stringify({
+            type   : 'TALK',
+            roomId : roomId,
+            sender : sender,
+            content: content
+        }));
+
+        document.getElementById('msgInput').value = '';
+    }
+
+    function leaveRoom() {
+        if (!stompClient) return;
+
+        stompClient.send('/app/chat/message', {}, JSON.stringify({
+            type   : 'LEAVE',
+            roomId : roomId,
+            sender : sender,
+            content: ''
+        }));
+
+        stompClient.disconnect(function () {
+            window.location.href = '/chat/rooms';
+        });
+    }
+
+    function renderMessage(data) {
+        const chatArea = document.getElementById('chatArea');
+        const div      = document.createElement('div');
+        div.className  = 'msg ' + data.type.toLowerCase();
+
+        if (data.type === 'TALK') {
+            div.innerHTML =
+                '<span class="sender">' + escapeHtml(data.sender) + '</span>' +
+                escapeHtml(data.content);
+        } else {
+            div.textContent = data.content;
+        }
+
+        chatArea.appendChild(div);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    // XSS 방지용 이스케이프
+    function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // Enter 키로 메시지 전송
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('msgInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+        document.getElementById('senderInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') enterRoom();
+        });
+    });
+</script>
+</body>
+</html>
