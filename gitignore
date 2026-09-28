@@ -534,3 +534,9 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/java,python,visualstudiocode,eclipse,intellij,node
+
+data/
+data-files/
+cifar-10-python.tar.gz
+cifar-10-batches-py/
+*.pt
