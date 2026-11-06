@@ -23,12 +23,12 @@ public class DataInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        File file = new File("/app/config");
+        File file = new File("app/config");
         if (!file.exists()) {
             file.mkdirs();
         }
 
-        File file2 = new File("/app/config/test.txt");
+        File file2 = new File("app/config/test.txt");
         try {
             file2.createNewFile();
         } catch(Exception ex) {

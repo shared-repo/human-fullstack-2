@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>2040 서울도시기본계획 안내</title>
+	<link rel="stylesheet" th:href="@{/css/chat.css}" href="/css/chat.css">
+</head>
+<body>
+	<main class="home">
+		<section class="hero">
+			<p class="hero__eyebrow">도시 계획 안내 챗봇</p>
+			<h1 class="hero__title">2040 서울도시기본계획 안내</h1>
+			<p class="hero__lead">서울의 미래 도시 공간 계획을 챗봇에게 물어보세요.</p>
+			<p class="hero__desc">
+				「2040 서울도시기본계획」 문서를 근거로 토지이용, 중심지 체계, 교통, 주거, 공원·녹지,
+				생활권 계획 등 도시 계획에 관한 질문에 답변합니다.
+				화면 오른쪽 아래의 <strong>챗봇 문의</strong>를 눌러 시작하세요.
+			</p>
+		</section>
+
+		<section class="examples" aria-labelledby="examples-title">
+			<h2 id="examples-title" class="examples__title">이런 질문을 할 수 있어요</h2>
+			<ul class="examples__list">
+				<li>2040 서울도시기본계획의 7대 목표는 무엇인가요?</li>
+				<li>보행일상권이란 무엇인가요?</li>
+				<li>서울의 중심지 체계는 어떻게 바뀌나요?</li>
+				<li>수변 공간은 어떻게 활용하나요?</li>
+			</ul>
+			<p class="examples__note">도시 계획과 관련 없는 질문에는 답변하지 않습니다.</p>
+		</section>
+	</main>
+
+	<footer class="footer">
+		「2040 서울도시기본계획」 문서를 기반으로 답변하는 안내 챗봇입니다. 답변은 참고용이며, 정확한 내용은 원문을 확인하세요.
+	</footer>
+
+	<!-- 챗봇 열기 링크 (F3-3) -->
+	<a href="#chat-dialog" id="chat-launcher" class="chat-launcher" role="button"
+		aria-haspopup="dialog" aria-controls="chat-dialog">
+		<span class="chat-launcher__icon" aria-hidden="true">💬</span>
+		<span>챗봇 문의</span>
+	</a>
+
+	<!-- 챗봇 모달 (F3-4, F3-5) -->
+	<dialog id="chat-dialog" class="chat-dialog" aria-labelledby="chat-title">
+		<header class="chat-header">
+			<h2 id="chat-title" class="chat-header__title">서울도시계획 챗봇</h2>
+			<button type="button" id="chat-close" class="chat-header__close" aria-label="챗봇 닫기">✕</button>
+		</header>
+
+		<div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+		<form id="chat-form" class="chat-form" autocomplete="off">
+			<label for="chat-input" class="visually-hidden">질문 입력</label>
+			<textarea id="chat-input" class="chat-form__input" rows="2" maxlength="1000"
+				placeholder="질문을 입력하세요 (Shift+Enter 줄바꿈)"></textarea>
+			<button type="submit" id="chat-send" class="chat-form__send">전송</button>
+		</form>
+	</dialog>
+
+	<script th:src="@{/js/chat.js}" src="/js/chat.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: web
+
+server:
+  port: 8081
+
+# 챗봇 API(FastAPI) 연결 설정 (F3-9, F3-14)
+chatbot:
+  api:
+    base-url: http://localhost:8000
+    connect-timeout: 5s
+    read-timeout: 60s

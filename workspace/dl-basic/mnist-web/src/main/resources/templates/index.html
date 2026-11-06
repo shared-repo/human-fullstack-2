@@ -1,0 +1,52 @@
+<!-- src/main/resources/templates/index.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 분류 테스트</title>
+    <style>
+        body   { font-family: sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; }
+        .badge { padding: 2px 8px; border-radius: 4px; color: #fff; font-size: 0.85em; }
+        .up    { background: #2e7d32; }  .down { background: #c62828; }
+        .error { color: #c62828; margin-top: 12px; }
+        .bar   { background: #1976d2; height: 14px; }
+        td     { padding: 4px 8px; }
+        img    { max-width: 224px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+<h1>MNIST 이미지 분류 테스트</h1>
+<p>모델 서버 상태:
+    <span th:if="${serverUp}"  class="badge up">연결됨</span>
+    <span th:unless="${serverUp}" class="badge down">연결 안 됨</span>
+</p>
+
+<form th:action="@{/classify}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/jpeg,image/png,image/webp" required>
+    <button type="submit">분류하기</button>
+</form>
+
+<p class="error" th:if="${error}" th:text="${error}"></p>
+
+<div th:if="${result}">
+    <h2>예측 결과</h2>
+    <img th:src="${imageData}" alt="업로드 이미지">
+    <p>
+        <strong th:text="${result.className}">cat</strong>
+        (class_id: <span th:text="${result.classId}">3</span>,
+        신뢰도: <span th:text="${#numbers.formatDecimal(result.confidence * 100, 1, 2)} + '%'">87.31%</span>)
+    </p>
+
+    <h3>전체 클래스 확률</h3>
+    <table>
+        <tr th:each="s : ${scores}">
+            <td th:text="${s.key}">airplane</td>
+            <td style="width: 300px">
+                <div class="bar" th:style="'width:' + ${s.value * 100} + '%'"></div>
+            </td>
+            <td th:text="${#numbers.formatDecimal(s.value * 100, 1, 2)} + '%'">1.00%</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Python 3.13 (conda env: python-env-313)
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+langgraph==1.2.19
+langchain-openai==1.7.3
+chromadb==1.5.9
+pydantic==2.14.2
+python-dotenv==1.2.4
+
+# test
+pytest==9.2.0
+httpx==0.28.1

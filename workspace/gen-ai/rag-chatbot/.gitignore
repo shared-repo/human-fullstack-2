@@ -1,0 +1,19 @@
+# secrets
+.env
+
+# generated data
+chroma_db/
+batch/reports/
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# java / gradle
+web/build/
+web/.gradle/
+
+# ide
+.idea/
+.vscode/
